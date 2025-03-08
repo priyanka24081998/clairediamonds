@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.590551in" height="0.590551in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 590.55 590.55"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#9f7d48;stroke-width:9.84;stroke-miterlimit:4}
+    .fil0 {fill:none;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ 
+ <g id="Layer_x0020_1_0">
+  
+  <g id="_2055947694032">
+   <path class="fil0 str0" d="M166.04 296.74c42.05,35.83 16.71,104.63 -38.54,104.63 -55.24,0 -80.59,-68.8 -38.53,-104.63"/>
+   <path class="fil0 str0" d="M166.04 296.74c42.05,-35.84 16.71,-104.65 -38.54,-104.65 -55.24,0 -80.59,68.81 -38.53,104.65"/>
+   <polyline class="fil0 str0" points="475.18,198.98 562.91,198.98 562.91,394.46 475.18,394.46 "/>
+   <line class="fil0 str0" x1="475.18" y1="442.96" x2="475.18" y2= "150.5" />
+   <line class="fil0 str0" x1="248.92" y1="296.74" x2="475.18" y2= "442.96" />
+   <line class="fil0 str0" x1="248.92" y1="296.74" x2="475.18" y2= "150.5" />
+   <line class="fil0 str0" x1="18.03" y1="296.74" x2="248.92" y2= "296.74" />
+  </g>
+ </g>
+</svg>

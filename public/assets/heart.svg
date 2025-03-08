@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.590551in" height="0.590551in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 590.55 590.55"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {stroke:#9f7d48;stroke-width:7.87;stroke-miterlimit:4}
+    .str0 {stroke:#9f7d48;stroke-width:3.94;stroke-miterlimit:4}
+    .fil0 {fill:none;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ 
+ <g id="Layer_x0020_1_0">
+  
+  <g id="_2685366200624">
+   <polyline class="fil0 str0" points="293.89,187.09 228.57,158.29 252.77,136.74 "/>
+   <polyline class="fil0 str0" points="293.89,187.09 219.12,196.08 228.57,158.29 184.33,135.44 184.02,192.48 219.12,196.08 212.36,238.83 184.02,192.48 146.01,168.5 "/>
+   <polyline class="fil0 str0" points="184.02,192.48 128.04,234.19 189.42,291.94 212.36,238.83 249.71,324.78 189.42,291.94 145.52,307.31 "/>
+   <polyline class="fil0 str0" points="189.42,291.94 189.27,371.14 263.21,384.18 249.71,324.78 293.89,357.18 "/>
+   <polyline class="fil0 str0" points="293.89,357.18 263.21,384.18 230.54,413.19 "/>
+   <line class="fil0 str0" x1="263.21" y1="384.18" x2="293.89" y2= "463.67" />
+   <line class="fil0 str0" x1="324.56" y1="384.18" x2="293.89" y2= "463.67" />
+   <polyline class="fil0 str0" points="293.89,357.18 324.56,384.18 357.23,413.19 "/>
+   <polyline class="fil0 str0" points="398.36,291.94 398.5,371.14 324.56,384.18 338.06,324.78 293.89,357.18 "/>
+   <polyline class="fil0 str0" points="403.76,192.48 459.73,234.19 398.36,291.94 375.41,238.83 338.06,324.78 398.36,291.94 442.26,307.31 "/>
+   <polyline class="fil0 str0" points="293.89,187.09 368.66,196.08 359.21,158.29 403.44,135.44 403.76,192.48 368.66,196.08 375.41,238.83 403.76,192.48 441.76,168.5 "/>
+   <polyline class="fil0 str0" points="293.89,187.09 359.21,158.29 335,136.74 "/>
+   <path class="fil0 str1" d="M293.89 167.09c-11.72,-13.54 -26.42,-24.91 -43.65,-31.33 -24.2,-9.04 -53.4,-8.32 -75.35,4.19 -18.32,10.44 -31.59,29.09 -39.1,49.39 -12.19,32.94 -9.19,70.2 3.43,103.34 12.65,33.23 34.98,62.33 58.3,87.65 29.65,32.19 60.88,58.28 96.38,83.35 35.49,-25.07 66.73,-51.16 96.37,-83.35 23.31,-25.32 45.65,-54.41 58.3,-87.65 12.62,-33.14 15.62,-70.4 3.43,-103.34 -7.51,-20.29 -20.78,-38.94 -39.09,-49.39 -21.95,-12.5 -51.16,-13.22 -75.36,-4.19 -17.22,6.42 -31.92,17.79 -43.65,31.33z"/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.590551in" height="0.590551in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 590.55 590.55"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {stroke:#9f7d48;stroke-width:7.87;stroke-miterlimit:4}
+    .str0 {stroke:#9f7d48;stroke-width:3.94;stroke-miterlimit:4}
+    .fil0 {fill:none;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ 
+ <g id="Layer_x0020_1_0">
+  
+  <g id="_2685363772000">
+   <line class="fil0 str0" x1="363.81" y1="205.69" x2="397.37" y2= "126.98" />
+   <line class="fil0 str0" x1="382.71" y1="224.05" x2="463.75" y2= "191.44" />
+   <line class="fil0 str0" x1="382.71" y1="369.28" x2="463.75" y2= "401.88" />
+   <line class="fil0 str0" x1="363.81" y1="387.63" x2="397.37" y2= "466.35" />
+   <line class="fil0 str0" x1="190.4" y1="466.35" x2="223.96" y2= "387.63" />
+   <line class="fil0 str0" x1="205.06" y1="369.28" x2="124.02" y2= "401.88" />
+   <line class="fil0 str0" x1="205.06" y1="224.05" x2="124.02" y2= "191.44" />
+   <line class="fil0 str0" x1="190.4" y1="126.98" x2="223.96" y2= "205.69" />
+   <polygon class="fil0 str0" points="382.71,296.67 382.71,369.28 363.81,387.63 223.96,387.63 205.06,369.28 205.06,224.05 223.96,205.69 363.81,205.69 382.71,224.05 "/>
+   <polygon class="fil0 str0" points="409.72,296.67 409.72,380.14 375,413.87 212.78,413.87 178.05,380.14 178.05,213.19 212.78,179.45 375,179.45 409.72,213.19 "/>
+   <polygon class="fil0 str0" points="436.74,296.67 436.74,391.01 386.19,440.11 201.59,440.11 151.04,391.01 151.04,202.31 201.59,153.21 386.19,153.21 436.74,202.31 "/>
+   <polygon class="fil0 str1" points="463.75,296.67 463.75,401.88 397.37,466.35 293.89,466.35 190.4,466.35 124.02,401.88 124.02,296.67 124.02,191.44 190.4,126.98 293.89,126.98 397.37,126.98 463.75,191.44 "/>
+  </g>
+ </g>
+</svg>

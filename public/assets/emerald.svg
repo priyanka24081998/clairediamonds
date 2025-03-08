@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.590551in" height="0.590551in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 590.55 590.55"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {stroke:#9f7d48;stroke-width:7.87;stroke-miterlimit:4}
+    .str0 {stroke:#9f7d48;stroke-width:3.94;stroke-miterlimit:4}
+    .fil0 {fill:none;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ 
+ <g id="Layer_x0020_1_0">
+  
+  <g id="_2685375201392">
+   <line class="fil0 str0" x1="364.05" y1="404.44" x2="432.33" y2= "432.07" />
+   <line class="fil0 str0" x1="353.94" y1="414.9" x2="382.88" y2= "483.18" />
+   <line class="fil0 str0" x1="204.89" y1="483.18" x2="233.83" y2= "414.9" />
+   <line class="fil0 str0" x1="223.72" y1="404.44" x2="155.45" y2= "432.07" />
+   <line class="fil0 str0" x1="364.05" y1="188.89" x2="432.33" y2= "161.27" />
+   <line class="fil0 str0" x1="353.94" y1="178.44" x2="382.88" y2= "110.16" />
+   <line class="fil0 str0" x1="233.83" y1="178.44" x2="204.89" y2= "110.16" />
+   <line class="fil0 str0" x1="223.72" y1="188.89" x2="155.45" y2= "161.27" />
+   <polygon class="fil0 str1" points="432.33,296.67 432.33,432.07 382.88,483.18 293.89,483.18 204.89,483.18 155.45,432.07 155.45,296.67 155.45,161.27 204.89,110.16 293.89,110.16 382.88,110.16 432.33,161.27 "/>
+   <polygon class="fil0 str0" points="409.57,296.67 409.57,422.86 373.24,460.42 214.54,460.42 178.2,422.86 178.2,170.48 214.54,132.92 373.24,132.92 409.57,170.48 "/>
+   <polygon class="fil0 str0" points="386.81,296.67 386.81,413.65 363.59,437.66 224.19,437.66 200.96,413.65 200.96,179.68 224.19,155.68 363.59,155.68 386.81,179.68 "/>
+   <polygon class="fil0 str0" points="364.05,296.67 364.05,404.44 353.94,414.9 233.83,414.9 223.72,404.44 223.72,188.89 233.83,178.44 353.94,178.44 364.05,188.89 "/>
+  </g>
+ </g>
+</svg>

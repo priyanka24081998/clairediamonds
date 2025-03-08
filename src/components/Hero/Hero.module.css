@@ -1,0 +1,26 @@
+.clip-leaf {
+    border-radius:250px 0 250px 0;
+    position: relative;
+    z-index: -1;
+}
+.clip-leaf::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 350px;
+    height: 500px;
+    border-radius:250px 0 250px 0;
+    border: 2px solid #fff;
+    z-index: 0;
+}
+.hero-bg {
+    
+    background-size: cover;
+    background-image: url('/assets/bannerimage.jpg');
+    background-repeat: no-repeat;
+}
+
+.text-transform{
+    text-transform: capitalize;
+}
+  

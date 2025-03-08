@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.590551in" height="0.590551in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 590.55 590.55"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#9f7d48;stroke-width:7.87;stroke-miterlimit:4}
+    .str1 {stroke:#9f7d48;stroke-width:3.94;stroke-miterlimit:4}
+    .fil0 {fill:none;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ 
+ <g id="Layer_x0020_1_0">
+  
+  <g id="_2685366214352">
+   <polygon class="fil0 str0" points="130.66,460.39 457.12,460.39 457.12,129.54 130.66,129.54 "/>
+   <polygon class="fil0 str1" points="199.14,422.86 390.49,422.86 390.49,170.47 199.14,170.47 "/>
+   <polygon class="fil0 str1" points="421.01,392.34 421.01,200.99 168.62,200.99 168.62,392.34 "/>
+   <line class="fil0 str1" x1="293.89" y1="200.99" x2="390.49" y2= "170.47" />
+   <line class="fil0 str1" x1="390.49" y1="170.47" x2="457.12" y2= "129.54" />
+   <line class="fil0 str1" x1="421.01" y1="200.99" x2="457.12" y2= "129.54" />
+   <line class="fil0 str1" x1="421.01" y1="200.99" x2="390.49" y2= "294.96" />
+   <line class="fil0 str1" x1="168.62" y1="200.99" x2="199.14" y2= "294.96" />
+   <line class="fil0 str1" x1="168.62" y1="200.99" x2="132.51" y2= "129.54" />
+   <line class="fil0 str1" x1="199.14" y1="170.47" x2="132.51" y2= "129.54" />
+   <line class="fil0 str1" x1="295.74" y1="200.99" x2="199.14" y2= "170.47" />
+   <line class="fil0 str1" x1="295.74" y1="392.34" x2="199.14" y2= "422.86" />
+   <line class="fil0 str1" x1="199.14" y1="422.86" x2="132.51" y2= "463.79" />
+   <line class="fil0 str1" x1="168.62" y1="392.34" x2="132.51" y2= "463.79" />
+   <line class="fil0 str1" x1="168.62" y1="392.34" x2="199.14" y2= "298.37" />
+   <line class="fil0 str1" x1="421.01" y1="392.34" x2="390.49" y2= "298.37" />
+   <line class="fil0 str1" x1="421.01" y1="392.34" x2="457.12" y2= "463.79" />
+   <line class="fil0 str1" x1="390.49" y1="422.86" x2="457.12" y2= "463.79" />
+   <line class="fil0 str1" x1="293.89" y1="392.34" x2="390.49" y2= "422.86" />
+  </g>
+ </g>
+</svg>

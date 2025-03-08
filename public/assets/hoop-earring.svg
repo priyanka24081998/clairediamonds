@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.590551in" height="0.590551in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 590.55 590.55"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#9f7d48;stroke-width:9.84;stroke-miterlimit:4}
+    .fil0 {fill:none;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ 
+ <g id="Layer_x0020_1_0">
+  
+  <g id="_2055821302928">
+   <path class="fil0 str0" d="M346.34 491.4c0,-29.86 -15.87,-71.78 -52.45,-71.78 -36.58,0 -52.46,41.92 -52.46,71.78 0,29.86 15.88,71.78 52.46,71.78 36.58,0 52.45,-41.92 52.45,-71.78z"/>
+   <path class="fil0 str0" d="M242.82 28.2c-131.08,30.49 -205.2,162.99 -194.18,290.17 11.13,128.37 108.73,244.81 245.25,244.81 136.48,0 234.06,-116.37 245.23,-244.7 11.08,-127.2 -63.05,-259.77 -194.17,-290.27"/>
+   <path class="fil0 str0" d="M242.82 28.2c12.67,73.82 89.46,73.82 102.13,0"/>
+   <path class="fil0 str0" d="M396.68 292.72c0,58.13 -36.03,126.9 -102.8,126.9 -66.76,-0.01 -102.79,-68.78 -102.79,-126.9 0.01,-58.13 36.04,-126.89 102.8,-126.89 66.76,0 102.8,68.77 102.79,126.89z"/>
+  </g>
+ </g>
+</svg>

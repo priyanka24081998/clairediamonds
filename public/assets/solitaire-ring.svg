@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.590551in" height="0.590551in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 590.55 590.55"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#9f7d48;stroke-width:7.87;stroke-miterlimit:2.61313}
+    .fil0 {fill:none}
+   ]]>
+  </style>
+ </defs>
+ 
+ <g id="Layer_x0020_1_0">
+  
+  <g id="_1737226851792">
+   <line class="fil0 str0" x1="419.89" y1="344.09" x2="535.38" y2= "344.09" />
+   <line class="fil0 str0" x1="52.41" y1="344.09" x2="167.9" y2= "344.09" />
+   <line class="fil0 str0" x1="167.9" y1="249.27" x2="52.41" y2= "249.27" />
+   <line class="fil0 str0" x1="535.38" y1="249.27" x2="419.89" y2= "249.27" />
+   <path class="fil0 str0" d="M535.38 344.09c33.52,0 47.41,-13.89 47.41,-47.41 0,-33.54 -13.89,-47.41 -47.41,-47.41"/>
+   <path class="fil0 str0" d="M52.41 344.09c-33.54,0 -47.43,-13.89 -47.43,-47.41 0,-33.54 13.89,-47.41 47.43,-47.41"/>
+   <polyline class="fil0 str0" points="389.07,201.48 335.07,202.08 293.89,162.04 "/>
+   <line class="fil0 str0" x1="335.07" y1="202.08" x2="347.63" y2= "173.24" />
+   <line class="fil0 str0" x1="335.07" y1="202.08" x2="346.45" y2= "244.12" />
+   <line class="fil0 str0" x1="335.07" y1="202.08" x2="293.89" y2= "223.27" />
+   <line class="fil0 str0" x1="346.45" y1="244.12" x2="293.89" y2= "223.27" />
+   <polyline class="fil0 str0" points="389.07,391.86 388.46,337.86 428.5,296.68 "/>
+   <line class="fil0 str0" x1="388.46" y1="337.86" x2="417.32" y2= "350.42" />
+   <line class="fil0 str0" x1="388.46" y1="337.86" x2="346.45" y2= "349.24" />
+   <line class="fil0 str0" x1="388.46" y1="337.86" x2="367.28" y2= "296.68" />
+   <line class="fil0 str0" x1="346.45" y1="349.24" x2="367.28" y2= "296.68" />
+   <line class="fil0 str0" x1="346.45" y1="244.12" x2="367.28" y2= "296.68" />
+   <line class="fil0 str0" x1="388.46" y1="255.48" x2="367.28" y2= "296.68" />
+   <line class="fil0 str0" x1="388.46" y1="255.48" x2="346.45" y2= "244.12" />
+   <line class="fil0 str0" x1="388.46" y1="255.48" x2="417.32" y2= "242.93" />
+   <polyline class="fil0 str0" points="389.07,201.48 388.46,255.48 428.5,296.68 "/>
+   <line class="fil0 str0" x1="346.45" y1="349.24" x2="293.89" y2= "370.07" />
+   <line class="fil0 str0" x1="335.07" y1="391.25" x2="293.89" y2= "370.07" />
+   <line class="fil0 str0" x1="335.07" y1="391.25" x2="346.45" y2= "349.24" />
+   <line class="fil0 str0" x1="335.07" y1="391.25" x2="347.63" y2= "420.11" />
+   <polyline class="fil0 str0" points="389.07,391.86 335.07,391.25 293.89,431.29 "/>
+   <polyline class="fil0 str0" points="198.7,391.86 252.71,391.25 293.89,431.29 "/>
+   <line class="fil0 str0" x1="252.71" y1="391.25" x2="240.16" y2= "420.11" />
+   <line class="fil0 str0" x1="252.71" y1="391.25" x2="241.34" y2= "349.24" />
+   <line class="fil0 str0" x1="252.71" y1="391.25" x2="293.89" y2= "370.07" />
+   <line class="fil0 str0" x1="241.34" y1="349.24" x2="293.89" y2= "370.07" />
+   <polyline class="fil0 str0" points="198.7,201.48 199.31,255.48 159.27,296.68 "/>
+   <line class="fil0 str0" x1="199.31" y1="255.48" x2="170.47" y2= "242.93" />
+   <line class="fil0 str0" x1="199.31" y1="255.48" x2="241.34" y2= "244.12" />
+   <line class="fil0 str0" x1="199.31" y1="255.48" x2="220.49" y2= "296.68" />
+   <line class="fil0 str0" x1="241.34" y1="244.12" x2="220.49" y2= "296.68" />
+   <line class="fil0 str0" x1="241.34" y1="349.24" x2="220.49" y2= "296.68" />
+   <line class="fil0 str0" x1="199.31" y1="337.86" x2="220.49" y2= "296.68" />
+   <line class="fil0 str0" x1="199.31" y1="337.86" x2="241.34" y2= "349.24" />
+   <line class="fil0 str0" x1="199.31" y1="337.86" x2="170.47" y2= "350.42" />
+   <polyline class="fil0 str0" points="198.7,391.86 199.31,337.86 159.27,296.68 "/>
+   <line class="fil0 str0" x1="241.34" y1="244.12" x2="293.89" y2= "223.27" />
+   <line class="fil0 str0" x1="252.71" y1="202.08" x2="293.89" y2= "223.27" />
+   <line class="fil0 str0" x1="252.71" y1="202.08" x2="241.34" y2= "244.12" />
+   <line class="fil0 str0" x1="252.71" y1="202.08" x2="240.16" y2= "173.24" />
+   <polyline class="fil0 str0" points="198.7,201.48 252.71,202.08 293.89,162.04 "/>
+   <path class="fil0 str0" d="M293.89 162.04c-74.34,0 -134.62,60.28 -134.62,134.63 0,74.35 60.28,134.61 134.62,134.61 74.35,0 134.61,-60.26 134.61,-134.61 0,-74.35 -60.26,-134.63 -134.61,-134.63z"/>
+  </g>
+ </g>
+</svg>

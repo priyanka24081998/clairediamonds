@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.590551in" height="0.590551in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 590.55 590.55"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {stroke:#9f7d48;stroke-width:7.87;stroke-miterlimit:4}
+    .str2 {stroke:#9f7d48;stroke-width:3.94;stroke-miterlimit:2.61313}
+    .str0 {stroke:#9f7d48;stroke-width:3.94;stroke-miterlimit:4}
+    .fil1 {fill:none}
+    .fil0 {fill:none;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ 
+ <g id="Layer_x0020_1_0">
+  
+  <g id="_2685373402640">
+   <line class="fil0 str0" x1="293.88" y1="422.9" x2="369.66" y2= "452" />
+   <line class="fil0 str0" x1="293.88" y1="422.9" x2="365.76" y2= "413.79" />
+   <line class="fil0 str0" x1="369.66" y1="452" x2="365.76" y2= "413.79" />
+   <line class="fil0 str0" x1="365.76" y1="413.79" x2="401.15" y2= "419.46" />
+   <line class="fil0 str0" x1="401.15" y1="419.46" x2="370.5" y2= "296.67" />
+   <line class="fil0 str0" x1="365.76" y1="413.79" x2="370.5" y2= "296.67" />
+   <line class="fil0 str0" x1="222" y1="413.79" x2="217.26" y2= "296.67" />
+   <line class="fil0 str0" x1="186.62" y1="419.46" x2="217.26" y2= "296.67" />
+   <line class="fil0 str0" x1="222" y1="413.79" x2="186.62" y2= "419.46" />
+   <line class="fil0 str0" x1="218.1" y1="452" x2="222" y2= "413.79" />
+   <line class="fil0 str0" x1="293.88" y1="422.9" x2="222" y2= "413.79" />
+   <line class="fil0 str0" x1="293.88" y1="422.9" x2="218.1" y2= "452" />
+   <line class="fil0 str0" x1="293.88" y1="170.43" x2="218.1" y2= "141.34" />
+   <line class="fil0 str0" x1="293.88" y1="170.43" x2="222" y2= "179.54" />
+   <line class="fil0 str0" x1="218.1" y1="141.34" x2="222" y2= "179.54" />
+   <line class="fil0 str0" x1="222" y1="179.54" x2="186.62" y2= "173.88" />
+   <line class="fil0 str0" x1="186.62" y1="173.88" x2="217.26" y2= "296.67" />
+   <line class="fil0 str0" x1="222" y1="179.54" x2="217.26" y2= "296.67" />
+   <line class="fil0 str0" x1="365.76" y1="179.54" x2="370.5" y2= "296.67" />
+   <line class="fil0 str0" x1="401.15" y1="173.88" x2="370.5" y2= "296.67" />
+   <line class="fil0 str0" x1="365.76" y1="179.54" x2="401.15" y2= "173.88" />
+   <line class="fil0 str0" x1="369.66" y1="141.34" x2="365.76" y2= "179.54" />
+   <line class="fil0 str0" x1="293.88" y1="170.43" x2="365.76" y2= "179.54" />
+   <line class="fil0 str0" x1="293.88" y1="170.43" x2="369.66" y2= "141.34" />
+   <line class="fil0 str0" x1="401.15" y1="173.88" x2="432.32" y2= "161.27" />
+   <line class="fil0 str0" x1="369.66" y1="141.34" x2="382.88" y2= "110.16" />
+   <polygon class="fil0 str0" points="401.15,296.67 401.15,419.46 369.66,452 218.1,452 186.62,419.46 186.62,173.88 218.1,141.34 369.66,141.34 401.15,173.88 "/>
+   <polygon class="fil0 str1" points="432.32,296.67 432.32,432.07 382.88,483.18 293.88,483.18 204.89,483.18 155.44,432.07 155.44,296.67 155.44,161.27 204.89,110.16 293.88,110.16 382.88,110.16 432.32,161.27 "/>
+   <line class="fil1 str2" x1="204.89" y1="110.16" x2="218.11" y2= "141.34" />
+   <line class="fil1 str2" x1="155.44" y1="161.27" x2="186.62" y2= "173.88" />
+   <line class="fil1 str2" x1="155.44" y1="432.07" x2="186.62" y2= "419.46" />
+   <line class="fil1 str2" x1="203.78" y1="482.02" x2="218.11" y2= "452" />
+   <line class="fil1 str2" x1="382.88" y1="483.17" x2="368.33" y2= "451.48" />
+   <line class="fil1 str2" x1="432.33" y1="431.1" x2="400.52" y2= "419.35" />
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.590551in" height="0.590551in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 590.55 590.55"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#9f7d48;stroke-width:7.87;stroke-miterlimit:4}
+    .fil0 {fill:none;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ 
+ <g id="Layer_x0020_1_0">
+  
+  <g id="_2055953608224">
+   <line class="fil0 str0" x1="268.05" y1="148.83" x2="167.74" y2= "56.64" />
+   <line class="fil0 str0" x1="319.73" y1="148.83" x2="420.03" y2= "56.64" />
+   <line class="fil0 str0" x1="307.27" y1="194.05" x2="326.49" y2= "123.72" />
+   <line class="fil0 str0" x1="261.28" y1="123.72" x2="280.34" y2= "194.27" />
+   <path class="fil0 str0" d="M326.45 124.74c0,-23.06 -9.52,-33.63 -32.57,-33.63 -23.04,0 -32.3,10.65 -32.3,33.72"/>
+   <path class="fil0 str0" d="M279.26 190.52c-56.64,18.46 -63.78,92.15 -6.6,113.51"/>
+   <path class="fil0 str0" d="M315.12 304.03c57.18,-21.36 50.04,-95.05 -6.61,-113.51"/>
+   <path class="fil0 str0" d="M311.73 247.22c0,-12.62 -5.23,-17.85 -17.85,-17.85 -12.62,0 -17.83,5.23 -17.83,17.85 0,12.62 5.22,17.83 17.83,17.83 12.62,0 17.85,-5.22 17.85,-17.83z"/>
+   <polygon class="fil0 str0" points="245.83,410.39 293.88,365.21 341.95,410.39 293.88,455.56 "/>
+   <polygon class="fil0 str0" points="159.5,410.39 293.88,284.07 428.28,410.39 293.88,536.69 "/>
+  </g>
+ </g>
+</svg>
