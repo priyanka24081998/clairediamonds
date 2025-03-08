@@ -84,35 +84,35 @@ const Footer = () => {
           </div>
         </div>
       </div>
-
-      <div className="section bg-[#1a3f27] p-10">
-        <div className="container mx-auto w-[1140px]">
-          <div className="grid grid-cols-2 md:grid-cols-4 text-[#f4f1f0] font-sans">
-            {sections.map((section, index) => (
-              <div key={index} className="pl-20">
-                <h4 className="mb-8 text-xs font-bold uppercase">
-                  {section.title}
-                </h4>
-                {section.links?.length > 0 && (
-                  <p className="space-y-2">
-                    {section.links.map((link, linkIndex) => (
-                      <Link
-                        key={linkIndex}
-                        href={link.href}
-                        className={`block text-xs hover:text-yellow-200 ${
-                          link.label.includes("@") ? "" : "capitalize"
-                        }`}
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
+      
+    <div className="section bg-[#1a3f27] p-6 md:p-10">
+      <div className="container mx-auto max-w-[1140px] px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-[#f4f1f0] font-sans">
+          {sections.map((section, index) => (
+            <div key={index} className="sm:pl-10 md:pl-20">
+              <h4 className="mb-4 text-sm font-bold uppercase md:mb-8 md:text-xs">
+                {section.title}
+              </h4>
+              {section.links?.length > 0 && (
+                <div className="space-y-2">
+                  {section.links.map((link, linkIndex) => (
+                    <Link
+                      key={linkIndex}
+                      href={link.href}
+                      className={`block text-sm md:text-xs hover:text-yellow-200 ${
+                        link.label.includes("@") ? "" : "capitalize"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
+    </div>
     </>
   );
 };
