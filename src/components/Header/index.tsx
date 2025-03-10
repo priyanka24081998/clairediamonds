@@ -84,7 +84,7 @@ const Header = () => {
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center">
                 {/* Search Area */}
-                <div className="hidden w-1/2 lg:flex items-center space-x-2">
+                <div className="hidden w-1/3 lg:flex items-center space-x-2">
                   <form action="" method="get" acceptCharset="utf-8">
                     <div className="relative flex items-center">
                       <input
@@ -100,7 +100,7 @@ const Header = () => {
                 </div>
 
                 {/* Logo */}
-                <div className=" w-[180px] lg:w-1/3 ml-[35px] md:ml-[50px] lg:ml-[-200px]">
+                <div className="w-[180px] lg:w-1/3 ml-[35px] md:ml-[50px]">
                   <a href="" title="Claire Diamonds">
                     <Image
                       src="/assets/claire.png"
@@ -114,7 +114,7 @@ const Header = () => {
 
                 {/* Cart & Currency */}
 
-                <div className="flex justify-between items-center gap-x-4">
+                <div className="W-1/3 grid grid-cols-3 gap-x-4 flex items-center">
                   {/* Wishlist */}
                   <span className="wishlist">
                     <a href="" title="Your Wishlist">
