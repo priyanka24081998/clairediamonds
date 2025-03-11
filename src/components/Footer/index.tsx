@@ -55,14 +55,14 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full overflow-hidden bg-[#f4f1f0]">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <div className={`text-center md:text-right text-3xl md:text-4xl text-[#43825c] ${philosopher.className}`}>
+    <footer className="w-full bg-[#1a3f27] relative py-16 ">
+      <div className="container mx-auto p-4 lg:flex lg:justify-center ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center  flex bg-[#f4f1f0] absolute top-[-80px] p-10 rounded-[20px] w-[800px]">
+          <div className={`text-center text-3xl md:text-4xl text-[#43825c] ${philosopher.className}`}>
             <span className="italic">Stay in Touch</span>
             <p className="pt-4 text-[#9f7d48] text-sm">Ring advice, straight to your inbox</p>
           </div>
-          <div className="relative w-full max-w-md mx-auto md:mx-0">
+          <div className="relative flex justify-center w-full max-w-md mx-auto md:mx-0">
             <input
               type="email"
               placeholder="Your email address"
@@ -75,7 +75,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="bg-[#1a3f27] p-10">
+      <div className="pt-16 p-10">
         <div className="container mx-auto  lg:px-4 max-w-screen-xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-[#f4f1f0]">
             {sections.map((section, index) => (

@@ -46,55 +46,55 @@ const Nav: React.FC = () => {
   const navItems: NavItem[] = [
     {
       name: "Engagement Rings",
-      href: "/engagement-rings",
+      href: "/engagementrings",
       subItems: [
         {
           category: "Style",
           items: [
             {
               name: "Solitaire Rings",
-              href: "/engagement-rings/classic-styles",
+              href: "/engagementrings/classic-styles",
               icon: "solitaire-ring.svg",
             },
             {
               name: "Shoulder Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/engagementrings/halo-rings",
               icon: "shoulder-ring.svg",
             },
 
             {
               name: "Halo Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/engagementrings/halo-rings",
               icon: "halo-ring.svg",
             },
             {
               name: "Three Stone Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/engagementrings/halo-rings",
               icon: "three-stone-ring.svg",
             },
             {
               name: "Curved Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/engagementrings/halo-rings",
               icon: "two-stone-ring.svg",
             },
             {
               name: "Cluster Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/engagementrings/halo-rings",
               icon: "cluster-ring.svg",
             },
             {
               name: "Tension Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/engagementrings/halo-rings",
               icon: "tension-ring.svg",
             },
             {
               name: "Bezel Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/engagementrings/halo-rings",
               icon: "bezel-ring.svg",
             },
             {
               name: "Vintage Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/engagementrings/halo-rings",
               icon: "vintage-ring.svg",
             },
           ],
@@ -104,52 +104,52 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Round",
-              href: "/engagement-rings/round",
+              href: "/engagementrings/round",
               icon: "round.svg",
             },
             {
               name: "Princess",
-              href: "/engagement-rings/princess",
+              href: "/engagementrings/princess",
               icon: "princess.svg",
             },
             {
               name: "Emerald",
-              href: "/engagement-rings/princess",
+              href: "/engagementrings/princess",
               icon: "emerald.svg",
             },
             {
               name: "Asscher",
-              href: "/engagement-rings/princess",
+              href: "/engagementrings/princess",
               icon: "asscher.svg",
             },
             {
               name: "Oval",
-              href: "/engagement-rings/princess",
+              href: "/engagementrings/princess",
               icon: "oval.svg",
             },
             {
               name: "Pear",
-              href: "/engagement-rings/princess",
+              href: "/engagementrings/princess",
               icon: "pear.svg",
             },
             {
               name: "Heart",
-              href: "/engagement-rings/princess",
+              href: "/engagementrings/princess",
               icon: "heart.svg",
             },
             {
               name: "Marquise",
-              href: "/engagement-rings/princess",
+              href: "/engagementrings/princess",
               icon: "marquise.svg",
             },
             {
               name: "Cushion",
-              href: "/engagement-rings/princess",
+              href: "/engagementrings/princess",
               icon: "cushion.svg",
             },
             {
               name: "Radiant",
-              href: "/engagement-rings/princess",
+              href: "/engagementrings/princess",
               icon: "radiant.svg",
             },
           ],
@@ -160,47 +160,47 @@ const Nav: React.FC = () => {
             { name: "Sterline Silver", href: "", icon: "silver-metal.png" },
             {
               name: "10K White Gold",
-              href: "/engagement-rings/gold",
+              href: "/engagementrings/gold",
               icon: "whitemetal.png",
             },
             {
               name: "10K Yellow Gold",
-              href: "/engagement-rings/platinum",
+              href: "/engagementrings/platinum",
               icon: "goldmetal.png",
             },
             {
               name: "10K Rose Gold",
-              href: "/engagement-rings/platinum",
+              href: "/engagementrings/platinum",
               icon: "rosemetal.webp",
             },
             {
               name: "14K White Gold",
-              href: "/engagement-rings/gold",
+              href: "/engagementrings/gold",
               icon: "whitemetal.png",
             },
             {
               name: "14K Yellow Gold",
-              href: "/engagement-rings/platinum",
+              href: "/engagementrings/platinum",
               icon: "goldmetal.png",
             },
             {
               name: "14K Rose Gold",
-              href: "/engagement-rings/platinum",
+              href: "/engagementrings/platinum",
               icon: "rosemetal.webp",
             },
             {
               name: "18K White Gold",
-              href: "/engagement-rings/platinum",
+              href: "/engagementrings/platinum",
               icon: "whitemetal.png",
             },
             {
               name: "18K Yellow Gold",
-              href: "/engagement-rings/platinum",
+              href: "/engagementrings/platinum",
               icon: "goldmetal.png",
             },
             {
               name: "18K Rose Gold",
-              href: "/engagement-rings/platinum",
+              href: "/engagementrings/platinum",
               icon: "rosemetal.webp",
             },
           ],
@@ -209,7 +209,7 @@ const Nav: React.FC = () => {
     },
     {
       name: "Diamond Bands",
-      href: "/diamond-rings",
+      href: "/diamondbands",
       subItems: [
         {
           category: "Style",
@@ -361,7 +361,7 @@ const Nav: React.FC = () => {
     },
     {
       name: "Wedding Bands",
-      href: "/engagement-rings",
+      href: "/weddingbands",
       subItems: [
         {
           category: "Mens",
@@ -448,7 +448,7 @@ const Nav: React.FC = () => {
     },
     {
       name: "Earrings",
-      href: "/engagement-rings",
+      href: "/earrings",
       subItems: [
         {
           category: "Style",
@@ -565,7 +565,7 @@ const Nav: React.FC = () => {
     },
     {
       name: "Pendants",
-      href: "/engagement-rings",
+      href: "/pendants",
       subItems: [
         {
           category: "Style",
@@ -697,7 +697,7 @@ const Nav: React.FC = () => {
     },
     {
       name: "Gemstones",
-      href: "/engagement-rings",
+      href: "/gemstones",
       subItems: [
         {
           category: "Ruby",
@@ -783,7 +783,7 @@ const Nav: React.FC = () => {
     },
     {
       name: "Bracelates",
-      href: "/engagement-rings",
+      href: "/bracelates",
       subItems: [
         {
           category: "Style",
@@ -870,7 +870,7 @@ const Nav: React.FC = () => {
     },
     {
       name: "Minimal",
-      href: "/engagement-rings",
+      href: "/minimal",
       subItems: [
         {
           category: "Style",
@@ -957,7 +957,7 @@ const Nav: React.FC = () => {
     },
     {
       name: "Hip-Hop",
-      href: "/engagement-rings",
+      href: "/hiphop",
       subItems: [
         {
           category: "Style",

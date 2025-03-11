@@ -48,7 +48,7 @@ const ShapeCategory = () => {
                                     before:content-[''] before:absolute before:inset-0 before:rounded-full before:border-2
                                     before:border-[#9f7d48] before:z-[1] before:border-dashed before:transition-all before:duration-500
                                     hover:before:animate-[spin_0.9s_linear_infinite] shadow-md mx-auto">
-                                    <div className="w-12 h-12 sm:w-14 sm:h-14 relative">
+                                    <div className="w-12 h-12 sm:w-20 sm:h-20 relative">
                                         <Image
                                             src={`/assets/${shape.src}`}
                                             alt={shape.name}

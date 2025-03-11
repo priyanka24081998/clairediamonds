@@ -57,13 +57,13 @@ const feature = [
 
 const Features = () => {
   return (
-    <div className="section py-10 bg-[url('/assets/home_banner_image.webp')] bg-cover bg-center bg-no-repeat">
+    <div className="section py-20 bg-[url('/assets/home_banner_image.webp')] bg-cover bg-center bg-no-repeat bg-fixed">
       <div className="container mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-6 px-4 md:px-8">
           {feature.map((item) => (
             <div
               key={item.id}
-              className="card p-2 sm:p-4 bg-white/20 backdrop-blur-md rounded-lg shadow-md flex flex-col items-center"
+              className="card p-2 sm:p-4 bg-white/20 backdrop-blur-lg rounded-lg shadow-md flex flex-col items-center"
             >
               {" "}
               <div className="text-[#43825c] text-4xl">{item.icon}</div>{" "}

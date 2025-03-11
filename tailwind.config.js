@@ -11,6 +11,9 @@ module.exports = {
         sans: ["Poppins", "sans-serif"],
         
       },
+      backdropBlur: {
+        xs: '2px', 
+      },
       keyframes: {
         "move-down": {
           "0%": { transform: "translateY(-50%)", borderRadius: "50%" },

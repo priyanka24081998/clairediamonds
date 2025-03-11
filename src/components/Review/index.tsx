@@ -24,7 +24,7 @@ const testimonials: Testimonial[] = [
   {
     id: 1,
     name: "John Doe",
-    profile: "/assets/user1.jpg",
+    profile: "",
     rating: 4.5,
     review:
       "Amazing quality and fast delivery! The customer support was excellent. Highly recommended.",
@@ -32,7 +32,7 @@ const testimonials: Testimonial[] = [
   {
     id: 2,
     name: "Jane Smith",
-    profile: "/assets/user2.jpg",
+    profile: "",
     rating: 5,
     review:
       "Absolutely love my ring! The resizing was perfect, and the engraving looks stunning.",
@@ -40,7 +40,7 @@ const testimonials: Testimonial[] = [
   {
     id: 3,
     name: "Michael Brown",
-    profile: "/assets/user3.jpg",
+    profile: "",
     rating: 4,
     review:
       "Great experience. The diamonds are certified, and the packaging was very elegant!",
@@ -48,7 +48,7 @@ const testimonials: Testimonial[] = [
   {
     id: 4,
     name: "Sarah Johnson",
-    profile: "/assets/user4.jpg",
+    profile: "",
     rating: 4.5,
     review: "Very happy with my purchase! Will definitely shop again.",
   },

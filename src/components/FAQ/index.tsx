@@ -112,7 +112,7 @@ const FAQ = () => {
 
   return (
     <>
-      <section className="relative py-4 bg-[url('/assets/faq-bg1.webp')] bg-cover bg-center bg-no-repeat">
+      <section className="relative py-4 pb-32 bg-[url('/assets/faq-bg1.webp')] bg-cover bg-center bg-no-repeat">
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-[#9f7d48]/65 mix-blend-multiply"></div>
 
@@ -138,10 +138,10 @@ const FAQ = () => {
                   Client Care
                 </h2>
                 {faqs.clientCare.map((faq, index) => (
-                  <Accordion
-                    key={index}
-                    className="bg-white/20 backdrop-blur-xs border text-[#f4f1f0] border-[#f4f1f0]"
-                  >
+                 <Accordion
+                 key={index}
+                 className="bg-white/20 backdrop-blur-sm border text-[#f4f1f0] border-[#f4f1f0]"
+               >
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon className="text-[#f4f1f0]" />}
                     >

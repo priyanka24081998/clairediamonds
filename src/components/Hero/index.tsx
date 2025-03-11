@@ -69,7 +69,7 @@ const slidesData: SlideContent[] = [
   {
     id: 9,
     image: "slide9.jpg",
-    title: "Kids' Stylish Collection",
+    title: "Minimal Stylish Collection",
     description: "Spark joy with fun and stylish jewellery for kids.",
   },
   {
