@@ -53,48 +53,48 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Solitaire Rings",
-              href: "/engagementrings/classic-styles",
+              href: "/engagementrings/solitierrings",
               icon: "solitaire-ring.svg",
             },
             {
               name: "Shoulder Rings",
-              href: "/engagementrings/halo-rings",
+              href: "/engagementrings/shoulderrings",
               icon: "shoulder-ring.svg",
             },
 
             {
               name: "Halo Rings",
-              href: "/engagementrings/halo-rings",
+              href: "/engagementrings/halorings",
               icon: "halo-ring.svg",
             },
             {
               name: "Three Stone Rings",
-              href: "/engagementrings/halo-rings",
+              href: "/engagementrings/threestonerings",
               icon: "three-stone-ring.svg",
             },
             {
-              name: "Curved Rings",
-              href: "/engagementrings/halo-rings",
+              name: "Toi et moi Rings",
+              href: "/engagementrings/toietmoirings",
               icon: "two-stone-ring.svg",
             },
             {
               name: "Cluster Rings",
-              href: "/engagementrings/halo-rings",
+              href: "/engagementrings/clusterrings",
               icon: "cluster-ring.svg",
             },
             {
               name: "Tension Rings",
-              href: "/engagementrings/halo-rings",
+              href: "/engagementrings/tensionrings",
               icon: "tension-ring.svg",
             },
             {
               name: "Bezel Rings",
-              href: "/engagementrings/halo-rings",
+              href: "/engagementrings/bezelrings",
               icon: "bezel-ring.svg",
             },
             {
               name: "Vintage Rings",
-              href: "/engagementrings/halo-rings",
+              href: "/engagementrings/vintagerings",
               icon: "vintage-ring.svg",
             },
           ],
@@ -114,42 +114,42 @@ const Nav: React.FC = () => {
             },
             {
               name: "Emerald",
-              href: "/engagementrings/princess",
+              href: "/engagementrings/emerald",
               icon: "emerald.svg",
             },
             {
               name: "Asscher",
-              href: "/engagementrings/princess",
+              href: "/engagementrings/asscher",
               icon: "asscher.svg",
             },
             {
               name: "Oval",
-              href: "/engagementrings/princess",
+              href: "/engagementrings/oval",
               icon: "oval.svg",
             },
             {
               name: "Pear",
-              href: "/engagementrings/princess",
+              href: "/engagementrings/pear",
               icon: "pear.svg",
             },
             {
               name: "Heart",
-              href: "/engagementrings/princess",
+              href: "/engagementrings/heart",
               icon: "heart.svg",
             },
             {
               name: "Marquise",
-              href: "/engagementrings/princess",
+              href: "/engagementrings/marquise",
               icon: "marquise.svg",
             },
             {
               name: "Cushion",
-              href: "/engagementrings/princess",
+              href: "/engagementrings/cushion",
               icon: "cushion.svg",
             },
             {
               name: "Radiant",
-              href: "/engagementrings/princess",
+              href: "/engagementrings/radiant",
               icon: "radiant.svg",
             },
           ],
@@ -157,50 +157,21 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/engagementrings/silver", icon: "silver-metal.png" },
+            
             {
-              name: "10K White Gold",
+              name: "White Gold",
+              href: "/engagementrings/whitegold",
+              icon: "whitemetal.png",
+            },
+            {
+              name: "Yellow Gold",
               href: "/engagementrings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "10K Yellow Gold",
-              href: "/engagementrings/platinum",
               icon: "goldmetal.png",
             },
             {
-              name: "10K Rose Gold",
-              href: "/engagementrings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "14K White Gold",
-              href: "/engagementrings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "14K Yellow Gold",
-              href: "/engagementrings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "14K Rose Gold",
-              href: "/engagementrings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "18K White Gold",
-              href: "/engagementrings/platinum",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "18K Yellow Gold",
-              href: "/engagementrings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "18K Rose Gold",
-              href: "/engagementrings/platinum",
+              name: "Rose Gold",
+              href: "/engagementrings/rosegold",
               icon: "rosemetal.webp",
             },
           ],
@@ -216,37 +187,37 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Trilogy Rings",
-              href: "/engagement-rings/classic-styles",
+              href: "/diamondbands/trilogyrings",
               icon: "three-stone-ring.svg",
             },
             {
               name: "Five Stone Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/diamondbands/fivestonerings",
               icon: "five-stone-ring.svg",
             },
             {
               name: "Seven Stone Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/diamondbands/sevenstonerings",
               icon: "seven-stone-ring.svg",
             },
             {
               name: "Half Eternity Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/diamondbands/halfeternityrings",
               icon: "half-eternity.svg",
             },
             {
               name: "Full Eternity Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/diamondbands/fulleternityrings",
               icon: "full-eternity.svg",
             },
             {
               name: "Eternity Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/diamondbands/eternityrings",
               icon: "eternity-ring.svg",
             },
             {
               name: "Mens Rings",
-              href: "/engagement-rings/halo-rings",
+              href: "/diamondbands/mensrings",
               icon: "mens-diamond-ring.svg",
             },
           ],
@@ -256,52 +227,52 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Round",
-              href: "/engagement-rings/round",
+              href: "/diamondbands/round",
               icon: "round.svg",
             },
             {
               name: "Princess",
-              href: "/engagement-rings/princess",
+              href: "/diamondbands/princess",
               icon: "princess.svg",
             },
             {
               name: "Emerald",
-              href: "/engagement-rings/princess",
+              href: "/diamondbands/emerald",
               icon: "emerald.svg",
             },
             {
               name: "Asscher",
-              href: "/engagement-rings/princess",
+              href: "/diamondbands/asscher",
               icon: "asscher.svg",
             },
             {
               name: "Oval",
-              href: "/engagement-rings/princess",
+              href: "/diamondbands/oval",
               icon: "oval.svg",
             },
             {
               name: "Pear",
-              href: "/engagement-rings/princess",
+              href: "/diamondbands/pear",
               icon: "pear.svg",
             },
             {
               name: "Heart",
-              href: "/engagement-rings/princess",
+              href: "/diamondbands/heart",
               icon: "heart.svg",
             },
             {
               name: "Marquise",
-              href: "/engagement-rings/princess",
+              href: "/diamondbands/marquise",
               icon: "marquise.svg",
             },
             {
               name: "Cushion",
-              href: "/engagement-rings/princess",
+              href: "/diamondbands/cushion",
               icon: "cushion.svg",
             },
             {
               name: "Radiant",
-              href: "/engagement-rings/princess",
+              href: "/diamondbands/radiant",
               icon: "radiant.svg",
             },
           ],
@@ -309,52 +280,23 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/diamondbands/silver", icon: "silver-metal.png" },
             {
-              name: "10K White Gold",
-              href: "/engagement-rings/gold",
+              name: "White Gold",
+              href: "/diamondbands/whitegold",
               icon: "whitemetal.png",
             },
             {
-              name: "10K Yellow Gold",
-              href: "/engagement-rings/platinum",
+              name: "Yellow Gold",
+              href: "/diamondbands/gold",
               icon: "goldmetal.png",
             },
             {
-              name: "10K Rose Gold",
-              href: "/engagement-rings/platinum",
+              name: "Rose Gold",
+              href: "/diamondbands/rosegold",
               icon: "rosemetal.webp",
             },
-            {
-              name: "14K White Gold",
-              href: "/engagement-rings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "14K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "14K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "18K White Gold",
-              href: "/engagement-rings/platinum",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "18K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "18K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
+           
           ],
         },
       ],
@@ -368,12 +310,12 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Mens Plain Bands",
-              href: "/engagement-rings/classic-styles",
+              href: "/weddingbands/menplainbands",
               icon: "mens-plain-wedding.svg",
             },
             {
               name: "Mens Diamond Bands",
-              href: "/engagement-rings/halo-rings",
+              href: "/weddingbands/mendiamondband",
               icon: "mens-diamond-ring.svg",
             },
           ],
@@ -383,12 +325,12 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Ladies Plain Bands",
-              href: "/engagement-rings/round",
+              href: "/weddingbands/ladiesplainbands",
               icon: "ladies-plain-wedding.svg",
             },
             {
               name: "Ladies Diamond Bands",
-              href: "/engagement-rings/princess",
+              href: "/weddingbands/ladiesdiamondbands",
               icon: "ladies-diamond-wedding.svg",
             },
           ],
@@ -396,52 +338,23 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/weddingbands/silver", icon: "silver-metal.png" },
             {
-              name: "10K White Gold",
-              href: "/engagement-rings/gold",
+              name: "White Gold",
+              href: "/weddingbands/whitegold",
               icon: "whitemetal.png",
             },
             {
-              name: "10K Yellow Gold",
-              href: "/engagement-rings/platinum",
+              name: "Yellow Gold",
+              href: "/weddingbands/gold",
               icon: "goldmetal.png",
             },
             {
-              name: "10K Rose Gold",
-              href: "/engagement-rings/platinum",
+              name: "Rose Gold",
+              href: "/weddingbands/rosegold",
               icon: "rosemetal.webp",
             },
-            {
-              name: "14K White Gold",
-              href: "/engagement-rings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "14K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "14K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "18K White Gold",
-              href: "/engagement-rings/platinum",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "18K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "18K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
+           
           ],
         },
       ],
@@ -455,27 +368,27 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Stud Earrings",
-              href: "/engagement-rings/classic-styles",
+              href: "/earrings/studearrings",
               icon: "stud-earring.svg",
             },
             {
               name: "Halo Earrings",
-              href: "/engagement-rings/halo-rings",
+              href: "/earrings/haloearrings",
               icon: "halo-earring.svg",
             },
             {
               name: "Drop Earrings",
-              href: "/engagement-rings/halo-rings",
+              href: "/earrings/dropearrings",
               icon: "drop-earring.svg",
             },
             {
               name: "Hoop Earrings",
-              href: "/engagement-rings/halo-rings",
+              href: "/earrings/hoopearrings",
               icon: "hoop-earring.svg",
             },
             {
               name: "Cluster Earrings",
-              href: "/engagement-rings/halo-rings",
+              href: "/earrings/clusterearrings",
               icon: "cluster-earring.svg",
             },
           ],
@@ -485,27 +398,27 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Round",
-              href: "/engagement-rings/round",
+              href: "/earrings/round",
               icon: "round.svg",
             },
             {
               name: "Princess",
-              href: "/engagement-rings/princess",
+              href: "/earrings/princess",
               icon: "princess.svg",
             },
             {
               name: "Pear",
-              href: "/engagement-rings/princess",
+              href: "/earrings/pear",
               icon: "pear.svg",
             },
             {
               name: "Heart",
-              href: "/engagement-rings/princess",
+              href: "/earrings/heart",
               icon: "heart.svg",
             },
             {
               name: "Emerald",
-              href: "/engagement-rings/princess",
+              href: "/earrings/emerald",
               icon: "emerald.svg",
             },
           ],
@@ -513,52 +426,23 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/earrings/silver", icon: "silver-metal.png" },
             {
-              name: "10K White Gold",
-              href: "/engagement-rings/gold",
+              name: "White Gold",
+              href: "/earrings/whitegold",
               icon: "whitemetal.png",
             },
             {
-              name: "10K Yellow Gold",
-              href: "/engagement-rings/platinum",
+              name: "Yellow Gold",
+              href: "/earrings/gold",
               icon: "goldmetal.png",
             },
             {
               name: "10K Rose Gold",
-              href: "/engagement-rings/platinum",
+              href: "/earrings/rosegold",
               icon: "rosemetal.webp",
             },
-            {
-              name: "14K White Gold",
-              href: "/engagement-rings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "14K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "14K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "18K White Gold",
-              href: "/engagement-rings/platinum",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "18K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "18K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
+            
           ],
         },
       ],
@@ -572,37 +456,37 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Solitaire Pendants",
-              href: "/engagement-rings/classic-styles",
+              href: "/pendants/solitairependants",
               icon: "solitaire-pendant.svg",
             },
             {
               name: "Cluster Pendants",
-              href: "/engagement-rings/halo-rings",
+              href: "/pendants/clusterpendants",
               icon: "cluster-pendant.svg",
             },
             {
               name: "Halo Pendants",
-              href: "/engagement-rings/halo-rings",
+              href: "/pendants/halopendants",
               icon: "halo-pendant.svg",
             },
             {
               name: "Heart Pendants",
-              href: "/engagement-rings/halo-rings",
+              href: "/pendants/heartpendants",
               icon: "heart-pendant.svg",
             },
             {
               name: "Drop Pendants",
-              href: "/engagement-rings/halo-rings",
+              href: "/pendants/droppendants",
               icon: "drop-pendant.svg",
             },
             {
               name: "Cross Pendants",
-              href: "/engagement-rings/halo-rings",
+              href: "/pendants/crosspendants",
               icon: "cross-pendant.svg",
             },
             {
               name: "Circle Pendants",
-              href: "/engagement-rings/halo-rings",
+              href: "/pendants/circlependants",
               icon: "circle-pendant.svg",
             },
           ],
@@ -612,32 +496,32 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Round",
-              href: "/engagement-rings/round",
+              href: "/pendants/round",
               icon: "round.svg",
             },
             {
               name: "Princess",
-              href: "/engagement-rings/princess",
+              href: "/pendants/princess",
               icon: "princess.svg",
             },
             {
               name: "Pear",
-              href: "/engagement-rings/princess",
+              href: "/pendants/pear",
               icon: "pear.svg",
             },
             {
               name: "Heart",
-              href: "/engagement-rings/princess",
+              href: "/pendants/heart",
               icon: "heart.svg",
             },
             {
               name: "Emerald",
-              href: "/engagement-rings/princess",
+              href: "/pendants/emerald",
               icon: "emerald.svg",
             },
             {
               name: "Cushion",
-              href: "/engagement-rings/princess",
+              href: "/pendants/cushion",
               icon: "cushion.svg",
             },
           ],
@@ -645,52 +529,23 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/pendants/silver", icon: "silver-metal.png" },
             {
-              name: "10K White Gold",
-              href: "/engagement-rings/gold",
+              name: " White Gold",
+              href: "/pendants/whitegold",
               icon: "whitemetal.png",
             },
             {
-              name: "10K Yellow Gold",
-              href: "/engagement-rings/platinum",
+              name: " Yellow Gold",
+              href: "/pendants/gold",
               icon: "goldmetal.png",
             },
             {
-              name: "10K Rose Gold",
-              href: "/engagement-rings/platinum",
+              name: "Rose Gold",
+              href: "/pendants/rosegold",
               icon: "rosemetal.webp",
             },
-            {
-              name: "14K White Gold",
-              href: "/engagement-rings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "14K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "14K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "18K White Gold",
-              href: "/engagement-rings/platinum",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "18K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "18K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
+           
           ],
         },
       ],
@@ -704,17 +559,17 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Ruby Rings",
-              href: "/engagement-rings/classic-styles",
+              href: "/gemstones/rubyrings",
               icon: "ruby-ring.svg",
             },
             {
               name: "Ruby Earrings",
-              href: "/engagement-rings/halo-rings",
+              href: "/gemstones/rubyearrings",
               icon: "ruby-earring.svg",
             },
             {
               name: "Ruby Pendants",
-              href: "/engagement-rings/halo-rings",
+              href: "/gemstones/rubypendants",
               icon: "ruby-pendant.svg",
             },
           ],
@@ -724,17 +579,17 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Pink Sapphire Rings",
-              href: "/engagement-rings/round",
+              href: "/gemstones/pinksapphirerings",
               icon: "pink-sapphire-ring.svg",
             },
             {
               name: "Pink Sapphire Earrings",
-              href: "/engagement-rings/princess",
+              href: "/gemstones/pinksapphireearrings",
               icon: "pink-sapphire-earring.svg",
             },
             {
               name: "Pink Sapphire Pendants",
-              href: "/engagement-rings/princess",
+              href: "/gemstones/pinksapphirependants",
               icon: "pink-sapphire-pendant.svg",
             },
           ],
@@ -744,17 +599,17 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Sapphire Rings",
-              href: "/engagement-rings/gold",
+              href: "/gemstones/sapphirerings",
               icon: "sapphire-ring.svg",
             },
             {
               name: "Sapphire Earrings",
-              href: "/engagement-rings/platinum",
+              href: "/gemstones/sapphireearrings",
               icon: "sapphire-earring.svg",
             },
             {
               name: "Sapphire Pendants",
-              href: "/engagement-rings/platinum",
+              href: "/gemstones/sapphirependants",
               icon: "sapphire-pendant.svg",
             },
           ],
@@ -764,17 +619,17 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Emerald Rings",
-              href: "/engagement-rings/gold",
+              href: "/gemstones/emeraldrings",
               icon: "emerald-ring.svg",
             },
             {
               name: "Emerald Earrings",
-              href: "/engagement-rings/platinum",
+              href: "/gemstones/emeraldearrings",
               icon: "emerald-earring.svg",
             },
             {
               name: "Emerald Pendants",
-              href: "/engagement-rings/platinum",
+              href: "/gemstones/emeraldpendants",
               icon: "emerald-pendant.svg",
             },
           ],
@@ -790,12 +645,12 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Tennis Bracelets",
-              href: "/engagement-rings/classic-styles",
+              href: "/bracelates/tennisbracelets",
               icon: "tennis-bracelet.svg",
             },
             {
               name: "Delicate Bracelets",
-              href: "/engagement-rings/halo-rings",
+              href: "/bracelates/delicatebracelets",
               icon: "delicate-bracelet.svg",
             },
           ],
@@ -805,12 +660,12 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Round",
-              href: "/engagement-rings/round",
+              href: "/bracelates/round",
               icon: "round.svg",
             },
             {
               name: "Princess",
-              href: "/engagement-rings/princess",
+              href: "/bracelates/princess",
               icon: "princess.svg",
             },
           ],
@@ -818,52 +673,23 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/bracelates/silver", icon: "silver-metal.png" },
             {
-              name: "10K White Gold",
-              href: "/engagement-rings/gold",
+              name: "White Gold",
+              href: "/bracelates/whitegold",
               icon: "whitemetal.png",
             },
             {
-              name: "10K Yellow Gold",
-              href: "/engagement-rings/platinum",
+              name: "Yellow Gold",
+              href: "/bracelates/gold",
               icon: "goldmetal.png",
             },
             {
-              name: "10K Rose Gold",
-              href: "/engagement-rings/platinum",
+              name: "Rose Gold",
+              href: "/bracelates/rosegold",
               icon: "rosemetal.webp",
             },
-            {
-              name: "14K White Gold",
-              href: "/engagement-rings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "14K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "14K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "18K White Gold",
-              href: "/engagement-rings/platinum",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "18K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "18K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
+           
           ],
         },
       ],
@@ -1049,7 +875,7 @@ const Nav: React.FC = () => {
       <div className="container mx-auto px-6 flex items-center justify-evenly">
         {/* Desktop Navigation */}
         {/* <ul className={`hidden md:flex text-sm gap-x-6 flex ${styles.demo}`}> */}
-        <ul className={`hidden lg:flex text-sm flex `}>
+        <ul className={`hidden lg:flex text-sm flex`}>
           {navItems.map((item, index) => (
             <li key={index} className="group">
               <div className="capitalize text-center">
@@ -1061,7 +887,7 @@ const Nav: React.FC = () => {
                 </Link>
               </div>
               {item.subItems && (
-                <div className="sm:w-full sm:absolute sm:left-0 md:top-[35px] hidden bg-[#f4f1f0] shadow-lg sm:p-6 sm:px-48 mt-2 group-hover:block z-10">
+                <div className="sm:w-full sm:absolute sm:left-0 md:top-[25px] hidden bg-[#f4f1f0] shadow-lg sm:p-6 sm:px-48 mt-2 group-hover:block z-10">
                   <div className="menu-header mb-4 border-b pb-2 border-[#9f7d48]">
                     <div className="menu-headerconatiner">
                       <div className="menumainhead">
