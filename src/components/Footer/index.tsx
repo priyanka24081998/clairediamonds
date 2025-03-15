@@ -47,7 +47,10 @@ const Footer = () => {
       title: "Contact Us",
       links: [
         { href: "tel:+919979117817", label: "+91 9979117817" },
-        { href: "mailto:clairediamonds@gmail.com", label: "clairediamonds@gmail.com" },
+        {
+          href: "mailto:clairediamonds@gmail.com",
+          label: "clairediamonds@gmail.com",
+        },
         { href: "/contact", label: "Get in Touch" },
         { href: "/feedback", label: "Feedback" },
       ],
@@ -55,39 +58,56 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full bg-[#1a3f27] relative py-16 ">
-      <div className="container mx-auto p-4 lg:flex lg:justify-center ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center  flex bg-[#f4f1f0] absolute top-[-80px] p-10 rounded-[20px] w-[800px]">
-          <div className={`text-center text-3xl md:text-4xl text-[#43825c] ${philosopher.className}`}>
-            <span className="italic">Stay in Touch</span>
-            <p className="pt-4 text-[#9f7d48] text-sm">Ring advice, straight to your inbox</p>
-          </div>
-          <div className="relative flex justify-center w-full max-w-md mx-auto md:mx-0">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="w-full border border-gray-300 rounded-lg p-3 pr-14 focus:outline-none focus:ring-2 focus:ring-[#9f7d48]"
-            />
-            <button className={`absolute h-full inset-y-0 right-0 px-5 bg-[#9f7d48] uppercase text-white rounded-r-lg hover:bg-[#876333] ${philosopher.className}`}>
-              Submit
-            </button>
+    <footer className="w-full bg-[#1a3f27] relative py-10">
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#f4f1f0] rounded-[20px] p-6 md:p-10 w-full max-w-[800px] shadow-lg">
+            {/* Title Section */}
+            <div
+              className={`text-center md:text-left text-2xl md:text-3xl lg:text-4xl text-[#43825c] ${philosopher.className}`}
+            >
+              <span className="italic">Stay in Touch</span>
+              <p className="pt-3 text-[#9f7d48] text-sm md:text-base">
+                Ring advice, straight to your inbox
+              </p>
+            </div>
+
+            {/* Input Section */}
+            <div className="w-full">
+              <div className="relative flex flex-col md:flex-row items-center">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#9f7d48]"
+                />
+                <button
+                  className={`w-full md:w-auto mt-2 md:mt-0 md:ml-2 bg-[#9f7d48] text-white px-6 py-3 uppercase rounded-lg hover:bg-[#876333] transition-colors ${philosopher.className}`}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="pt-16 p-10">
+      <div className="p-10">
         <div className="container mx-auto  lg:px-4 max-w-screen-xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-[#f4f1f0]">
             {sections.map((section, index) => (
               <div key={index}>
-                <h4 className="mb-4 text-sm font-bold uppercase">{section.title}</h4>
+                <h4 className="mb-4 text-sm font-bold uppercase">
+                  {section.title}
+                </h4>
                 <ul className="space-y-2">
                   {section.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
                       <Link
                         key={linkIndex}
                         href={link.href}
-                        className={`block px-2 text-sm md:text-xs hover:text-yellow-200 ${link.label.includes("@") ? "" : "capitalize"}`}
+                        className={`block px-2 text-sm md:text-xs hover:text-yellow-200 ${
+                          link.label.includes("@") ? "" : "capitalize"
+                        }`}
                       >
                         {link.label}
                       </Link>
