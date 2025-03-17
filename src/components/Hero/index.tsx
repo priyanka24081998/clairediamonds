@@ -5,8 +5,11 @@ import Slider from "react-slick";
 import Image from "next/image";
 import styles from "./Hero.module.css";
 import { Cinzel } from "next/font/google";
+import Link from "next/link";
+
 
 interface SlideContent {
+  link: string;
   id: number;
   image?: React.ReactNode;
   title: string;
@@ -18,6 +21,7 @@ const slidesData: SlideContent[] = [
     id: 1,
     image: "slide1.jpg",
     title: "luxurios jewellery",
+    link:'/engagementrings/solitierrings',
     description:
       "Experience elegance with our premium collection of luxurious jewellery.",
   },
@@ -25,6 +29,7 @@ const slidesData: SlideContent[] = [
     id: 2,
     image: "slide2.jpg",
     title: "Dazzling Occasions",
+    link:'/labdiamond',
     description:
       " Discover dazzling pieces that make every occasion unforgettable.",
   },
@@ -32,6 +37,7 @@ const slidesData: SlideContent[] = [
     id: 3,
     image: "slide3.jpg",
     title: "Create Your Own Style",
+    link:'/statement',
     description:
       " Craft your signature look with personalized jewellery designs.",
   },
@@ -39,12 +45,14 @@ const slidesData: SlideContent[] = [
     id: 4,
     image: "slide4.jpg",
     title: "Ageless Beauty",
+    link:'/classicrings',
     description: "Timeless designs that radiate sophistication and charm.",
   },
   {
     id: 5,
     image: "slide5.jpg",
     title: "High Quality jewellery",
+    link:'/gemstones',
     description:
       "Elevate your style with meticulously crafted, high-quality jewellery.",
   },
@@ -52,42 +60,49 @@ const slidesData: SlideContent[] = [
     id: 6,
     image: "slide6.jpg",
     title: " Exclusive Elegance",
+    link:'/diamondbands',
     description: "Discover exclusive pieces to match your vibrant lifestyle.",
   },
   {
     id: 7,
     image: "slide7.jpg",
     title: "Stylish diamond Jewellery",
+    link:'/moissanite',
     description: "Shine bright with sustainably crafted modern jewellery.",
   },
   {
     id: 8,
     image: "slide8.jpg",
     title: "Exclusive Elegance",
+    link:'/bracelates',
     description: "Discover exclusive pieces to match your vibrant lifestyle.",
   },
   {
     id: 9,
     image: "slide9.jpg",
     title: "Minimal Stylish Collection",
+    link:'/minimal',
     description: "Spark joy with fun and stylish jewellery for kids.",
   },
   {
     id: 10,
     image: "slide10.jpg",
     title: "Fashion Forward",
+    link:'/pendants',
     description: "Jewellery that speaks to your unique sense of fashion.",
   },
   {
     id: 11,
     image: "slide11.jpg",
     title: "hip-hop collection",
+    link:'/hiphop',
     description: "Unleash your bold side with our trendy hip hop jewellery.",
   },
   {
     id: 12,
     image: "slide12.jpg",
     title: "Modern Elegance",
+    link:'/curvedrings',
     description: " Redefining elegance with modern jewellery masterpieces.",
   },
 ];
@@ -165,9 +180,11 @@ const Hero: React.FC = () => {
                         index % 2 === 0 ? "lg:block" : "lg:hidden"
                       }`}
                     >
+                      <Link href={slide.link}>
                       <button className="uppercase p-2 sm:px-6 sm:py-2 border border-white cursor-pointer hover:bg-[#9f7d48] transition-all duration-300">
                         shop now
                       </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

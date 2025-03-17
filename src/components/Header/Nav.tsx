@@ -438,7 +438,7 @@ const Nav: React.FC = () => {
               icon: "goldmetal.png",
             },
             {
-              name: "10K Rose Gold",
+              name: "Rose Gold",
               href: "/earrings/rosegold",
               icon: "rosemetal.webp",
             },

@@ -63,15 +63,16 @@ const Header = () => {
                       >
                         <FaTiktok className="text-[#f4f1f0] hover:text-gray-700" />
                       </Link>
-                      <Link href="mailto:your-email@example.com">
+                      <Link
+                        href="https://mail.google.com/mail/?view=cm&to=clairediamondsjewellery@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {" "}
                         <MdEmail className="text-[#f4f1f0] text-2xl hover:text-[#43825c]" />
                       </Link>
                     </div>
-                    {/* <span className="currency relative "> */}
-                    {/* <button className="w-[150px] z-[999] font-sans sm:absolute sm:top-[-15px] sm:left-[-120px] absolute top-[-15px] left-[-110px]  px-2 rounded-full"> */}
                     <Currency />
-                    {/* </button> */}
-                    {/* </span> */}
                   </div>
                 </div>
               </div>
@@ -126,7 +127,7 @@ const Header = () => {
                   {/* Cart Section */}
                   <span className="cartsection">
                     <a
-                      href="https://www.angelicdiamonds.com?target=cart"
+                      href=""
                       title="Shopping Bag"
                     >
                       <HiOutlineShoppingBag className="w-8 h-8 sm:block hidden text-[#9f7d48]" />
