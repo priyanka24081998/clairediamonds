@@ -58,7 +58,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full bg-[#1a3f27] relative py-10">
+    <footer className="w-full bg-[#1a3f27] relative py-10 overflow-hidden">
       <div className="container mx-auto px-4 py-6">
         <div className="flex justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#f4f1f0] rounded-[20px] p-6 md:p-10 w-full max-w-[800px] shadow-lg">

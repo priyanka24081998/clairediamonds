@@ -132,7 +132,7 @@ const Review = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-12">
         <div className="flex justify-center lg:justify-end">
           <Link
-            href="/write-review"
+            href="https://g.page/r/CT0pdmR_GYTBEBI/review"
             className={`bg-[#9f7d48] text-[#f4f1f0] w-[300px] py-2 px-4 rounded-lg hover:bg-[#43825c] hover:text-[#f4f1f0] transition text-center flex items-center justify-center ${philosopher.className}`}
           >
             Write Review

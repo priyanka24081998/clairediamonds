@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "https://www.clairediamonds.com/:path*",
+  //       destination: "https://clairediamonds.com/:path*",
+  //       permanent: true, // 301 redirect
+  //     },
+  //   ];
+  // },
 };
 
 export default nextConfig;

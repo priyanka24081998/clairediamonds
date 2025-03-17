@@ -7,6 +7,8 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Philosopher } from "next/font/google";
+import styles from './faq.module.css';
+
 
 const philosopher = Philosopher({
   subsets: ["latin"],
@@ -140,7 +142,7 @@ const FAQ = () => {
                 {faqs.clientCare.map((faq, index) => (
                  <Accordion
                  key={index}
-                 className="bg-white/20 backdrop-blur-sm border text-[#f4f1f0] border-[#f4f1f0]"
+                 className={`${styles.accordion}`}
                >
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon className="text-[#f4f1f0]" />}

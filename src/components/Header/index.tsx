@@ -43,7 +43,7 @@ const Header = () => {
                   <div className="rightside-container flex space-x-4 text-sm">
                     <div className="flex space-x-4 text-xl">
                       <Link
-                        href="https://www.instagram.com"
+                        href="https://www.instagram.com/clairediamondss/"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -68,9 +68,9 @@ const Header = () => {
                       </Link>
                     </div>
                     {/* <span className="currency relative "> */}
-                      {/* <button className="w-[150px] z-[999] font-sans sm:absolute sm:top-[-15px] sm:left-[-120px] absolute top-[-15px] left-[-110px]  px-2 rounded-full"> */}
-                        <Currency />
-                      {/* </button> */}
+                    {/* <button className="w-[150px] z-[999] font-sans sm:absolute sm:top-[-15px] sm:left-[-120px] absolute top-[-15px] left-[-110px]  px-2 rounded-full"> */}
+                    <Currency />
+                    {/* </button> */}
                     {/* </span> */}
                   </div>
                 </div>
@@ -100,16 +100,16 @@ const Header = () => {
                 </div>
 
                 {/* Logo */}
-                <div className="w-[180px] lg:w-1/3 ml-[35px] md:ml-[50px]">
-                  <a href="" title="Claire Diamonds">
+                <div className="w-[180px] lg:w-1/3 ml-[35px] lg:ml-[-50px]">
+                  <Link href="/" title="Claire Diamonds">
                     <Image
-                      src="/assets/claire.png"
+                      src="/assets/logo2.png"
                       alt="Claire Diamonds"
                       width={1200}
                       height={800}
-                      className="sm:w-[180px] sm:h-[90px] w-[120px] h-[60px]"
+                      className="sm:w-[250px] sm:h-[120px] lg:w-[220px] w-[120px] h-[60px]"
                     />
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Cart & Currency */}

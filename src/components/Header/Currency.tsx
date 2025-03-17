@@ -128,19 +128,29 @@ const Currency: React.FC = () => {
     async function fetchCurrency() {
       const savedCurrency = localStorage.getItem("currency");
       if (savedCurrency) {
+        console.log("Using saved currency:", savedCurrency);
         setCurrency(savedCurrency);
       } else {
         const location = await getLocation();
+       
+        console.log("Detected location:", location); // ✅ Check location data
+  
         if (location?.country && location.country in currencyMap) {
           const detectedCurrency =
             currencyMap[location.country as keyof typeof currencyMap] || "USD";
+            
+          console.log("Detected currency based on location:", detectedCurrency); // ✅ Check detected currency
           setCurrency(detectedCurrency);
           localStorage.setItem("currency", detectedCurrency);
+        } else {
+          console.log("Location not detected or currency not mapped. Using default currency: USD");
+          setCurrency("USD");
         }
       }
     }
     fetchCurrency();
   }, []);
+
 
   // ✅ 2. Handle currency change
   const handleCurrencyChange = (newCurrency: string) => {

@@ -963,7 +963,7 @@ const Nav: React.FC = () => {
         </ul>
 
         {/* Mobile Menu Icon */}
-        <div className="lg:hidden absolute top-[-120px] left-[0px] h-[20px] md:top-[-135px] md:left-[10px] pl-2">
+        <div className="lg:hidden absolute top-[-115px] left-[0px] h-[20px] md:top-[-145px] md:left-[10px] pl-2">
           <IconButton onClick={() => setIsDrawerOpen(true)}>
             <MenuIcon className="text-[#9f7d48]" />
           </IconButton>
