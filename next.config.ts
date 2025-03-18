@@ -1,6 +1,6 @@
-import type { NextConfig } from "next";
+// import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+// const nextConfig: NextConfig = {
   // async redirects() {
   //   return [
   //     {
@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
   //     },
   //   ];
   // },
+
+// };
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'standalone',
 };
+
 
 export default nextConfig;
