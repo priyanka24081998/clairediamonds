@@ -21,7 +21,7 @@ const Profile: React.FC = () => {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-[#9f7d48] border border-gray-300 shadow-lg rounded-md z-200">
           <ul className="py-2 text-sm text-[#f4f1f0]">
-            <li>
+            {/* <li>
               <Link href="/profile" className="block px-4 py-2 hover:bg-[#f4f1f0] hover:rounded-[50px] hover:text-[#43825c]">
                 My Profile
               </Link>
@@ -36,7 +36,7 @@ const Profile: React.FC = () => {
                 Settings
               </Link>
             </li>
-            <hr className="border-[#f4f1f0]" />
+            <hr className="border-[#f4f1f0]" /> */}
             <li>
               <Link href="/signup" className="block px-4 py-2 hover:bg-[#f4f1f0] hover:rounded-[50px] hover:text-[#43825c]">
                 Sign Up
