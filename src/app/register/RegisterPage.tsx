@@ -52,7 +52,7 @@ const Register = () => {
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#f4f1f0]">
