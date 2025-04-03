@@ -73,7 +73,7 @@ const VerifyOtp = () => {
               onChange={(e) => setOtp(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               placeholder="Enter OTP"
-              required
+              required  
             />
           </div>
 
