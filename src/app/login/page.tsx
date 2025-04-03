@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Philosopher } from "next/font/google";
+import axios from "axios";
 
 const philosopher = Philosopher({
   subsets: ["latin"],
@@ -14,16 +15,36 @@ const Login = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
-    // Fake login logic (replace with actual API call)
-    if (email === "test@example.com" && password === "password") {
-      localStorage.setItem("token", "fake-jwt-token");
-      router.push("/");
+    try {
+      const response = await axios.post("https://claireapi.onrender.com/users/", {
+        email,
+        password,
+      });
+
+    console.log("Login response:", response.data);
+
+    if (response.data.token) {
+      localStorage.setItem("token", response.data.token);
+      router.push("/profile");
     } else {
-      alert("Invalid email or password");
+      alert("Login failed. No token received.");
+    }
+    } catch (error) {
+      console.error("Login failed:", error);
+
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data?.message || "Invalid email or password");
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,8 +92,9 @@ const Login = () => {
           <button
             type="submit"
             className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-lg transition duration-300"
+            disabled={loading}
           >
-            Log In
+            {loading ? "Logging in..." : "Log In"}
           </button>
         </form>
 

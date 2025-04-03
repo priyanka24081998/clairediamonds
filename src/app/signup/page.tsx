@@ -19,45 +19,44 @@ const Signup = () => {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+  
     try {
       // Get all users from API
       const allUsersResponse = await axios.get("https://claireapi.onrender.com/usermail/users");
-      
+  
       // Ensure response is an array before searching
       const users = Array.isArray(allUsersResponse.data) ? allUsersResponse.data : [];
-      const user = users.find((u) => u.email === email);
+      const user = users.find((u) => u.emailId?.email === email); // Fix to check nested email
   
-      if (!user) {
-        try {
-            const response = await axios.post("https://claireapi.onrender.com/usermail", { email });
-            console.log("User creation response:", response.data);
-          }catch (error: unknown) {
-            if (axios.isAxiosError(error)) {
-              console.error("Axios error:", error.response?.data || error.message);
-              alert(error.response?.data?.message || "Failed to create user. Please try again.");
-            } else if (error instanceof Error) {
-              console.error("General error:", error.message);
-              alert(error.message);
-            } else {
-              console.error("Unexpected error:", error);
-              alert("An unknown error occurred. Please try again.");
-            }
-          }
+      if (user) {
+        // If email exists, show alert and redirect to login
+        alert("Email already in use. Redirecting to login...");  
+        return;
       }
   
-      // Send OTP to user (new or existing)
+  
+      // If new user, create the user and send OTP
+      await axios.post("https://claireapi.onrender.com/usermail", { email });
       await axios.post("https://claireapi.onrender.com/users/sendOtp", { email });
   
       // Redirect to OTP verification page
       router.push(`/verifyotp?email=${email}`);
     } catch (error) {
-      console.error("Error during signup:", error);
-      alert("Failed to send OTP. Please try again.");
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data || error.message);
+        alert(error.response?.data?.message || "Failed to create user. Please try again.");
+      } else if (error instanceof Error) {
+        console.error("General error:", error.message);
+        alert(error.message);
+      } else {
+        console.error("Unexpected error:", error);
+        alert("An unknown error occurred. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
   };
+  
   
 
   return (
