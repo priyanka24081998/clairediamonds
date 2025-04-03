@@ -63,7 +63,7 @@ const Login = () => {
           </div>
 
           <div className="flex justify-between items-center mb-4">
-            <Link href="/forgot-password" className="text-yellow-600 text-sm">
+            <Link href="/forgotpassword" className="text-yellow-600 text-sm">
               Forgot Password?
             </Link>
           </div>
