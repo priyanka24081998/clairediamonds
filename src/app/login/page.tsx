@@ -35,6 +35,15 @@ const Login = () => {
       })
       .catch((err) => console.error("Error fetching user:", err));
   }, []);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+  
+    if (token) {
+      localStorage.setItem("token", token);
+      router.push("/"); // Redirect to homepage after login
+    }
+  }, [router]);
 
   // Handle normal login
   const handleLogin = async (e: React.FormEvent) => {
@@ -43,7 +52,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://claireapi.onrender.com/login",
+        "https://claireapi.onrender.com/users/",
         { email, password },
         { withCredentials: true }
       );
