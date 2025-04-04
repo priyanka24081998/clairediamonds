@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { Philosopher } from "next/font/google";
 import axios from "axios";
@@ -17,24 +18,38 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    fetch("https://api.clairediamonds.com/auth/me", {
+      credentials: "include", // Important for session cookies
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.user) {
+          localStorage.setItem("token", data.token);
+          router.push("/profile");
+        }
+      })
+      .catch((error) => console.error("Error fetching user:", error));
+  }, [router]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await axios.post("https://claireapi.onrender.com/users/", {
+      const response = await axios.post("https://api.clairediamonds.com/auth/login", {
         email,
         password,
       });
 
-    console.log("Login response:", response.data);
+      console.log("Login response:", response.data);
 
-    if (response.data.token) {
-      localStorage.setItem("token", response.data.token);
-      router.push("/profile");
-    } else {
-      alert("Login failed. No token received.");
-    }
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        router.push("/"); // Redirect after successful login
+      } else {
+        alert("Login failed. No token received.");
+      }
     } catch (error) {
       console.error("Login failed:", error);
 
@@ -48,6 +63,10 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = "https://api.clairediamonds.com/auth/google";
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#f4f1f0]">
       <div className="bg-white shadow-lg rounded-lg p-8 w-96">
@@ -57,6 +76,14 @@ const Login = () => {
         <p className="text-center text-[#9f7d48] mb-6">
           Login to continue shopping for your perfect jewelry ✨
         </p>
+        
+        <button
+          onClick={handleGoogleLogin}
+          className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2"
+        >
+          <Image src="/google-icon.svg" alt="Google" width={20} height={20} />
+          Sign in with Google
+        </button>
 
         <form onSubmit={handleLogin}>
           <div className="mb-4">
