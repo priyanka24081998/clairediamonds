@@ -105,13 +105,13 @@ const Login = () => {
 
             <button
               onClick={handleGoogleLogin}
-              className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2"
+              className="w-full bg-white hover:bg-[#43825c] border border-[#43825c] text-[#43825c] hover:text-white font-semibold py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2"
             >
-              <Image src="/assets/google-icon.png" alt="Google" width={20} height={20} />
+              <Image src="/assets/google-icon.svg" alt="Google" width={20} height={20} />
               Sign in with Google
               
             </button>
-
+            <h4 className="text-center my-4">or</h4>    
             <form onSubmit={handleLogin}>
               <div className="mb-4">
                 <label className="block text-[#43825c] font-medium mb-2">Email</label>
