@@ -19,7 +19,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch("https://api.clairediamonds.com/auth/me", {
+    fetch("https://claireapi.onrender.com/auth/me", {
       credentials: "include", // Important for session cookies
     })
       .then((res) => res.json())
@@ -37,7 +37,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("https://api.clairediamonds.com/auth/login", {
+      const response = await axios.post("https://claireapi.onrender.com/login", {
         email,
         password,
       });
@@ -64,7 +64,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "https://api.clairediamonds.com/auth/google";
+    window.location.href = "https://claireapi.onrender.com/auth/google";
   };
 
   return (

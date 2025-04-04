@@ -3,7 +3,7 @@ import React from "react";
 
 const LoginButton: React.FC = () => {
   const handleGoogleLogin = () => {
-    window.location.href = "https://api.clairediamonds.com/auth/google";
+    window.location.href = "https://claireapi.onrender.com/auth/google";
   };
 
   return (
