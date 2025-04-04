@@ -1,6 +1,5 @@
 "use client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -30,14 +29,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const router = useRouter();
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      router.push("/");
-    }
-  }, [router]);
+ 
 
  
   return (
