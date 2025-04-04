@@ -5,7 +5,13 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Philosopher } from "next/font/google";
+import { AppProvider } from '@toolpad/core/AppProvider';
 import axios from "axios";
+import {
+    AuthResponse,
+    SignInPage,
+    type AuthProvider,
+  } from '@toolpad/core/SignInPage';
 
 const philosopher = Philosopher({
   subsets: ["latin"],
@@ -22,6 +28,27 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+
+  const providers = [
+   
+    { id: 'google', name: 'Google' },
+   
+  ];
+  // preview-end
+  
+  const signIn: (provider: AuthProvider) => void | Promise<AuthResponse> = async (
+    provider,
+  ) => {
+    // preview-start
+    const promise = new Promise<AuthResponse>((resolve) => {
+      setTimeout(() => {
+        console.log(`Sign in with ${provider.id}`);
+        resolve({ error: 'This is a fake error' });
+      }, 500);
+    });
+    // preview-end
+    return promise;
+  };
 
   // Fetch user authentication status
   useEffect(() => {
@@ -103,8 +130,11 @@ const Login = () => {
               onClick={handleGoogleLogin}
               className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2"
             >
-              <Image src="/google-icon.svg" alt="Google" width={20} height={20} />
-              Sign in with Google
+              {/* <Image src="/google-icon.svg" alt="Google" width={20} height={20} />
+              Sign in with Google */}
+              <AppProvider>
+      <SignInPage signIn={signIn} providers={providers} />
+    </AppProvider>
             </button>
 
             <form onSubmit={handleLogin}>
