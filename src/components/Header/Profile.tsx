@@ -17,33 +17,32 @@ const Profile: React.FC = () => {
   const [user, setUser] = useState<DecodedToken | null>(null);
 
   // Grab token from URL or localStorage
+  // 
   useEffect(() => {
     const urlToken = new URLSearchParams(window.location.search).get("token");
     const storedToken = localStorage.getItem("token");
-
     const token = urlToken || storedToken;
-
-    if (!token) {
-      router.push("/");
-      return;
+  
+    if (token) {
+      try {
+        const decoded: DecodedToken = jwtDecode(token);
+        setUser(decoded);
+  
+        if (urlToken) localStorage.setItem("token", token);
+      } catch (error) {
+        console.error("Invalid token:", error);
+        localStorage.removeItem("token");
+      }
     }
-
-    try {
-      const decoded: DecodedToken = jwtDecode(token);
-      setUser(decoded);
-
-      // Store token locally for future
-      if (urlToken) localStorage.setItem("token", token);
-    } catch (error) {
-      console.error("Invalid token:", error);
-      localStorage.removeItem("token");
-      router.push("/login");
-    }
-  }, [router]);
+  }, []);
+  
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    router.push("/login");
+    setIsOpen(false);
+    setTimeout(() => {
+      router.push("/");
+    }, 100);
   };
 
   const getInitial = () => {
