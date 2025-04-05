@@ -59,7 +59,7 @@ const Profile: React.FC = () => {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-[#9f7d48] border border-gray-300 shadow-lg rounded-md z-100">
+        <div className="absolute right-0 mt-2 w-48 bg-[#9f7d48] border border-gray-300 shadow-lg rounded-md z-200">
           <ul className="py-2 text-sm text-[#f4f1f0]">
             {user ? (
               <>
