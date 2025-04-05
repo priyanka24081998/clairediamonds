@@ -1,26 +1,31 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 
 const Register = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams.get("email"); // Get email from URL params
 
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
-    if (!email) {
+    const tokenFromUrl = searchParams.get("token");
+    const emailFromUrl = searchParams.get("email");
+
+    if (tokenFromUrl) localStorage.setItem("token", tokenFromUrl);
+    if (emailFromUrl) {
+      setEmail(emailFromUrl);
+    } else {
       router.push("/signup"); // Redirect if email is missing
     }
-  }, [email, router]);
+  }, [searchParams, router]);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +36,7 @@ const Register = () => {
       const response = await axios.post("https://claireapi.onrender.com/users/register", {
         name,
         lastname,
-        email, 
+        email,
         password,
       });
 
@@ -52,7 +57,7 @@ const Register = () => {
     } finally {
       setLoading(false);
     }
-  };  
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#f4f1f0]">
@@ -90,7 +95,7 @@ const Register = () => {
             <label className="block text-[#43825c] font-medium mb-2">Email</label>
             <input
               type="email"
-              value={email || ""}
+              value={email}
               readOnly
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100"
             />

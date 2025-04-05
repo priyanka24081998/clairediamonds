@@ -1,23 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Philosopher } from "next/font/google";
-
 import axios from "axios";
-
+import { jwtDecode } from "jwt-decode";
 
 const philosopher = Philosopher({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
+
+interface DecodedToken {
+  email: string;
+  name?: string;
+}
+
 type User = {
-    profilePicture?: string;
-    name: string;
-    email: string;
-  };
+  name: string;
+  email: string;
+};
+
 const Login = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -25,75 +30,68 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
-
-
-  // Fetch user authentication status
-  useEffect(() => {
-    axios
-      .get("https://claireapi.onrender.com/auth/me", { withCredentials: true })
-      .then((res) => {
-        if (res.data.user) {
-          setUser(res.data.user); // Store user info
-          localStorage.setItem("token", res.data.token);
-        }
-      })
-      .catch((err) => console.error("Error fetching user:", err));
-  }, []);
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
-  
-    if (token) {
-      localStorage.setItem("token", token);
-      router.push("/"); // Redirect to homepage after login
-    }
-  }, [router]);
-
-  // Handle normal login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "https://claireapi.onrender.com/users/",
-        { email, password },
-        { withCredentials: true }
-      );
+        const response = await axios.post(
+            "https://claireapi.onrender.com/users/", // ✅ same as Postman
+            { email, password },
+            { headers: { "Content-Type": "application/json" } }
+          );
 
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        setUser(response.data.user); // Store logged-in user
+      const { token } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+
+        const decoded: DecodedToken = jwtDecode(token);
+        setUser({
+          name: decoded.name || decoded.email.split("@")[0],
+          email: decoded.email,
+        });
+
         router.push("/");
       } else {
-        alert("Login failed. No token received.");
+        alert("Login failed: No token received.");
       }
-    } catch (error) {
-      console.error("Login failed:", error);
-      alert("Invalid email or password");
-    } finally {
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          console.error("Axios error:", error.response?.data || error.message);
+        } else {
+          console.error("Unexpected error:", error);
+        }
+        alert("Invalid email or password");
+      } finally {
       setLoading(false);
     }
-  };
-
-  // Handle Google login
-  const handleGoogleLogin = () => {
-    window.location.href = "https://claireapi.onrender.com/auth/google";
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#f4f1f0]">
       <div className="bg-white shadow-lg rounded-lg p-8 w-96">
-        <h2 className={`text-2xl font-semibold text-[#43825c] text-center mb-4 ${philosopher.className}`}>
+        <h2
+          className={`text-2xl font-semibold text-[#43825c] text-center mb-4 ${philosopher.className}`}
+        >
           Welcome to Claire
         </h2>
 
         {user ? (
           <div className="text-center">
-            <Image src={user.profilePicture || "/default-avatar.png"} alt="Profile" width={50} height={50} className="rounded-full mx-auto mb-3" />
+            <Image
+              src="/default-avatar.png"
+              alt="Profile"
+              width={50}
+              height={50}
+              className="rounded-full mx-auto mb-3"
+            />
             <p className="text-lg font-medium">{user.name}</p>
             <p className="text-sm text-gray-600">{user.email}</p>
-            <Link href="/profile" className="block mt-4 text-yellow-600 font-medium">
+            <Link
+              href="/profile"
+              className="block mt-4 text-yellow-600 font-medium"
+            >
               Go to Profile
             </Link>
           </div>
@@ -103,18 +101,11 @@ const Login = () => {
               Login to continue shopping for your perfect jewelry ✨
             </p>
 
-            <button
-              onClick={handleGoogleLogin}
-              className="w-full bg-white hover:bg-[#43825c] border border-[#43825c] text-[#43825c] hover:text-white font-semibold py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2"
-            >
-              <Image src="/assets/google-icon.svg" alt="Google" width={20} height={20} />
-              Sign in with Google
-              
-            </button>
-            <h4 className="text-center my-4">or</h4>    
             <form onSubmit={handleLogin}>
               <div className="mb-4">
-                <label className="block text-[#43825c] font-medium mb-2">Email</label>
+                <label className="block text-[#43825c] font-medium mb-2">
+                  Email
+                </label>
                 <input
                   type="email"
                   value={email}
@@ -126,7 +117,9 @@ const Login = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block text-[#43825c] font-medium mb-2">Password</label>
+                <label className="block text-[#43825c] font-medium mb-2">
+                  Password
+                </label>
                 <input
                   type="password"
                   value={password}
