@@ -8,16 +8,20 @@ import { FaUserCircle } from "react-icons/fa";
 
 interface DecodedToken {
   email: string;
-  name?: string; // Name is optional in case it's missing in the token
+  name?: string;
 }
 
 const Profile: React.FC = () => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<DecodedToken | null>(null);
 
+  // Grab token from URL or localStorage
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const urlToken = new URLSearchParams(window.location.search).get("token");
+    const storedToken = localStorage.getItem("token");
+
+    const token = urlToken || storedToken;
 
     if (!token) {
       router.push("/");
@@ -27,13 +31,14 @@ const Profile: React.FC = () => {
     try {
       const decoded: DecodedToken = jwtDecode(token);
       setUser(decoded);
+
+      // Store token locally for future
+      if (urlToken) localStorage.setItem("token", token);
     } catch (error) {
       console.error("Invalid token:", error);
       localStorage.removeItem("token");
       router.push("/login");
     }
-    router.push("/");
-
   }, [router]);
 
   const handleLogout = () => {
@@ -41,34 +46,37 @@ const Profile: React.FC = () => {
     router.push("/login");
   };
 
+  const getInitial = () => {
+    if (!user) return "?";
+    const name = user.name || user.email?.split("@")[0] || "G";
+    return name?.charAt(0)?.toUpperCase() || "?";
+  };
+
   return (
     <div className="relative">
-      {/* Profile Icon Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center text-[#9f7d48] font-cinzel py-1 rounded-lg focus:outline-none"
       >
         {user ? (
           <span className="text-2xl bg-[#9f7d48] text-white rounded-full w-10 h-10 flex items-center justify-center">
-            {(user.name ? user.name.charAt(0) : user.email.charAt(0)).toUpperCase()}
+            {getInitial()}
           </span>
         ) : (
           <FaUserCircle className="text-4xl" />
         )}
       </button>
 
-      {/* Dropdown Menu */}
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-[#9f7d48] border border-gray-300 shadow-lg rounded-md z-200">
           <ul className="py-2 text-sm text-[#f4f1f0]">
             {user ? (
               <>
-                {/* User Name from Email */}
                 <li className="px-4 py-2 text-center font-semibold">
-                  {user.name
-                    ? user.name
-                    : user.email.split("@")[0].charAt(0).toUpperCase() +
-                      user.email.split("@")[0].slice(1)}
+                  {user.name ||
+                    (user.email
+                      ? user.email.split("@")[0].replace(/^./, c => c.toUpperCase())
+                      : "User")}
                 </li>
                 <hr className="border-[#f4f1f0]" />
                 <li>
