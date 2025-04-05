@@ -871,7 +871,7 @@ const Nav: React.FC = () => {
   ];
 
   return (
-    <nav className="py-2 bg-[#f4f1f0] shadow-md relative w-full sticky top-0 z-100 overflow-hidden">
+    <nav className="py-2 bg-[#f4f1f0] shadow-md relative w-full sticky top-0 z-100">
       <div className="container mx-auto px-6 flex items-center justify-evenly">
         {/* Desktop Navigation */}
         {/* <ul className={`hidden md:flex text-sm gap-x-6 flex ${styles.demo}`}> */}

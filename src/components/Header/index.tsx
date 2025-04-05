@@ -15,7 +15,7 @@ import Profile from "./Profile";
 const Header = () => {
   return (
     <>
-      <div className="header w-full overflow-hidden">
+      <div className="header w-full">
         <div className="">
           <div className="w-full bg-[#9f7d48] text-[#f4f1f0]">
             <div className="header-menu container mx-auto py-2">

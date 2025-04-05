@@ -161,7 +161,7 @@ const Hero: React.FC = () => {
                 lg:left-[300px] lg:w-[85%]"
                   >
                     <div
-                      className={`w-[95%] sm:w-[100px] md:w-[60%] lg:w-[100%] xl:w-[100%] text-center z-[999] text-[18px] sm:text-[30px] md:text-[40px] lg:text-[48px] xl:text-[60px] font-normal ${
+                      className={`w-[95%] sm:w-[100px] md:w-[60%] lg:w-[100%] xl:w-[100%] text-center z-[-1] text-[18px] sm:text-[30px] md:text-[40px] lg:text-[48px] xl:text-[60px] font-normal ${
                         index % 2 === 0 ? "lg:block" : "lg:hidden"
                       }`}
                     >
