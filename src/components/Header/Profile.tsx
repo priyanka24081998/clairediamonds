@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
@@ -15,19 +15,33 @@ const Profile: React.FC = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<DecodedToken | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Grab token from URL or localStorage
-  // 
   useEffect(() => {
     const urlToken = new URLSearchParams(window.location.search).get("token");
     const storedToken = localStorage.getItem("token");
     const token = urlToken || storedToken;
-  
+
     if (token) {
       try {
         const decoded: DecodedToken = jwtDecode(token);
         setUser(decoded);
-  
+
         if (urlToken) localStorage.setItem("token", token);
       } catch (error) {
         console.error("Invalid token:", error);
@@ -35,7 +49,6 @@ const Profile: React.FC = () => {
       }
     }
   }, []);
-  
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -52,7 +65,7 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div className="relative">
+    <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center text-[#9f7d48] font-cinzel py-1 rounded-lg focus:outline-none"

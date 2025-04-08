@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { FaChevronDown } from "react-icons/fa";
 import { getLocation } from "@/lib/getLocation";
@@ -120,6 +121,7 @@ const currencyFlags: Record<string, { flag: string; country: string }> = {
 const Currency: React.FC = () => {
   const [currency, setCurrency] = useState<string>("INR");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // ✅ 1. Fetch location and set currency based on the location
   useEffect(() => {
@@ -149,6 +151,21 @@ const Currency: React.FC = () => {
     fetchCurrency();
   }, []);
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false); // 👈 Close dropdown
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // ✅ 2. Handle currency change
   const handleCurrencyChange = (newCurrency: string) => {
@@ -158,7 +175,7 @@ const Currency: React.FC = () => {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block" ref={dropdownRef}>
       {/* Current Currency Button */}
       <button
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -167,7 +184,7 @@ const Currency: React.FC = () => {
         <Image
           src={currencyFlags[currency].flag}
           alt={currency}
-          width={20}
+          width={20}  
           height={16}
         />
         <span >{currencyFlags[currency].country}</span>
