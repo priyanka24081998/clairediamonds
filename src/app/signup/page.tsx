@@ -112,7 +112,7 @@ const Signup = () => {
 
 
   return (
-    <div className="flex justify-center items-center lg:min-h-screen bg-[#f4f1f0]">
+    <div className="flex justify-center items-center py-8 lg:py-0 lg:min-h-screen bg-[#f4f1f0]">
       <div className="bg-white shadow-lg rounded-lg p-8 w-96">
         <h2
           className={`text-2xl font-semibold text-[#43825c] text-center mb-4 ${philosopher.className}`}
@@ -130,7 +130,7 @@ const Signup = () => {
           <Image src="/assets/google-icon.svg" alt="Google" width={20} height={20} />
           Sign in with Google
         </button>
-
+          <h4 className="text-center text-[#9f7d48] my-4">or</h4>
         <form onSubmit={handleSignup}>
           <div className="mb-4">
             <label className="block text-[#43825c] font-medium mb-2">Email</label>
