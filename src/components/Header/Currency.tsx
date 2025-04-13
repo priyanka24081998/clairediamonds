@@ -214,7 +214,7 @@ const Currency: React.FC = () => {
                   <span>{currencyFlags[code].country}</span>
                 </>
               ) : (
-                <span>{code}</span> // Fallback if the currency code is missing from currencyFlags
+                <span>{code}</span> 
               )}
             </button>
           ))}

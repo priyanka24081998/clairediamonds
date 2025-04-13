@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.clairediamonds.com
+
+# Sitemaps
+Sitemap: https://www.clairediamonds.com/sitemap.xml

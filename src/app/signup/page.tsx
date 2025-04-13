@@ -68,6 +68,7 @@ const Signup = () => {
           setUser(res.data.user);
           localStorage.setItem("token", res.data.token);
         }
+             
       })
       .catch((err) => console.error("Error fetching user:", err));
   }, []);
