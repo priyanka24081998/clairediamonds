@@ -1,0 +1,10 @@
+<svg width="100" height="100" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#9f7d48" stroke-width="1.5">
+  <!-- Bottom Ring -->
+  <circle cx="32" cy="50" r="12" fill="none" stroke="#9f7d48" />
+  
+  <!-- Middle Ring -->
+  <circle cx="32" cy="40" r="9" fill="none" stroke="#9f7d48" />
+  
+  <!-- Top Ring -->
+  <circle cx="32" cy="30" r="6" fill="none" stroke="#9f7d48" />
+</svg>

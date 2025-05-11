@@ -8,7 +8,7 @@ import { FaInstagram, FaFacebookF, FaTiktok } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { FaPhoneAlt } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import Currency from "./Currency";
 import Profile from "./Profile";
 
@@ -27,14 +27,16 @@ const Header = () => {
                     <div className="mobilemenutel flex items-center space-x-4">
                       <span className="mobiletel font-sans">
                         <a
-                          href="tel:9979117817"
-                          title="Call us on +91 9979117817"
+                          href="https://wa.me/6354518849?text=Hello%20I%20have%20a%20question"
+                          title="Message us on WhatsApp"
+                          target="_blank"
+                          rel="noopener noreferrer"
                         >
-                          <FaPhoneAlt className="w-5 h-5" />
+                          <FaWhatsapp className="w-5 h-5 hover:text-[#25D366]" />
                         </a>
                       </span>
                       <span className="addtocall font-sans hidden sm:flex">
-                        +91 9979117817
+                        +91 6354518849
                       </span>
                     </div>
                   </div>
@@ -46,6 +48,7 @@ const Header = () => {
                         href="https://www.instagram.com/clairediamondss/"
                         target="_blank"
                         rel="noopener noreferrer"
+                        title="visit on instagram"
                       >
                         <FaInstagram className="text-[#f4f1f0] hover:text-pink-400" />
                       </Link>
@@ -53,6 +56,7 @@ const Header = () => {
                         href="https://www.facebook.com"
                         target="_blank"
                         rel="noopener noreferrer"
+                        title="visit on facebook"
                       >
                         <FaFacebookF className="text-[#f4f1f0] hover:text-blue-400" />
                       </Link>
@@ -60,6 +64,7 @@ const Header = () => {
                         href="https://www.tiktok.com"
                         target="_blank"
                         rel="noopener noreferrer"
+                        title="visit on tiktok"
                       >
                         <FaTiktok className="text-[#f4f1f0] hover:text-gray-700" />
                       </Link>
@@ -67,6 +72,7 @@ const Header = () => {
                         href="https://mail.google.com/mail/?view=cm&to=clairediamondsjewellery@gmail.com"
                         target="_blank"
                         rel="noopener noreferrer"
+                        title="send mail"
                       >
                         {" "}
                         <MdEmail className="text-[#f4f1f0] text-2xl hover:text-[#43825c]" />
@@ -126,10 +132,7 @@ const Header = () => {
 
                   {/* Cart Section */}
                   <span className="cartsection">
-                    <a
-                      href=""
-                      title="Shopping Bag"
-                    >
+                    <a href="" title="Shopping Bag">
                       <HiOutlineShoppingBag className="w-8 h-8 sm:block hidden text-[#9f7d48]" />
                       <HiOutlineShoppingBag className="w-6 h-7 sm:hidden block text-[#9f7d48]" />
                       <span id="topminiquantyDiv"></span>

@@ -97,7 +97,7 @@ const Review = () => {
   };
 
   return (
-    <div className="slider-container px-4 md:px-10 py-8 bg-[#f4f1f0]">
+    <div className="slider-container px-4 md:px-10 py-8 bg-[#f4f1f0] overflow-hidden">
       <h2
         className={`text-xl lg:text-3xl text-[#43825c] font-semibold text-center mb-6 ${philosopher.className}`}
       >

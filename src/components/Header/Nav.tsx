@@ -699,83 +699,82 @@ const Nav: React.FC = () => {
       href: "/minimal",
       subItems: [
         {
-          category: "Style",
+          category: "Minimal Rings",
           items: [
             {
-              name: "Tennis Bracelets",
-              href: "/engagement-rings/classic-styles",
-              icon: "tennis-bracelet.svg",
+              name: "Thin band rings",
+              href: "/minimal/thinbandrings",
+              icon: "ladies-diamond-wedding.svg",
             },
             {
-              name: "Delicate Bracelets",
-              href: "/engagement-rings/halo-rings",
+              name: "Stacking rings",
+              href: "/minimal/stackingrings",
+              icon: "stackring.svg",
+            },
+            {
+              name: "Dainty solitaire rings",
+              href: "/minimal/daintysolitairerings",
+              icon: "solitaire-ring.svg",
+            },
+          ],
+        },
+        {
+          category: "Minimal Necklaces",
+          items: [
+            {
+              name: "Bar pendants",
+              href: "/minimal/barpendants",
+              icon: "bar-pendant.svg",
+            },
+            {
+              name: "Small geometric shapes",
+              href: "/minimal/smallgeometricshapes",
+              icon: "geometricpendant.svg",
+            },
+            {
+              name: "Tiny diamond/single pearl pendants",
+              href: "/minimal/tinydiamondsinglepearlpendants",
+              icon: "tinypendant.svg",
+            },
+          ],
+        },
+        {
+          category: "Minimal Earrings",
+          items: [
+            {
+              name: "Studs",
+              href: "/minimal/studs",
+              icon: "stud-earring.svg",
+            },
+            {
+              name: "Tiny hoops or huggie earrings",
+              href: "/minimal/tinyhoopsearrings",
+              icon: "hoop-earring.svg",
+            },
+            {
+              name: "Threader earrings",
+              href: "/minimal/threaderearrings",
+              icon: "threaderearring.svg",
+            },
+          ],
+        },
+        {
+          category: "Minimal Bracelets",
+          items: [
+            {
+              name: "Simple chain bracelets",
+              href: "/minimal/simplechainbracelets",
+              icon: "chainbracelate.svg"
+            },
+            {
+              name: "Bangle cuffs",
+              href: "/minimal/banglecuffs",
+              icon: "banglecuff.svg",
+            },
+            {
+              name: "Charm-free delicate bracelets",
+              href: "/minimal/delicatebracelets",
               icon: "delicate-bracelet.svg",
-            },
-          ],
-        },
-        {
-          category: "Shape",
-          items: [
-            {
-              name: "Round",
-              href: "/engagement-rings/round",
-              icon: "round.svg",
-            },
-            {
-              name: "Princess",
-              href: "/engagement-rings/princess",
-              icon: "princess.svg",
-            },
-          ],
-        },
-        {
-          category: "Metal",
-          items: [
-            { name: "Sterline Silver", href: "", icon: "silver-metal.png" },
-            {
-              name: "10K White Gold",
-              href: "/engagement-rings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "10K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "10K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "14K White Gold",
-              href: "/engagement-rings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "14K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "14K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "18K White Gold",
-              href: "/engagement-rings/platinum",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "18K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "18K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
             },
           ],
         },
@@ -975,12 +974,13 @@ const Nav: React.FC = () => {
         anchor="left"
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
+        className="w-64 p-4 bg-[#f4f1f0]"
       >
         <div className="w-64 p-4 bg-[#f4f1f0]">
           <div className="flex justify-between mb-2 border-b border-[#9f7d48] py-2">
             <a href="https://www.angelicdiamonds.com" title="Claire Diamonds">
               <Image
-                src="/assets/claire.png"
+                src="/assets/logo2.png"
                 alt="Claire Diamonds"
                 width={1200} // Use a number for width
                 height={800} // Use a number for height
