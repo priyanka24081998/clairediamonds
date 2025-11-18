@@ -13,7 +13,7 @@ const About1 = () => {
   return (
     <div className="bg-[#f4f1f0] text-center">
       <div className="container mx-auto px-4 lg:px-8">
-      <div className="z-[1] grid grid-cols-1 md:grid-cols-2 md:gap-2 items-center">
+      <div className="z-[1] grid grid-cols-1 lg:grid-cols-2 lg:gap-2 items-center">
             {/* Text Section */}
             <div
               className={`p-4 sm:p-6 md:p-8 text-left ${philosopher.className}`}
