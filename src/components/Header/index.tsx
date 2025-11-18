@@ -4,8 +4,9 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
-import { FaInstagram, FaFacebookF, FaTiktok } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaYoutube, FaPinterestP, FaLinkedinIn } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6"; 
 import { MdEmail } from "react-icons/md";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaWhatsapp } from "react-icons/fa";
@@ -60,14 +61,45 @@ const Header = () => {
                       >
                         <FaFacebookF className="text-[#f4f1f0] hover:text-blue-400" />
                       </Link>
-                      <Link
-                        href="https://www.tiktok.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title="visit on tiktok"
-                      >
-                        <FaTiktok className="text-[#f4f1f0] hover:text-gray-700" />
-                      </Link>
+                      {/* YouTube */}
+    <Link
+      href="https://youtube.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="visit on youtube"
+    >
+      <FaYoutube className="text-[#f4f1f0] hover:text-red-500" />
+    </Link>
+
+    {/* Pinterest */}
+    <Link
+      href="https://pinterest.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="visit on pinterest"
+    >
+      <FaPinterestP className="text-[#f4f1f0] hover:text-red-600" />
+    </Link>
+
+    {/* Twitter/X */}
+    <Link
+      href="https://twitter.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="visit on twitter"
+    >
+      <FaXTwitter className="text-[#f4f1f0] hover:text-gray-400" />
+    </Link>
+
+    {/* LinkedIn */}
+    <Link
+      href="https://linkedin.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="visit on linkedin"
+    >
+      <FaLinkedinIn className="text-[#f4f1f0] hover:text-blue-500" />
+    </Link>
                       <Link
                         href="https://mail.google.com/mail/?view=cm&to=clairediamondsjewellery@gmail.com"
                         target="_blank"
@@ -99,7 +131,7 @@ const Header = () => {
                         name="substring"
                         placeholder="Enter Search"
                         type="text"
-                        className="border-b font-sans border-[#9f7d48] p-2 pr-10 w-full"
+                        className="border-b font-sans border-[#9f7d48] p-2 pr-10 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9f7d48]"
                       />
                       <FaSearch className="absolute right-3 text-[#43825c]" />{" "}
                     </div>
@@ -110,7 +142,7 @@ const Header = () => {
                 <div className="w-[180px] lg:w-1/3 ml-[35px] lg:ml-[-50px]">
                   <Link href="/" title="Claire Diamonds">
                     <Image
-                      src="/assets/logo2.png"
+                      src="/assets/claire-logo.png"
                       alt="Claire Diamonds"
                       width={1200}
                       height={800}
@@ -157,7 +189,7 @@ const Header = () => {
                       name="substring"
                       placeholder="Enter Search"
                       type="text"
-                      className="w-full font-sans border border-[#9f7d48]  p-2"
+                      className="w-full font-sans border border-[#9f7d48] p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9f7d48]"
                     />
                     <FaSearch className="absolute right-3 text-[#43825c]" />{" "}
                   </div>

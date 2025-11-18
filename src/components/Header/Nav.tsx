@@ -301,64 +301,64 @@ const Nav: React.FC = () => {
         },
       ],
     },
-    {
-      name: "Wedding Bands",
-      href: "/weddingbands",
-      subItems: [
-        {
-          category: "Mens",
-          items: [
-            {
-              name: "Mens Plain Bands",
-              href: "/weddingbands/menplainbands",
-              icon: "mens-plain-wedding.svg",
-            },
-            {
-              name: "Mens Diamond Bands",
-              href: "/weddingbands/mendiamondband",
-              icon: "mens-diamond-ring.svg",
-            },
-          ],
-        },
-        {
-          category: "Ladies",
-          items: [
-            {
-              name: "Ladies Plain Bands",
-              href: "/weddingbands/ladiesplainbands",
-              icon: "ladies-plain-wedding.svg",
-            },
-            {
-              name: "Ladies Diamond Bands",
-              href: "/weddingbands/ladiesdiamondbands",
-              icon: "ladies-diamond-wedding.svg",
-            },
-          ],
-        },
-        {
-          category: "Metal",
-          items: [
-            { name: "Sterline Silver", href: "/weddingbands/silver", icon: "silver-metal.png" },
-            {
-              name: "White Gold",
-              href: "/weddingbands/whitegold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "Yellow Gold",
-              href: "/weddingbands/gold",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "Rose Gold",
-              href: "/weddingbands/rosegold",
-              icon: "rosemetal.webp",
-            },
+    // {
+    //   name: "Wedding Bands",
+    //   href: "/weddingbands",
+    //   subItems: [
+    //     {
+    //       category: "Mens",
+    //       items: [
+    //         {
+    //           name: "Mens Plain Bands",
+    //           href: "/weddingbands/menplainbands",
+    //           icon: "mens-plain-wedding.svg",
+    //         },
+    //         {
+    //           name: "Mens Diamond Bands",
+    //           href: "/weddingbands/mendiamondband",
+    //           icon: "mens-diamond-ring.svg",
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       category: "Ladies",
+    //       items: [
+    //         {
+    //           name: "Ladies Plain Bands",
+    //           href: "/weddingbands/ladiesplainbands",
+    //           icon: "ladies-plain-wedding.svg",
+    //         },
+    //         {
+    //           name: "Ladies Diamond Bands",
+    //           href: "/weddingbands/ladiesdiamondbands",
+    //           icon: "ladies-diamond-wedding.svg",
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       category: "Metal",
+    //       items: [
+    //         { name: "Sterline Silver", href: "/weddingbands/silver", icon: "silver-metal.png" },
+    //         {
+    //           name: "White Gold",
+    //           href: "/weddingbands/whitegold",
+    //           icon: "whitemetal.png",
+    //         },
+    //         {
+    //           name: "Yellow Gold",
+    //           href: "/weddingbands/gold",
+    //           icon: "goldmetal.png",
+    //         },
+    //         {
+    //           name: "Rose Gold",
+    //           href: "/weddingbands/rosegold",
+    //           icon: "rosemetal.webp",
+    //         },
            
-          ],
-        },
-      ],
-    },
+    //       ],
+    //     },
+    //   ],
+    // },
     {
       name: "Earrings",
       href: "/earrings",
@@ -886,7 +886,7 @@ const Nav: React.FC = () => {
                 </Link>
               </div>
               {item.subItems && (
-                <div className="sm:w-full sm:absolute sm:left-0 md:top-[25px] hidden bg-[#f4f1f0] shadow-lg sm:p-6 sm:px-48 mt-2 group-hover:block z-10">
+                <div className="sm:w-full sm:absolute sm:left-0 md:top-[25px] hidden bg-[#f4f1f0] shadow-lg sm:p-6 sm:px-48  mt-2 group-hover:block z-10">
                   <div className="menu-header mb-4 border-b pb-2 border-[#9f7d48]">
                     <div className="menu-headerconatiner">
                       <div className="menumainhead">
@@ -905,17 +905,17 @@ const Nav: React.FC = () => {
                         return (
                           <li
                             key={subIndex}
-                            className="pr-16 border-r border-[#9f7d48]"
+                            className="pr-18 pl-2 border-r border-[#9f7d48]"
                           >
                             <div className="font-semibold font-sans text-[#43825c] mb-2">
                               <div className="uppercase">
                                 {subItem.category}
                               </div>
                             </div>
-                            <ul className="capitalized">
+                            <ul className="capitalized ">
                               {subItem.items.map((nestedItem, nestedIndex) => (
                                 <li key={nestedIndex}>
-                                  <div className="flex items-center font-sans space-x-2">
+                                  <div className="flex items-center font-sans space-x-2 w-[150px]">
                                     <Image
                                       src={`/assets/${nestedItem.icon}`}
                                       width={40}
@@ -925,7 +925,7 @@ const Nav: React.FC = () => {
 
                                     <Link
                                       href={nestedItem.href}
-                                      className="text-[#9f7d48] hover:text-[#43825c]"
+                                      className="text-[#9f7d48] py-2 hover:text-[#43825c] border-b border-[#9f7d48]"
                                     >
                                       {nestedItem.name}
                                     </Link>
@@ -978,13 +978,13 @@ const Nav: React.FC = () => {
       >
         <div className="w-64 p-4 bg-[#f4f1f0]">
           <div className="flex justify-between mb-2 border-b border-[#9f7d48] py-2">
-            <a href="https://www.angelicdiamonds.com" title="Claire Diamonds">
+            <a href="https://www.clairediamonds.com" title="Claire Diamonds">
               <Image
-                src="/assets/logo2.png"
+                src="/assets/claire-logo.png"
                 alt="Claire Diamonds"
-                width={1200} // Use a number for width
-                height={800} // Use a number for height
-                className="w-[100px] h-[50px]" // Optional, can be omitted because width and height are set
+                width={1200} 
+                height={800}
+                className="w-[100px] h-[50px]" 
               />
             </a>
             <div className="close">
