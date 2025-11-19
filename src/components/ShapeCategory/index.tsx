@@ -39,7 +39,7 @@ const ShapeCategory = () => {
                     className="w-[100px] h-[10px] md:w-[150px] md:h-[15px] mt-4 mx-auto"
                 />
             </h2>
-            <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-12 gap-6 px-4 md:px-8 mx-auto">
+            <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-12 gap-6 px-4 md:px-8 mx-auto">
                 {shapes.map((shape) => (
                     <div key={shape.id} className="card mx-auto">
                         {/* Link for image */}

@@ -4,12 +4,12 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
-import { FaInstagram, FaFacebookF, FaYoutube, FaPinterestP,  } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaYoutube, FaPinterestP, } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
-import { FaXTwitter } from "react-icons/fa6"; 
+import { FaXTwitter } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-// import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import Currency from "./Currency";
 import Profile from "./Profile";
 
@@ -18,6 +18,41 @@ const Header = () => {
     <>
       <div className="header w-full">
         <div className="">
+          <div
+
+            className="fixed bottom-4 right-4 z-[999] 
+             md:bottom-6 md:right-6 
+             lg:bottom-12 lg:right-8"
+          >
+            <a
+              href="https://wa.me/6354518849?text=Hello%20I%20have%20a%20question"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative flex items-center justify-end group "
+              title="Message us on WhatsApp"
+            >
+
+              <span
+                className="absolute w-[200px] z-999 right-[50px] mr-3 px-3 py-2 bg-white text-gray-800 text-sm 
+                 rounded-lg shadow-md whitespace-nowrap pointer-events-none 
+                 transition-all duration-300 transform translate-x-1 group-hover:translate-x-0
+                 hidden group-hover:block"
+              >
+                Need Help? Chat with us!
+              </span>
+
+
+              <div
+                className="p-2 bg-[#25D366] rounded-full shadow-lg"
+              >
+                <FaWhatsapp
+                  className="w-8 h-8 text-white hover:text-[#128C7E] 
+                   md:w-10 md:h-10 
+                   lg:w-12 lg:h-12"
+                />
+              </div>
+            </a>
+          </div>
           <div className="w-full bg-[#9f7d48] text-[#f4f1f0]">
             <div className="header-menu container mx-auto py-2">
               <div className="px-4 sm:px-6 lg:px-8">
@@ -62,37 +97,37 @@ const Header = () => {
                         <FaFacebookF className="text-[#f4f1f0] hover:text-blue-400" />
                       </Link>
                       {/* YouTube */}
-    <Link
-      href="https://youtube.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      title="visit on youtube"
-    >
-      <FaYoutube className="text-[#f4f1f0] hover:text-red-500" />
-    </Link>
+                      <Link
+                        href="https://youtube.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="visit on youtube"
+                      >
+                        <FaYoutube className="text-[#f4f1f0] hover:text-red-500" />
+                      </Link>
 
-    {/* Pinterest */}
-    <Link
-      href="https://pinterest.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      title="visit on pinterest"
-    >
-      <FaPinterestP className="text-[#f4f1f0] hover:text-red-600" />
-    </Link>
+                      {/* Pinterest */}
+                      <Link
+                        href="https://pinterest.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="visit on pinterest"
+                      >
+                        <FaPinterestP className="text-[#f4f1f0] hover:text-red-600" />
+                      </Link>
 
-    {/* Twitter/X */}
-    <Link
-      href="https://twitter.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      title="visit on twitter"
-    >
-      <FaXTwitter className="text-[#f4f1f0] hover:text-gray-400" />
-    </Link>
+                      {/* Twitter/X */}
+                      <Link
+                        href="https://twitter.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="visit on twitter"
+                      >
+                        <FaXTwitter className="text-[#f4f1f0] hover:text-gray-400" />
+                      </Link>
 
-    {/* LinkedIn */}
-    {/* <Link
+                      {/* LinkedIn */}
+                      {/* <Link
       href="https://linkedin.com"
       target="_blank"
       rel="noopener noreferrer"
