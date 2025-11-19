@@ -870,7 +870,7 @@ const Nav: React.FC = () => {
   ];
 
   return (
-    <nav className="py-2 bg-[#f4f1f0] shadow-md relative w-full sticky top-0 z-100">
+    <nav className="py-2 bg-white shadow-md relative w-full sticky top-0 z-100">
       <div className="container mx-auto  flex items-center justify-evenly">
         {/* Desktop Navigation */}
         {/* <ul className={`hidden md:flex text-sm gap-x-6 flex ${styles.demo}`}> */}
@@ -886,7 +886,7 @@ const Nav: React.FC = () => {
                 </Link>
               </div>
               {item.subItems && (
-                <div className="sm:w-full sm:absolute sm:left-0 md:top-[25px] hidden bg-[#f4f1f0] shadow-lg sm:p-6 sm:px-48  mt-2 group-hover:block z-10">
+                <div className="sm:w-full sm:absolute sm:left-0 md:top-[25px] hidden bg-white shadow-lg sm:p-6 sm:px-48  mt-2 group-hover:block z-10">
                   <div className="menu-header mb-4 border-b pb-2 border-[#9f7d48]">
                     <div className="menu-headerconatiner">
                       <div className="menumainhead">

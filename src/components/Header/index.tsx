@@ -119,7 +119,7 @@ const Header = () => {
 
           {/* logo navbar */}
 
-          <div className="bg-[#f4f1f0] py-4">
+          <div className="bg-white py-4">
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center">
                 {/* Search Area */}

@@ -12,18 +12,18 @@ const philosopher = Philosopher({
 
 const ShapeCategory = () => {
     const shapes = [
-        { id: 1, name: 'Round', src: 'round-shape.avif', link: '/shop-by-shape/round' },
-        { id: 2, name: 'Oval', src: 'oval-shape.avif', link: '/shop-by-shape/oval' },
-        { id: 3, name: 'Emerald', src: 'emerald-shape.avif', link: '/shop-by-shape/emerald' },
-        { id: 4, name: 'Pear', src: 'pear-shape.webp', link: '/shop-by-shape/pear' },
-        { id: 5, name: 'Princess', src: 'princess-shape.webp', link: '/shop-by-shape/princess' },
-        { id: 6, name: 'Radiant', src: 'radiant-shape.webp', link: '/shop-by-shape/radiant' },
-        { id: 7, name: 'Asschar', src: 'asscher-shape.avif', link: '/shop-by-shape/asschar' },
-        { id: 8, name: 'Marquise', src: 'marquise-shape.avif', link: '/shop-by-shape/marquise' },
-        { id: 9, name: 'Heart', src: 'heart-shape.webp', link: '/shop-by-shape/heart' },
-        { id: 10, name: 'Cushion', src: 'cushion-cut-diamond.png', link: '/shop-by-shape/cushion' },
-        { id: 11, name: 'Elongated Cushion', src: 'Elongated-Cushion.avif', link: '/shop-by-shape/elongatedcushion' },
-        { id: 12, name: 'Hexagon', src: 'ElongatedHexagon.avif', link: '/shop-by-shape/hexagon' },
+        { id: 1, name: 'Round', src: 'ROUND.webp', link: '/shop-by-shape/round' },
+        { id: 2, name: 'Oval', src: 'OVAL.webp', link: '/shop-by-shape/oval' },
+        { id: 3, name: 'Emerald', src: 'EMERALD.webp', link: '/shop-by-shape/emerald' },
+        { id: 4, name: 'Pear', src: 'PEAR.webp', link: '/shop-by-shape/pear' },
+        { id: 5, name: 'Princess', src: 'PRINCESS.webp', link: '/shop-by-shape/princess' },
+        { id: 6, name: 'Radiant', src: 'RADIANT.webp', link: '/shop-by-shape/radiant' },
+        { id: 7, name: 'Lozenge', src: 'LOZENGE.webp', link: '/shop-by-shape/hexagon' },
+        { id: 8, name: 'Marquise', src: 'MARQUISE.webp', link: '/shop-by-shape/marquise' },
+        { id: 9, name: 'Heart', src: 'HEART.webp', link: '/shop-by-shape/heart' },
+        { id: 10, name: 'Cushion', src: 'CUSHION.webp', link: '/shop-by-shape/cushion' },
+        { id: 11, name: 'Baguette', src: 'BAGUETTE.webp', link: '/shop-by-shape/hexagon' },
+        { id: 12, name: 'Elongated Cushion', src: 'Elongated-Cushion.webp', link: '/shop-by-shape/elongatedcushion' },
     ];
 
     return (
