@@ -11,7 +11,7 @@ const philosopher = Philosopher({
 const About = () => {
   return (
     <>
-      <div className="py-6 bg-[#f4f1f0] text-center">
+      <div className="py-6 text-center">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-10 items-center">
             {/* Video Section */}
