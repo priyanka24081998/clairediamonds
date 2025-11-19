@@ -106,7 +106,7 @@ const Footer = () => {
           {isTablet && (
             <div className="">
               {sections.map((section, index) => (
-                <Accordion key={index} className="bg-[#1a3f27] border-b border-gray-500">
+                <Accordion key={index} className="!bg-[#1a3f27] border-b border-gray-500">
                   <AccordionSummary expandIcon={<ExpandMoreIcon className="text-white" />}>
                     <h4 className="text-sm text-white font-bold uppercase">{section.title}</h4>
                   </AccordionSummary>
