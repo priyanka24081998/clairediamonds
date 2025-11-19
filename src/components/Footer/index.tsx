@@ -143,7 +143,7 @@ const Footer = () => {
             <div
               className={`text-center md:text-left text-2xl md:text-3xl lg:text-4xl text-[#43825c] ${philosopher.className}`}
             >
-              <span className="italic">Stay in Touch</span>
+              <span className="italic">Stay in Touch with Email</span>
               <p className="pt-3 text-[#9f7d48] text-sm md:text-base">
                 Ring advice, straight to your inbox
               </p>
@@ -153,9 +153,11 @@ const Footer = () => {
             <div className="w-full">
               <div className="relative flex flex-col md:flex-row items-center">
                 <input
+                 
                   type="email"
+                  
                   placeholder="Your email address"
-                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#9f7d48]"
+                  className="w-full placeholder-gray-400 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#9f7d48]"
                 />
                 <button
                   className={`w-full md:w-auto mt-2 md:mt-0 md:ml-2 bg-[#9f7d48] text-white px-6 py-3 uppercase rounded-lg hover:bg-[#876333] transition-colors ${philosopher.className}`}
