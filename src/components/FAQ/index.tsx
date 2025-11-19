@@ -114,7 +114,7 @@ const FAQ = () => {
 
   return (
     <>
-      <section className="relative py-4 pb-32 bg-[url('/assets/faq-bg1.webp')] bg-cover bg-center bg-no-repeat">
+      <section className="relative py-4 md:pb-6 pb-4 bg-[url('/assets/faq-bg1.webp')] bg-cover bg-center bg-no-repeat">
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-[#9f7d48]/65 mix-blend-multiply"></div>
 

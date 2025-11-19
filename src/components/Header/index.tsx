@@ -4,12 +4,12 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
-import { FaInstagram, FaFacebookF, FaYoutube, FaPinterestP, FaLinkedinIn } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaYoutube, FaPinterestP,  } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6"; 
 import { MdEmail } from "react-icons/md";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { FaWhatsapp } from "react-icons/fa";
+// import { FaWhatsapp } from "react-icons/fa";
 import Currency from "./Currency";
 import Profile from "./Profile";
 
@@ -25,7 +25,7 @@ const Header = () => {
                   {/* Left Container */}
                   <div className="left-container text-sm">
                     {/* Mobile Menu & Phone */}
-                    <div className="mobilemenutel flex items-center space-x-4">
+                    {/* <div className="mobilemenutel flex items-center space-x-4">
                       <span className="mobiletel font-sans">
                         <a
                           href="https://wa.me/6354518849?text=Hello%20I%20have%20a%20question"
@@ -39,7 +39,7 @@ const Header = () => {
                       <span className="addtocall font-sans hidden sm:flex">
                         +91 6354518849
                       </span>
-                    </div>
+                    </div> */}
                   </div>
 
                   {/* Right Container */}
@@ -92,14 +92,14 @@ const Header = () => {
     </Link>
 
     {/* LinkedIn */}
-    <Link
+    {/* <Link
       href="https://linkedin.com"
       target="_blank"
       rel="noopener noreferrer"
       title="visit on linkedin"
     >
       <FaLinkedinIn className="text-[#f4f1f0] hover:text-blue-500" />
-    </Link>
+    </Link> */}
                       <Link
                         href="https://mail.google.com/mail/?view=cm&to=clairediamondsjewellery@gmail.com"
                         target="_blank"
