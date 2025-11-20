@@ -35,11 +35,11 @@ const Login = () => {
     setLoading(true);
 
     try {
-        const response = await axios.post(
-            "https://claireapi.onrender.com/users/", // ✅ same as Postman
-            { email, password },
-            { headers: { "Content-Type": "application/json" } }
-          );
+      const response = await axios.post(
+        "https://claireapi.onrender.com/users/",
+        { email, password },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
       const { token } = response.data;
 
@@ -57,13 +57,13 @@ const Login = () => {
         alert("Login failed: No token received.");
       }
     } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-          console.error("Axios error:", error.response?.data || error.message);
-        } else {
-          console.error("Unexpected error:", error);
-        }
-        alert("Invalid email or password");
-      } finally {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data || error.message);
+      } else {
+        console.error("Unexpected error:", error);
+      }
+      alert("Invalid email or password");
+    } finally {
       setLoading(false);
     }
   };
@@ -116,7 +116,7 @@ const Login = () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="mb-6"> {/* Increased margin to push button down */}
                 <label className="block text-[#43825c] font-medium mb-2">
                   Password
                 </label>
@@ -128,6 +128,17 @@ const Login = () => {
                   placeholder="Enter your password"
                   required
                 />
+                {/* ---------------------------------
+                    🔑 FORGOT PASSWORD LINK ADDED HERE
+                    --------------------------------- */}
+                <div className="text-right mt-1">
+                  <Link
+                    href="/forgotpassword" // CHANGE THIS TO YOUR ACTUAL FORGOT PASSWORD ROUTE
+                    className="text-sm text-[#43825c] hover:text-yellow-600 font-medium transition duration-150"
+                  >
+                    Forgot Password?
+                  </Link>
+                </div>
               </div>
 
               <button

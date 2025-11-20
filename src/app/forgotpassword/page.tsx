@@ -78,7 +78,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#f4f1f0]">
+    <div className="flex flex-col items-center justify-center py-6 bg-[#f4f1f0]">
       <div className="bg-white shadow-lg rounded-lg p-8 w-96">
         <h2 className={`text-2xl font-bold text-[#43825c] text-center mb-4 ${philosopher.className}`}>
           {step === 1 ? "Forgot Password" : step === 2 ? "Verify OTP" : "Reset Password"}
