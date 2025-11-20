@@ -211,7 +211,7 @@ const Header = () => {
               </div>
 
               {/* Search Area */}
-              <div className="searcharea lg:hidden  w-full  border border-gray-400 mt-2 rounded-[5px] flex items-center space-x-2 ">
+              <div className="searcharea lg:hidden w-full mt-2 rounded-[5px] flex items-center space-x-2 ">
                 <form
                   action=""
                   method="get"

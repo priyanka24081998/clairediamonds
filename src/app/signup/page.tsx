@@ -113,7 +113,7 @@ const Signup = () => {
 
 
   return (
-    <div className="flex justify-center items-center py-8 lg:py-0 lg:min-h-screen bg-[#f4f1f0]">
+    <div className="flex justify-center items-center lg:py-0 lg:min-h-screen bg-[#f4f1f0]">
       <div className="bg-white shadow-lg rounded-lg p-8 w-96">
         <h2
           className={`text-2xl font-semibold text-[#43825c] text-center mb-4 ${philosopher.className}`}

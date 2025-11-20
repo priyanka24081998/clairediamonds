@@ -22,7 +22,7 @@ const ShapeCategory = () => {
         { id: 8, name: 'Marquise', src: 'MARQUISE.webp', link: '/shop-by-shape/marquise' },
         { id: 9, name: 'Heart', src: 'HEART.webp', link: '/shop-by-shape/heart' },
         { id: 10, name: 'Cushion', src: 'CUSHION.webp', link: '/shop-by-shape/cushion' },
-        { id: 11, name: 'Baguette', src: 'BAGUETTE.webp', link: '/shop-by-shape/hexagon' },
+        { id: 11, name: 'Baguette', src: 'BAGUETTE.webp', link: '/shop-by-shape/baguette' },
         { id: 12, name: 'Elongated Cushion', src: 'Elongated-Cushion.webp', link: '/shop-by-shape/elongatedcushion' },
     ];
 

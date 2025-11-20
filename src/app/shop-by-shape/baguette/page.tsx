@@ -14,7 +14,7 @@ const hexagon = () => {
         <h2
           className={`capitalize text-[20px] md:text-3xl text-[#43825c] text-center font-bold mb-10 md:mb-16 ${philosopher.className}`}
         >
-           hexagon diamond jewelley
+           baguette diamond jewelley
           <Image
             src="/assets/divider.png"
             alt="line"
