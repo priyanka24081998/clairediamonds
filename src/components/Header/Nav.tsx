@@ -211,11 +211,6 @@ const Nav: React.FC = () => {
               icon: "full-eternity.svg",
             },
             {
-              name: "Eternity Rings",
-              href: "/diamondbands/eternityrings",
-              icon: "eternity-ring.svg",
-            },
-            {
               name: "Mens Rings",
               href: "/diamondbands/mensrings",
               icon: "mens-diamond-ring.svg",
