@@ -1,4 +1,4 @@
-export const currencyMap = {
+export const currencyMap: Record<string, string> = {
   'Angola':                   'AOA',
   'Antigua and Barbuda':      'XCD',
   'Argentina':                'ARS',

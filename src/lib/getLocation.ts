@@ -1,4 +1,9 @@
-export const getLocation = async () => {
+export interface LocationInfo {
+  country: string;
+  currency: string;
+}
+
+export const getLocation = async (): Promise<LocationInfo | null> => {
   try {
     const res = await fetch('https://ipapi.co/json/'); // Use a working IP location service
     if (!res.ok) throw new Error('Failed to fetch location');

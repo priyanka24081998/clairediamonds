@@ -68,8 +68,8 @@ const Nav: React.FC = () => {
               icon: "halo-ring.svg",
             },
             {
-              name: "Three Stone Rings",
-              href: "/engagementrings/threestonerings",
+              name: "Trilogy Rings",
+              href: "/engagementrings/trilogyrings",
               icon: "three-stone-ring.svg",
             },
             {
@@ -157,7 +157,7 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "/engagementrings/silver", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/engagementrings/silver", icon: "silvermetal.png" },
             
             {
               name: "White Gold",
@@ -172,7 +172,7 @@ const Nav: React.FC = () => {
             {
               name: "Rose Gold",
               href: "/engagementrings/rosegold",
-              icon: "rosemetal.webp",
+              icon: "rosemetal.png",
             },
           ],
         },
@@ -186,8 +186,8 @@ const Nav: React.FC = () => {
           category: "Style",
           items: [
             {
-              name: "Trilogy Rings",
-              href: "/diamondbands/trilogyrings",
+              name: "Three Stone Rings",
+              href: "/diamondbands/threestonerings",
               icon: "three-stone-ring.svg",
             },
             {
@@ -280,7 +280,7 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "/diamondbands/silver", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/diamondbands/silver", icon: "silvermetal.png" },
             {
               name: "White Gold",
               href: "/diamondbands/whitegold",
@@ -294,7 +294,7 @@ const Nav: React.FC = () => {
             {
               name: "Rose Gold",
               href: "/diamondbands/rosegold",
-              icon: "rosemetal.webp",
+              icon: "rosemetal.png",
             },
            
           ],
@@ -338,7 +338,7 @@ const Nav: React.FC = () => {
     //     {
     //       category: "Metal",
     //       items: [
-    //         { name: "Sterline Silver", href: "/weddingbands/silver", icon: "silver-metal.png" },
+    //         { name: "Sterline Silver", href: "/weddingbands/silver", icon: "silvermetal.png" },
     //         {
     //           name: "White Gold",
     //           href: "/weddingbands/whitegold",
@@ -352,7 +352,7 @@ const Nav: React.FC = () => {
     //         {
     //           name: "Rose Gold",
     //           href: "/weddingbands/rosegold",
-    //           icon: "rosemetal.webp",
+    //           icon: "rosemetal.png",
     //         },
            
     //       ],
@@ -426,7 +426,7 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "/earrings/silver", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/earrings/silver", icon: "silvermetal.png" },
             {
               name: "White Gold",
               href: "/earrings/whitegold",
@@ -440,7 +440,7 @@ const Nav: React.FC = () => {
             {
               name: "Rose Gold",
               href: "/earrings/rosegold",
-              icon: "rosemetal.webp",
+              icon: "rosemetal.png",
             },
             
           ],
@@ -529,7 +529,7 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "/pendants/silver", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/pendants/silver", icon: "silvermetal.png" },
             {
               name: " White Gold",
               href: "/pendants/whitegold",
@@ -543,33 +543,119 @@ const Nav: React.FC = () => {
             {
               name: "Rose Gold",
               href: "/pendants/rosegold",
-              icon: "rosemetal.webp",
+              icon: "rosemetal.png",
             },
            
           ],
         },
       ],
     },
+    // {
+    //   name: "Gemstones",
+    //   href: "/gemstones",
+    //   subItems: [
+    //     {
+    //       category: "Ruby",
+    //       items: [
+    //         {
+    //           name: "Ruby Rings",
+    //           href: "/gemstones/rubyrings",
+    //           icon: "ruby-ring.svg",
+    //         },
+    //         {
+    //           name: "Ruby Earrings",
+    //           href: "/gemstones/rubyearrings",
+    //           icon: "ruby-earring.svg",
+    //         },
+    //         {
+    //           name: "Ruby Pendants",
+    //           href: "/gemstones/rubypendants",
+    //           icon: "ruby-pendant.svg",
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       category: "Pink Sapphire",
+    //       items: [
+    //         {
+    //           name: "Pink Sapphire Rings",
+    //           href: "/gemstones/pinksapphirerings",
+    //           icon: "pink-sapphire-ring.svg",
+    //         },
+    //         {
+    //           name: "Pink Sapphire Earrings",
+    //           href: "/gemstones/pinksapphireearrings",
+    //           icon: "pink-sapphire-earring.svg",
+    //         },
+    //         {
+    //           name: "Pink Sapphire Pendants",
+    //           href: "/gemstones/pinksapphirependants",
+    //           icon: "pink-sapphire-pendant.svg",
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       category: "Sapphire",
+    //       items: [
+    //         {
+    //           name: "Sapphire Rings",
+    //           href: "/gemstones/sapphirerings",
+    //           icon: "sapphire-ring.svg",
+    //         },
+    //         {
+    //           name: "Sapphire Earrings",
+    //           href: "/gemstones/sapphireearrings",
+    //           icon: "sapphire-earring.svg",
+    //         },
+    //         {
+    //           name: "Sapphire Pendants",
+    //           href: "/gemstones/sapphirependants",
+    //           icon: "sapphire-pendant.svg",
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       category: "Emerald",
+    //       items: [
+    //         {
+    //           name: "Emerald Rings",
+    //           href: "/gemstones/emeraldrings",
+    //           icon: "emerald-ring.svg",
+    //         },
+    //         {
+    //           name: "Emerald Earrings",
+    //           href: "/gemstones/emeraldearrings",
+    //           icon: "emerald-earring.svg",
+    //         },
+    //         {
+    //           name: "Emerald Pendants",
+    //           href: "/gemstones/emeraldpendants",
+    //           icon: "emerald-pendant.svg",
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
     {
-      name: "Gemstones",
-      href: "/gemstones",
+      name: "Necklace",
+      href: "/necklace",
       subItems: [
         {
           category: "Ruby",
           items: [
             {
               name: "Ruby Rings",
-              href: "/gemstones/rubyrings",
+              href: "/necklace/rubyrings",
               icon: "ruby-ring.svg",
             },
             {
               name: "Ruby Earrings",
-              href: "/gemstones/rubyearrings",
+              href: "/necklace/rubyearrings",
               icon: "ruby-earring.svg",
             },
             {
               name: "Ruby Pendants",
-              href: "/gemstones/rubypendants",
+              href: "/necklace/rubypendants",
               icon: "ruby-pendant.svg",
             },
           ],
@@ -579,17 +665,17 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Pink Sapphire Rings",
-              href: "/gemstones/pinksapphirerings",
+              href: "/necklace/pinksapphirerings",
               icon: "pink-sapphire-ring.svg",
             },
             {
               name: "Pink Sapphire Earrings",
-              href: "/gemstones/pinksapphireearrings",
+              href: "/necklace/pinksapphireearrings",
               icon: "pink-sapphire-earring.svg",
             },
             {
               name: "Pink Sapphire Pendants",
-              href: "/gemstones/pinksapphirependants",
+              href: "/necklace/pinksapphirependants",
               icon: "pink-sapphire-pendant.svg",
             },
           ],
@@ -599,17 +685,17 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Sapphire Rings",
-              href: "/gemstones/sapphirerings",
+              href: "/necklace/sapphirerings",
               icon: "sapphire-ring.svg",
             },
             {
               name: "Sapphire Earrings",
-              href: "/gemstones/sapphireearrings",
+              href: "/necklace/sapphireearrings",
               icon: "sapphire-earring.svg",
             },
             {
               name: "Sapphire Pendants",
-              href: "/gemstones/sapphirependants",
+              href: "/necklace/sapphirependants",
               icon: "sapphire-pendant.svg",
             },
           ],
@@ -619,17 +705,17 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Emerald Rings",
-              href: "/gemstones/emeraldrings",
+              href: "/necklace/emeraldrings",
               icon: "emerald-ring.svg",
             },
             {
               name: "Emerald Earrings",
-              href: "/gemstones/emeraldearrings",
+              href: "/necklace/emeraldearrings",
               icon: "emerald-earring.svg",
             },
             {
               name: "Emerald Pendants",
-              href: "/gemstones/emeraldpendants",
+              href: "/necklace/emeraldpendants",
               icon: "emerald-pendant.svg",
             },
           ],
@@ -637,7 +723,7 @@ const Nav: React.FC = () => {
       ],
     },
     {
-      name: "Bracelates",
+      name: "Bracelets",
       href: "/bracelates",
       subItems: [
         {
@@ -673,7 +759,7 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "/bracelates/silver", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "/bracelates/silver", icon: "silvermetal.png" },
             {
               name: "White Gold",
               href: "/bracelates/whitegold",
@@ -687,7 +773,7 @@ const Nav: React.FC = () => {
             {
               name: "Rose Gold",
               href: "/bracelates/rosegold",
-              icon: "rosemetal.webp",
+              icon: "rosemetal.png",
             },
            
           ],
@@ -817,52 +903,23 @@ const Nav: React.FC = () => {
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "", icon: "silver-metal.png" },
+            { name: "Sterline Silver", href: "", icon: "silvermetal.png" },
             {
-              name: "10K White Gold",
+              name: "White Gold",
               href: "/engagement-rings/gold",
               icon: "whitemetal.png",
             },
             {
-              name: "10K Yellow Gold",
+              name: "Gold",
               href: "/engagement-rings/platinum",
               icon: "goldmetal.png",
             },
             {
-              name: "10K Rose Gold",
+              name: "Rose Gold",
               href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
+              icon: "rosemetal.png",
             },
-            {
-              name: "14K White Gold",
-              href: "/engagement-rings/gold",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "14K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "14K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
-            {
-              name: "18K White Gold",
-              href: "/engagement-rings/platinum",
-              icon: "whitemetal.png",
-            },
-            {
-              name: "18K Yellow Gold",
-              href: "/engagement-rings/platinum",
-              icon: "goldmetal.png",
-            },
-            {
-              name: "18K Rose Gold",
-              href: "/engagement-rings/platinum",
-              icon: "rosemetal.webp",
-            },
+            
           ],
         },
       ],

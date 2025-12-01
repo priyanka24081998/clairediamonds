@@ -35,7 +35,7 @@ interface Product {
   };
 }
 
-const Mensrings = () => {
+const Threestonerings = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currency, setCurrency] = useState("USD");
   const [convertedPrices, setConvertedPrices] = useState<Record<string, number>>({}); // store converted prices
@@ -48,7 +48,7 @@ const Mensrings = () => {
       const filtered = response.data.data.filter(
         (item: Product) =>
           item?.categoryId?.categoryName?.toLowerCase() === "diamond bands" &&
-          item?.subCategoryId?.subCategoryName?.toLowerCase() === "mens rings"
+          item?.subCategoryId?.subCategoryName?.toLowerCase() === "three stone rings"
       );
 
       setProducts(filtered);
@@ -106,7 +106,7 @@ const Mensrings = () => {
       <h2
         className={`text-[20px] md:text-3xl text-[#43825c] text-center font-bold mb-2 ${philosopher.className}`}
       >
-        Mens Rings
+        Three Stone Rings
         <Image
           src="/assets/divider.png"
           alt="line"
@@ -165,4 +165,4 @@ const Mensrings = () => {
   );
 };
 
-export default Mensrings;
+export default Threestonerings;

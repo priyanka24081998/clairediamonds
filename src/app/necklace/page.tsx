@@ -35,31 +35,30 @@ interface Product {
   };
 }
 
-const Mensrings = () => {
+const Necklace = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currency, setCurrency] = useState("USD");
   const [convertedPrices, setConvertedPrices] = useState<Record<string, number>>({}); // store converted prices
 
   const fetchProducts = async () => {
-  try {
-    const response = await axios.get("https://claireapi.onrender.com/product/");
+    try {
+      const response = await axios.get("https://claireapi.onrender.com/product/");
 
-    if (response.data && Array.isArray(response.data.data)) {
-      const filtered = response.data.data.filter(
-        (item: Product) =>
-          item?.categoryId?.categoryName?.toLowerCase() === "diamond bands" &&
-          item?.subCategoryId?.subCategoryName?.toLowerCase() === "mens rings"
-      );
+      if (response.data && Array.isArray(response.data.data)) {
+        const filtered = response.data.data.filter(
+          (item: Product) =>
+            item?.categoryId?.categoryName?.toLowerCase() === "Necklace"
+        );
 
-      setProducts(filtered);
-    } else {
+        setProducts(filtered);
+      } else {
+        setProducts([]);
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
       setProducts([]);
     }
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    setProducts([]);
-  }
-};
+  };
 
   // 👉 1. Load Products
   useEffect(() => {
@@ -106,7 +105,7 @@ const Mensrings = () => {
       <h2
         className={`text-[20px] md:text-3xl text-[#43825c] text-center font-bold mb-2 ${philosopher.className}`}
       >
-        Mens Rings
+        Necklace
         <Image
           src="/assets/divider.png"
           alt="line"
@@ -165,4 +164,4 @@ const Mensrings = () => {
   );
 };
 
-export default Mensrings;
+export default Necklace;
