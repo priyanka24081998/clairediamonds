@@ -27,28 +27,38 @@ export const convertCurrency = async (
   toCurrency: string
 ): Promise<number> => {
   try {
+    // ✅ Get API key from env
     const apiKey = process.env.NEXT_PUBLIC_EXCHANGE_RATE_API_KEY;
     if (!apiKey) throw new Error("Missing API key");
 
-const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`;
+    // ✅ Use the base as `fromCurrency`
+    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency.toUpperCase()}`;
 
     const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
 
-    // Debug API response
-    console.log("Currency API data:", data);
+    console.log("Currency API response:", data); // Debug info
 
-    const rate = data?.conversion_rates?.[toCurrency];
-
-    if (!rate) {
-      console.error(`Currency code not found or API error for ${toCurrency}`, data);
+    if (data.result !== "success") {
+      console.error("Currency API error:", data["error-type"]);
       return amount; // fallback
     }
 
-    return Number((amount * rate).toFixed(2));
+    // ✅ Get conversion rate for the target currency
+    const rate = data.conversion_rates[toCurrency.toUpperCase()];
+    if (!rate) {
+      console.error(`Currency code not found: ${toCurrency}`, data);
+      return amount; // fallback
+    }
+
+    const converted = Number((amount * rate).toFixed(2));
+    console.log(`${amount} ${fromCurrency} → ${converted} ${toCurrency} at rate ${rate}`);
+
+    return converted;
   } catch (error) {
     console.error("Currency conversion error:", error);
     return amount; // fallback
   }
 };
+
 
