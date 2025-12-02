@@ -6,8 +6,11 @@ export interface LocationInfo {
 
 export const getLocation = async (): Promise<LocationInfo | null> => {
   try {
+    // Use your IPInfo token from .env
     const token = process.env.NEXT_PUBLIC_IPINFO_TOKEN;
+    if (!token) throw new Error("IPInfo token missing");
 
+    // Client-side fetch
     const res = await fetch(`https://ipinfo.io/json?token=${token}`, {
       cache: "no-store",
     });
@@ -15,23 +18,22 @@ export const getLocation = async (): Promise<LocationInfo | null> => {
     if (!res.ok) throw new Error("Failed to fetch location");
 
     const data = await res.json();
-    console.log("IPInfo Data:", data);
-
-    const countryCode = data.country; // IN, US, GB, AE etc.
+    // data.country is ISO code like "IN", "US"
+    const countryCode = data.country;
 
     if (!countryCode) return null;
 
-    // Convert country code → full name (IN → India)
-    const countryName = new Intl.DisplayNames(["en"], {
-      type: "region",
-    }).of(countryCode);
+    // Convert ISO code → full country name
+    const countryName =
+      new Intl.DisplayNames(["en"], { type: "region" }).of(countryCode) ||
+      "Unknown";
 
     return {
-      country: countryName || "Unknown",
-      currency: "USD",
+      country: countryName,
+      currency: "USD", // fallback, actual currency mapping done outside
     };
-  } catch (error) {
-    console.error("Location error:", error);
+  } catch (err) {
+    console.error("Location fetch error:", err);
     return null;
   }
 };

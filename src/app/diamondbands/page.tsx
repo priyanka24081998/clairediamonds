@@ -66,20 +66,17 @@ const DiamondBands = () => {
   }, []);
 
   // 👉 2. Detect User Country + Currency
-   useEffect(() => {
-    async function detect() {
+  useEffect(() => {
+    async function loadCurrency() {
       const loc = await getLocation();
-
       if (loc) {
         const mappedCurrency = currencyMap[loc.country] || "USD";
-        console.log("Detected currency:", mappedCurrency);
-
         setCurrency(mappedCurrency);
       }
     }
-
-    detect();
+    loadCurrency();
   }, []);
+
 
   // Convert prices
   useEffect(() => {
@@ -135,21 +132,21 @@ const DiamondBands = () => {
                     {product.name}
                   </h2>
 
-                  <p className={`${philosopher.className} text-[#43825c] font-bold text-lg mt-3`}>
-  {convertedPrices[product._id] ? (
-    <span>
-      {(currencySymbol[currency] || currency) + " "}
-      {convertedPrices[product._id].toFixed(2)}
-    </span>
-  ) : (
-    <span>
-      {(currencySymbol["USD"] || "USD") + " "}
-      {(product.price?.silver ?? 0).toFixed(2)}
-    </span>
-  )}
-</p>
+                  <p>
+                    {convertedPrices[product._id] ? (
+                      <span>
+                        {currencySymbol[currency] || currency}{" "}
+                        {convertedPrices[product._id].toFixed(2)}
+                      </span>
+                    ) : (
+                      <span>
+                        {currencySymbol["USD"] || "USD"}{" "}
+                        {product.price?.silver?.toFixed(2) || "0.00"}
+                      </span>
+                    )}
+                  </p>
 
-                 
+
                 </div>
               </div>
             </Link>
