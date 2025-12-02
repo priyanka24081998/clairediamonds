@@ -21,34 +21,30 @@
 //   }
 // };
 
+// lib/convertCurrency.ts
 export const convertCurrency = async (
   amount: number,
-  fromCurrency: string,
-  toCurrency: string
+  from: string,
+  to: string
 ): Promise<number> => {
   try {
     const apiKey = process.env.NEXT_PUBLIC_EXCHANGE_RATE_API_KEY;
-    if (!apiKey) throw new Error("Missing API key");
 
-const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`;
+    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`;
 
     const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
 
-    // Debug API response
-    console.log("Currency API data:", data);
+    console.log("Currency API:", data);
 
-    const rate = data?.conversion_rates?.[toCurrency];
+    const rate = data?.conversion_rates?.[to];
 
-    if (!rate) {
-      console.error(`Currency code not found or API error for ${toCurrency}`, data);
-      return amount; // fallback
-    }
+    if (!rate) return amount; // fallback
 
     return Number((amount * rate).toFixed(2));
-  } catch (error) {
-    console.error("Currency conversion error:", error);
-    return amount; // fallback
+  } catch (err) {
+    console.error("Currency conversion error:", err);
+    return amount;
   }
 };
 

@@ -66,38 +66,36 @@ const DiamondBands = () => {
   }, []);
 
   // 👉 2. Detect User Country + Currency
-  useEffect(() => {
-    async function loadCurrency() {
+   useEffect(() => {
+    async function detect() {
       const loc = await getLocation();
 
       if (loc) {
-        const mapped = currencyMap[loc.country] || loc.currency || "USD";
-        setCurrency(mapped);
+        const mappedCurrency = currencyMap[loc.country] || "USD";
+        console.log("Detected currency:", mappedCurrency);
+
+        setCurrency(mappedCurrency);
       }
     }
 
-    loadCurrency();
+    detect();
   }, []);
 
-  // 👉 3. Convert every product price to detected currency
+  // Convert prices
   useEffect(() => {
-    async function convertAllPrices() {
+    async function convertAll() {
       const output: Record<string, number> = {};
 
       for (const p of products) {
-        // use "silver" as main price (or your logic)
-        const basePrice = p.price?.silver || 0;
-
-        const converted = await convertCurrency(basePrice, "USD", currency);
+        const base = p.price?.silver || 0;
+        const converted = await convertCurrency(base, "USD", currency);
         output[p._id] = converted;
       }
 
       setConvertedPrices(output);
     }
 
-    if (products.length > 0 && currency) {
-      convertAllPrices();
-    }
+    if (products.length && currency) convertAll();
   }, [products, currency]);
 
   return (
@@ -138,20 +136,20 @@ const DiamondBands = () => {
                   </h2>
 
                   <p className={`${philosopher.className} text-[#43825c] font-bold text-lg mt-3`}>
-                    {convertedPrices[product._id] ? (
-                      <span>
-                        {currencySymbol[currency] ? currencySymbol[currency] : currency}
-                        {" "}
-                        {convertedPrices[product._id].toFixed(2)}
-                      </span>
-                    ) : (
-                      <span>
-                        {currencySymbol["USD"] ? currencySymbol["USD"] : "USD"}
-                        {" "}
-                        {product.price?.silver?.toFixed(2) || "0.00"}
-                      </span>
-                    )}
-                  </p>
+  {convertedPrices[product._id] ? (
+    <span>
+      {(currencySymbol[currency] || currency) + " "}
+      {convertedPrices[product._id].toFixed(2)}
+    </span>
+  ) : (
+    <span>
+      {(currencySymbol["USD"] || "USD") + " "}
+      {(product.price?.silver ?? 0).toFixed(2)}
+    </span>
+  )}
+</p>
+
+                 
                 </div>
               </div>
             </Link>
