@@ -1,23 +1,23 @@
-export interface LocationInfo {
-  country: string;
-  currency: string;
-}
+import { currencyCodeMap } from "./currencyCodeMap ";
 
-export const getLocation = async (): Promise<LocationInfo | null> => {
+export const getLocation = async () => {
   try {
-    const res = await fetch('https://ipapi.co/json/'); // Use a working IP location service
-    if (!res.ok) throw new Error('Failed to fetch location');
+    const res = await fetch(
+      `https://ipinfo.io/json?token=${process.env.NEXT_PUBLIC_IPINFO_TOKEN}`
+    );
 
     const data = await res.json();
-
-    console.log('Fetched Location Data:', data); // ✅ Debugging Output
+    const countryCode = data.country; // e.g. "IN"
 
     return {
-      country: data.country_name,
-      currency: data.currency
+      country: countryCode,
+      currency: currencyCodeMap[countryCode] || "USD"
     };
-  } catch (error) {
-    console.error('Error fetching location:', error);
-    return null; // Return null if fetching fails
+  } catch (err) {
+    console.error("Location Error:", err);
+    return {
+      country: "US",
+      currency: "USD"
+    };
   }
 };
