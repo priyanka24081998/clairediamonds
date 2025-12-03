@@ -14,9 +14,13 @@ const philosopher = Philosopher({
 });
 
 interface DecodedToken {
+  userId: string;   // <-- add this
   email: string;
   name?: string;
+  exp?: number;
+  iat?: number;
 }
+
 
 type User = {
   name: string;
@@ -30,43 +34,53 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+ const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const response = await axios.post(
-        "https://claireapi.onrender.com/users/",
-        { email, password },
-        { headers: { "Content-Type": "application/json" } }
-      );
+  try {
+    const response = await axios.post(
+      "https://claireapi.onrender.com/users/",
+      { email, password },
+      { headers: { "Content-Type": "application/json" } }
+    );
 
-      const { token } = response.data;
+    const { token } = response.data;
 
-      if (token) {
-        localStorage.setItem("token", token);
+    if (token) {
+      // Save token
+      localStorage.setItem("token", token);
 
-        const decoded: DecodedToken = jwtDecode(token);
-        setUser({
-          name: decoded.name || decoded.email.split("@")[0],
-          email: decoded.email,
-        });
+      // Decode token
+      const decoded: DecodedToken = jwtDecode(token);
 
-        router.push("/");
-      } else {
-        alert("Login failed: No token received.");
+      // ⭐ Save userId for Add to Cart
+      if (decoded.userId) {
+        localStorage.setItem("userId", decoded.userId);
       }
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        console.error("Axios error:", error.response?.data || error.message);
-      } else {
-        console.error("Unexpected error:", error);
-      }
-      alert("Invalid email or password");
-    } finally {
-      setLoading(false);
+
+      // Set user state
+      setUser({
+        name: decoded.name || decoded.email.split("@")[0],
+        email: decoded.email,
+      });
+
+      router.push("/");
+    } else {
+      alert("Login failed: No token received.");
     }
-  };
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error:", error.response?.data || error.message);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+    alert("Invalid email or password");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#f4f1f0]">

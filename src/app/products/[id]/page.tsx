@@ -245,28 +245,50 @@ useEffect(() => {
   }
 }, []);
 
-   const handleAddToCart = async () => {
-    if (!userId || !product) {
-        alert("Please login first!");
-        return;
-    }
-    setLoading(true);
+  const handleAddToCart = async () => {
+  if (!userId) {
+    alert("Please login first!");
+    return;
+  }
 
-    try {
-        await axios.post(`${API_BASE}/cart`, {
-            userId,
-            productId: product._id,
-            quantity,
-        });
-        alert("Product added to cart!");
-        router.push("/cartpage");
-    } catch (err) {
-        console.error(err);
-        alert("Failed to add to cart");
-    } finally {
-        setLoading(false);
+  if (!product?._id) {
+    alert("Product not found!");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const res = await axios.post(
+      `${API_BASE}/cart`,
+      {
+        userId,
+        productId: product._id,
+        quantity: Number(quantity),
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        }
+      }
+    );
+
+    if (res.data?.success) {
+      alert("Product added to cart!");
+      router.push("/cartpage");
+      return;
     }
+
+    alert(res.data?.message || "Failed to add to cart");
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
+    console.error("Cart Error:", err.response?.data || err.message);
+    alert(err.response?.data?.error || "Failed to add to cart");
+  } }finally {
+    setLoading(false);
+  }
 };
+
 
 
     // Toggle wishlist / favorite
@@ -506,7 +528,8 @@ useEffect(() => {
                     <Link href="" className="w-full">
                         <button
                             onClick={handleAddToCart}
-                            disabled={loading}
+                              disabled={loading || !userId}
+
                             className="px-4 py-2 bg-[#43825c] text-white rounded-lg w-full"
                         >
                             {loading ? "Adding..." : "Add to Cart"}

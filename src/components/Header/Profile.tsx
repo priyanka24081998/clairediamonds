@@ -18,37 +18,47 @@ const Profile: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
+useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+// 👉 ADD THIS useEffect here (FIRST token + userId save)
+useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+  const userId = params.get("userId");
+
+  if (token) localStorage.setItem("token", token);
+  if (userId) localStorage.setItem("userId", userId);
+}, []);
+
 
   // Grab token from URL or localStorage
-  useEffect(() => {
-    const urlToken = new URLSearchParams(window.location.search).get("token");
-    const storedToken = localStorage.getItem("token");
-    const token = urlToken || storedToken;
+ useEffect(() => {
+  const urlToken = new URLSearchParams(window.location.search).get("token");
+  const storedToken = localStorage.getItem("token");
+  const token = urlToken || storedToken;
 
-    if (token) {
-      try {
-        const decoded: DecodedToken = jwtDecode(token);
-        setUser(decoded);
+  if (token) {
+    try {
+      const decoded: DecodedToken = jwtDecode(token);
+      setUser(decoded);
 
-        if (urlToken) localStorage.setItem("token", token);
-      } catch (error) {
-        console.error("Invalid token:", error);
-        localStorage.removeItem("token");
-      }
+      if (urlToken) localStorage.setItem("token", token);
+    } catch (error) {
+      console.error("Invalid token:", error);
+      localStorage.removeItem("token");
     }
-  }, []);
+  }
+}, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");

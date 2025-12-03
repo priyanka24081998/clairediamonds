@@ -6,6 +6,9 @@ import Link from "next/link";
 import axios from "axios";
 import { Philosopher } from "next/font/google";
 import Image from "next/image";
+import { jwtDecode } from "jwt-decode";
+
+
 
 const philosopher = Philosopher({
   subsets: ["latin"],
@@ -17,6 +20,15 @@ type User = {
   name: string;
   email: string;
 };
+
+type DecodedToken = {
+  userId?: string;
+  email?: string;
+  name?: string;
+  iat?: number;
+  exp?: number;
+};
+
 
 const Signup = () => {
   const router = useRouter();
@@ -60,29 +72,51 @@ const Signup = () => {
     }
   };
 
-  useEffect(() => {
-    // Check if already logged in
-    axios
-      .get("https://claireapi.onrender.com/auth/me", { withCredentials: true })
-      .then((res) => {
-        if (res.data.user) {
-          setUser(res.data.user);
+ useEffect(() => {
+  axios
+    .get("https://claireapi.onrender.com/auth/me", { withCredentials: true })
+    .then((res) => {
+      if (res.data.user) {
+        const user = res.data.user;
+
+        // Save user to state
+        setUser(user);
+
+        // Save token
+        if (res.data.token) {
           localStorage.setItem("token", res.data.token);
         }
 
-      })
-      .catch((err) => console.error("Error fetching user:", err));
-  }, []);
+        // ⭐ IMPORTANT: Save userId for Add to Cart
+        if (user._id) {
+          localStorage.setItem("userId", user._id);
+        }
+      }
+    })
+    .catch((err) => console.error("Error fetching user:", err));
+}, []);
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
 
-    if (token) {
+  // ✅ Always extract userId from token and store it
+useEffect(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+
+  if (token) {
+    try {
+      const decoded = jwtDecode<DecodedToken>(token);
+
+      if (decoded?.userId) {
+        localStorage.setItem("userId", decoded.userId);
+      }
+
       localStorage.setItem("token", token);
-      router.push("/"); // Redirect after login
+    } catch (err) {
+      console.error("Token decode error:", err);
     }
-  }, [router]);
+  }
+}, []);
+
 
   // ✅ Optional: If user is already logged in, redirect away from signup
   useEffect(() => {
