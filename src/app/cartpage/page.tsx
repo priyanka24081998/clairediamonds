@@ -11,26 +11,44 @@ interface CartItem {
 }
 
 export default function CartPage() {
-  const userId = localStorage.getItem("userId");
+  const [userId, setUserId] = useState<string | null>(null); // store userId in state
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const API_BASE = "https://claireapi.onrender.com";
 
   useEffect(() => {
+    const id = localStorage.getItem("userId"); // only run on client
+    setUserId(id);
+  }, []);
+
+  useEffect(() => {
     if (!userId) return;
+
     const fetchCart = async () => {
-      const res = await axios.get(`${API_BASE}/cart/${userId}`);
-      setCartItems(res.data);
+      try {
+        const res = await axios.get(`${API_BASE}/cart/${userId}`);
+        setCartItems(res.data);
+      } catch (err) {
+        console.error(err);
+      }
     };
+
     fetchCart();
   }, [userId]);
 
   const removeItem = async (productId: string) => {
     if (!userId) return;
-    await axios.delete(`${API_BASE}/cart`, { data: { userId, productId } });
-    setCartItems(cartItems.filter(item => item.productId !== productId));
+
+    try {
+      await axios.delete(`${API_BASE}/cart`, { data: { userId, productId } });
+      setCartItems(cartItems.filter(item => item.productId !== productId));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const total = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+
+  if (!userId) return <p className="p-6">Loading...</p>; // wait for client render
 
   return (
     <div className="p-6">
