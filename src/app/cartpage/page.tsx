@@ -4,20 +4,26 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
-interface Product {
-  _id: string;
-  name: string;
-  price: Record<string, number>;
-  metal: string;
-  images: string[];
-}
+// interface Product {
+//   _id: string;
+//   name: string;
+//   price: Record<string, number>;
+//   metal: string;
+//   images: string[];
+// }
 
 interface CartItem {
   _id: string;
   productId: string;
   quantity: number;
-  product: Product;
+  selectedMetal: string; // add this
+  product: {
+    name: string;
+    price: Record<string, number>; // price object with keys like "14k_rose_gold"
+    images: string[];
+  };
 }
+
 
 export default function CartPage() {
   const [userId, setUserId] = useState<string | null>(null);
@@ -48,21 +54,21 @@ export default function CartPage() {
     fetchCart();
   }, [userId]);
 
-  const removeItem = async (productId: string) => {
-    if (!userId) return;
+ const removeItem = async (productId: string, selectedMetal: string) => {
+  if (!userId) return;
+  try {
+    await axios.delete(`${API_BASE}/cart`, { data: { userId, productId, selectedMetal } });
+    setCartItems(cartItems.filter(item => item.productId !== productId || item.selectedMetal !== selectedMetal));
+  } catch (err) {
+    console.error(err);
+  }
+};
 
-    try {
-      await axios.delete(`${API_BASE}/cart`, { data: { userId, productId } });
-      setCartItems(cartItems.filter(item => item.productId !== productId));
-    } catch (err) {
-      console.error("Remove Item Error:", err);
-    }
-  };
+const total = cartItems.reduce((acc, item) => {
+  const price = item.product?.price?.[item.selectedMetal] ?? 0;
+  return acc + price * item.quantity;
+}, 0);
 
-  const total = cartItems.reduce((acc, item) => {
-    const price = item.product?.price?.[item.product?.metal] ?? 0;
-    return acc + price * item.quantity;
-  }, 0);
 
   if (!userId) return <p className="p-6">Loading...</p>;
 
@@ -72,35 +78,35 @@ export default function CartPage() {
       {loading && <p>Loading cart...</p>}
       {cartItems.length === 0 && <p>Your cart is empty</p>}
       {cartItems.map(item => {
-        const price = item.product?.price?.[item.product?.metal] ?? 0;
-        return (
-          <div key={item._id} className="flex justify-between items-center mb-4 border p-2 rounded">
-            <div className="flex items-center gap-4">
-              {item.product?.images?.[0] && (
-                <Image
-                  src={item.product.images[0]}
-                  alt={item.product.name}
-                  width={80}
-                  height={80}
-                />
-              )}
-              <div>
-                <p className="font-semibold">{item.product?.name || "Unknown Product"}</p>
-                <p className="text-sm text-gray-500">Metal: {item.product?.metal || "N/A"}</p>
-                <p>
-                  ₹{price} × {item.quantity} = ₹{price * item.quantity}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => removeItem(item.productId)}
-              className="text-red-500 font-bold"
-            >
-              Remove
-            </button>
-          </div>
-        );
-      })}
+  const price = item.product?.price?.[item.selectedMetal] ?? 0;
+  return (
+    <div key={item._id} className="flex justify-between items-center mb-4 border p-2 rounded">
+      <div className="flex items-center gap-4">
+        {item.product?.images?.[0] && (
+          <Image
+            src={item.product.images[0]}
+            alt={item.product.name}
+            width={80}
+            height={80}
+          />
+        )}
+        <div>
+          <p className="font-semibold">{item.product?.name || "Unknown Product"}</p>
+          <p className="text-sm text-gray-500">Metal: {item.selectedMetal}</p>
+          <p>
+            ₹{price} × {item.quantity} = ₹{price * item.quantity}
+          </p>
+        </div>
+      </div>
+      <button
+        onClick={() => removeItem(item.productId, item.selectedMetal)}
+        className="text-red-500 font-bold"
+      >
+        Remove
+      </button>
+    </div>
+  );
+})}
       {cartItems.length > 0 && (
         <p className="mt-4 font-bold text-lg">Total: ₹{total}</p>
       )}

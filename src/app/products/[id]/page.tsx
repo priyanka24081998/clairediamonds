@@ -260,6 +260,7 @@ const handleAddToCart = async () => {
     alert("Please login first!");
     return;
   }
+  if (!selectedMetal) return alert("Please select a metal!");
 
   setLoading(true);
 
@@ -267,7 +268,7 @@ const handleAddToCart = async () => {
     const token = localStorage.getItem("token");
     const res = await axios.post(
       `${API_BASE}/cart`,
-      { userId, productId: product._id, quantity: Number(quantity) },
+      { userId, productId: product._id, quantity: Number(quantity),selectedMetal },
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
