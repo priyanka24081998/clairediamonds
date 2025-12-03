@@ -155,7 +155,7 @@ export default function ProductPage({
 
         fetchProduct();
     }, [id]);
-
+  
     // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
