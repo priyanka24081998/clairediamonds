@@ -245,7 +245,8 @@ useEffect(() => {
   }
 }, []);
 
-  const handleAddToCart = async () => {
+ const handleAddToCart = async () => {
+  const userId = localStorage.getItem("userId");
   if (!userId) {
     alert("Please login first!");
     return;
@@ -259,6 +260,8 @@ useEffect(() => {
   setLoading(true);
 
   try {
+    const token = localStorage.getItem("token");
+
     const res = await axios.post(
       `${API_BASE}/cart`,
       {
@@ -269,9 +272,12 @@ useEffect(() => {
       {
         headers: {
           "Content-Type": "application/json",
-        }
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
+
+    console.log("Add to Cart response:", res.data);
 
     if (res.data?.success) {
       alert("Product added to cart!");
@@ -282,12 +288,14 @@ useEffect(() => {
     alert(res.data?.message || "Failed to add to cart");
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
-    console.error("Cart Error:", err.response?.data || err.message);
-    alert(err.response?.data?.error || "Failed to add to cart");
-  } }finally {
+      console.error("Cart Error:", err.response?.data || err.message);
+      alert(err.response?.data?.error || "Failed to add to cart");
+    }
+  } finally {
     setLoading(false);
   }
 };
+
 
 
 

@@ -70,8 +70,8 @@ useEffect(() => {
 
   const getInitial = () => {
     if (!user) return "?";
-    const name = user.name || user.email?.split("@")[0] || "G";
-    return name?.charAt(0)?.toUpperCase() || "?";
+    if(user){const name = user.name || user.email?.split("@")[0] || "G";
+    return name?.charAt(0)?.toUpperCase() || "?";}
   };
 
   return (

@@ -21,13 +21,13 @@ type User = {
   email: string;
 };
 
-type DecodedToken = {
-  userId?: string;
-  email?: string;
-  name?: string;
-  iat?: number;
-  exp?: number;
-};
+// type DecodedToken = {
+//   userId?: string;
+//   email?: string;
+//   name?: string;
+//   iat?: number;
+//   exp?: number;
+// };
 
 
 const Signup = () => {
@@ -90,6 +90,8 @@ const Signup = () => {
         // ⭐ IMPORTANT: Save userId for Add to Cart
         if (user._id) {
           localStorage.setItem("userId", user._id);
+          console.log(localStorage.setItem("userId", user._id));
+          
         }
       }
     })
@@ -104,12 +106,10 @@ useEffect(() => {
 
   if (token) {
     try {
-      const decoded = jwtDecode<DecodedToken>(token);
-
+      const decoded = jwtDecode<{ userId: string }>(token);
       if (decoded?.userId) {
         localStorage.setItem("userId", decoded.userId);
       }
-
       localStorage.setItem("token", token);
     } catch (err) {
       console.error("Token decode error:", err);
