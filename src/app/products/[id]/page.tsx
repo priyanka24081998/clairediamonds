@@ -279,7 +279,8 @@ useEffect(() => {
 
     console.log("Add to Cart response:", res.data);
 
-    if (res.data?.success) {
+    // ✅ Check if backend returned a new cart item (_id exists)
+    if (res.data?._id) {
       alert("Product added to cart!");
       router.push("/cartpage");
       return;
@@ -290,6 +291,9 @@ useEffect(() => {
     if (axios.isAxiosError(err)) {
       console.error("Cart Error:", err.response?.data || err.message);
       alert(err.response?.data?.error || "Failed to add to cart");
+    } else {
+      console.error("Unexpected Error:", err);
+      alert("Failed to add to cart");
     }
   } finally {
     setLoading(false);
