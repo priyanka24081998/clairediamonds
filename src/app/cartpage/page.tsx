@@ -4,23 +4,25 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
-interface ProductInfo {
+interface Product {
+  _id: string;
   name: string;
-  price: number;
-  image?: string;
-  metal?: string;
+  price: Record<string, number>;
+  metal: string;
+  images: string[];
 }
 
 interface CartItem {
   _id: string;
   productId: string;
   quantity: number;
-  product: ProductInfo;
+  product: Product;
 }
 
 export default function CartPage() {
   const [userId, setUserId] = useState<string | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState(false);
   const API_BASE = "https://claireapi.onrender.com";
 
   useEffect(() => {
@@ -33,10 +35,13 @@ export default function CartPage() {
 
     const fetchCart = async () => {
       try {
+        setLoading(true);
         const res = await axios.get(`${API_BASE}/cart/${userId}`);
         setCartItems(res.data);
       } catch (err) {
-        console.error("Fetch cart error:", err);
+        console.error("Fetch Cart Error:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -50,45 +55,54 @@ export default function CartPage() {
       await axios.delete(`${API_BASE}/cart`, { data: { userId, productId } });
       setCartItems(cartItems.filter(item => item.productId !== productId));
     } catch (err) {
-      console.error("Remove cart item error:", err);
+      console.error("Remove Item Error:", err);
     }
   };
 
-  const total = cartItems.reduce((acc, item) => acc + (item.product?.price || 0) * item.quantity, 0);
+  const total = cartItems.reduce((acc, item) => {
+    const price = item.product?.price?.[item.product?.metal] ?? 0;
+    return acc + price * item.quantity;
+  }, 0);
 
   if (!userId) return <p className="p-6">Loading...</p>;
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty</p>
-      ) : (
-        <>
-          {cartItems.map(item => (
-            <div key={item._id} className="flex items-center justify-between mb-4 border-b pb-4">
-              <div className="flex items-center gap-4">
+      {loading && <p>Loading cart...</p>}
+      {cartItems.length === 0 && <p>Your cart is empty</p>}
+      {cartItems.map(item => {
+        const price = item.product?.price?.[item.product?.metal] ?? 0;
+        return (
+          <div key={item._id} className="flex justify-between items-center mb-4 border p-2 rounded">
+            <div className="flex items-center gap-4">
+              {item.product?.images?.[0] && (
                 <Image
-                  src={item.product?.image || "/placeholder.png"}
-                  alt={item.product?.name || "Product"}
-                  className="w-20 h-20 object-cover rounded"
+                  src={item.product.images[0]}
+                  alt={item.product.name}
+                  width={80}
+                  height={80}
                 />
-                <div>
-                  <p className="font-semibold">{item.product?.name || "Unknown Product"}</p>
-                  <p className="text-sm text-gray-600">Metal: {item.product?.metal || "N/A"}</p>
-                  <p>₹{item.product?.price} × {item.quantity}</p>
-                </div>
+              )}
+              <div>
+                <p className="font-semibold">{item.product?.name || "Unknown Product"}</p>
+                <p className="text-sm text-gray-500">Metal: {item.product?.metal || "N/A"}</p>
+                <p>
+                  ₹{price} × {item.quantity} = ₹{price * item.quantity}
+                </p>
               </div>
-              <button
-                onClick={() => removeItem(item.productId)}
-                className="text-red-500 font-semibold"
-              >
-                Remove
-              </button>
             </div>
-          ))}
-          <p className="mt-4 font-bold text-lg">Total: ₹{total}</p>
-        </>
+            <button
+              onClick={() => removeItem(item.productId)}
+              className="text-red-500 font-bold"
+            >
+              Remove
+            </button>
+          </div>
+        );
+      })}
+      {cartItems.length > 0 && (
+        <p className="mt-4 font-bold text-lg">Total: ₹{total}</p>
       )}
     </div>
   );
