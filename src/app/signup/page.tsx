@@ -23,7 +23,6 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null); // ✅ Used for redirect below
-  const [googleLoginUrl, setGoogleLoginUrl] = useState("");
 
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -113,12 +112,7 @@ const Signup = () => {
     window.location.href = "https://claireapi.onrender.com/auth/google";
   };
 
- useEffect(() => {
-  if (typeof window !== "undefined") {
-    const currentUrl = window.location.href;
-    setGoogleLoginUrl(`/auth/google?redirect=${encodeURIComponent(currentUrl)}`);
-  }
-}, []);
+ 
 
 
   return (
@@ -138,7 +132,7 @@ const Signup = () => {
           className="w-full bg-white hover:bg-[#43825c] border border-[#43825c] text-[#43825c] hover:text-white font-semibold py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2"
         >
           <Image src="/assets/google-icon.svg" alt="Google" width={20} height={20} />
-          <a href={googleLoginUrl}>Sign in with Google</a>
+          <a>Sign in with Google</a>
 
         </button>
         <h4 className="text-center text-[#9f7d48] my-4">or</h4>
