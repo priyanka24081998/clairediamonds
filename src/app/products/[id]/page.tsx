@@ -245,15 +245,15 @@ useEffect(() => {
   }
 }, []);
 
- const handleAddToCart = async () => {
-  const userId = localStorage.getItem("userId");
-  if (!userId) {
-    alert("Please login first!");
+const handleAddToCart = async () => {
+  if (!product?._id) {
+    alert("Product not found!");
     return;
   }
 
-  if (!product?._id) {
-    alert("Product not found!");
+  const userId = localStorage.getItem("userId");
+  if (!userId) {
+    alert("Please login first!");
     return;
   }
 
@@ -261,44 +261,40 @@ useEffect(() => {
 
   try {
     const token = localStorage.getItem("token");
-
     const res = await axios.post(
       `${API_BASE}/cart`,
-      {
-        userId,
-        productId: product._id,
-        quantity: Number(quantity),
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      { userId, productId: product._id, quantity: Number(quantity) },
+      { headers: { Authorization: `Bearer ${token}` } }
     );
 
     console.log("Add to Cart response:", res.data);
 
-    // ✅ Check if backend returned a new cart item (_id exists)
     if (res.data?._id) {
+        console.log(res.data._id);
+        
       alert("Product added to cart!");
-      router.push("/cartpage");
+      // Delay router.push to make sure alert finishes
+      setTimeout(() => {
+        router.push("/cartpage");
+      }, 50);
       return;
     }
 
-    alert(res.data?.message || "Failed to add to cart");
+    alert("Failed to add to cart");
+
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
       console.error("Cart Error:", err.response?.data || err.message);
       alert(err.response?.data?.error || "Failed to add to cart");
     } else {
-      console.error("Unexpected Error:", err);
+      console.error("Unexpected error:", err);
       alert("Failed to add to cart");
     }
   } finally {
     setLoading(false);
   }
 };
+
 
 
 
