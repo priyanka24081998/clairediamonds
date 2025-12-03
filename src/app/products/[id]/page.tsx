@@ -18,7 +18,8 @@ import { getLocation } from "@/lib/getLocation";      // ✅ FIXED
 import { convertCurrency } from "@/lib/convertCurrency";
 import { currencyMap } from "@/lib/currencyMap";
 import { currencySymbol } from "@/lib/currencySymbol";
-import router from "next/router";
+import { useRouter } from "next/navigation";
+
 
 const philosopher = Philosopher({
     subsets: ["latin"],
@@ -106,6 +107,8 @@ const getMetalDisplayName = (key: string) => {
         .replace(/\b\w/g, (c) => c.toUpperCase());
 };
 
+  
+
 export default function ProductPage({
     params,
 }: {
@@ -128,6 +131,7 @@ export default function ProductPage({
     const [userId, setUserId] = useState<string | null>(null);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+   const router = useRouter();
 
 
     useEffect(() => {
