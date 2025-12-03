@@ -18,11 +18,13 @@ import { getLocation } from "@/lib/getLocation";      // ✅ FIXED
 import { convertCurrency } from "@/lib/convertCurrency";
 import { currencyMap } from "@/lib/currencyMap";
 import { currencySymbol } from "@/lib/currencySymbol";
+import router from "next/router";
 
 const philosopher = Philosopher({
     subsets: ["latin"],
     weight: ["400", "700"],
 });
+
 
 interface VideoObject {
     url: string;
@@ -122,6 +124,12 @@ export default function ProductPage({
     const [currency, setCurrency] = useState("USD");
     const [convertedPrices, setConvertedPrices] = useState<Record<string, number>>({});
     const [customizeOpen, setCustomizeOpen] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+
+    const userId = typeof window !== "undefined" ? localStorage.getItem("userId") || "" : "";
+    const API_BASE = "https://claireapi.onrender.com";
 
     const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -148,6 +156,19 @@ export default function ProductPage({
         fetchProduct();
     }, [id]);
 
+    // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
 
     // Update price when metal changes
@@ -191,11 +212,67 @@ export default function ProductPage({
         }
     }, [activeMedia]);
 
+    // Check if this product is already in favorites
+    useEffect(() => {
+        if (!userId || !product) return;
+
+        const fetchFavorites = async () => {
+            try {
+                const res = await axios.get(`${API_BASE}/favorites/${userId}`);
+                // specify type instead of any
+                const favorites: { productId: string }[] = res.data;
+                setIsFavorite(favorites.some(item => item.productId === product._id));
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchFavorites();
+    }, [userId, product]);
+
+    // Add to cart
+    const handleAddToCart = async () => {
+        if (!userId || !product) return alert("Please login first!");
+        setLoading(true);
+
+        try {
+            await axios.post(`${API_BASE}/cart`, {
+                userId,
+                productId: product._id,
+                quantity,
+            });
+            alert("Product added to cart!");
+            router.push("/cartpage");
+        } catch (err) {
+            console.error(err);
+            alert("Failed to add to cart");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Toggle wishlist / favorite
+    const toggleFavorite = async () => {
+        if (!userId || !product) return alert("Please login first!");
+        try {
+            if (isFavorite) {
+                await axios.delete(`${API_BASE}/favorites`, { data: { userId, productId: product._id } });
+                setIsFavorite(false);
+            } else {
+                await axios.post(`${API_BASE}/favorites`, { userId, productId: product._id });
+                setIsFavorite(true);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Something went wrong");
+        }
+    };
+
     if (loading) return <p className="text-center py-10">Loading...</p>;
     if (!product) return <p className="text-center py-10">Product not found.</p>;
 
     return (
-        <div className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div ref={dropdownRef} className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* LEFT SIDE - IMAGE & VIDEO SLIDER */}
             <div className="flex flex-col lg:flex-row gap-4">
 
@@ -408,22 +485,26 @@ export default function ProductPage({
                 <div className="flex items-center lg:justify-start w-full gap-2  ">
 
                     {/* Add to Cart */}
-                    <Link href="/cart" className="w-full">
+                    <Link href="" className="w-full">
                         <button
-                            className="
-                                      px-4 py-2 bg-[#43825c] text-white rounded-lg
-                                      w-full
-                                     "
+                            onClick={handleAddToCart}
+                            disabled={loading}
+                            className="px-4 py-2 bg-[#43825c] text-white rounded-lg w-full"
                         >
-                            Add to Cart
+                            {loading ? "Adding..." : "Add to Cart"}
                         </button>
                     </Link>
 
 
                     {/* Wishlist */}
-                    <Link href="/wishlist">
-                        <button className="p-[7px] border border-gray-400 rounded-lg w-[50px] flex justify-center">
-                            <FaRegHeart className="w-6 h-6 text-[#9f7d48]" />
+                    <Link href="">
+                        <button
+                            onClick={toggleFavorite}
+                            className="p-[7px] border border-gray-400 rounded-lg w-[50px] flex justify-center"
+                        >
+                            <FaRegHeart
+                                className={`w-6 h-6 ${isFavorite ? "text-red-500" : "text-[#9f7d48]"}`}
+                            />
                         </button>
                     </Link>
 

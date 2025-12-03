@@ -75,7 +75,7 @@ const Profile: React.FC = () => {
             {getInitial()}
           </span>
         ) : (
-          <FaUserCircle className="text-4xl" />
+          <FaUserCircle className="text-4xl"/>
         )}
       </button>
 

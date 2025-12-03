@@ -68,7 +68,7 @@ const Signup = () => {
           setUser(res.data.user);
           localStorage.setItem("token", res.data.token);
         }
-             
+
       })
       .catch((err) => console.error("Error fetching user:", err));
   }, []);
@@ -90,16 +90,16 @@ const Signup = () => {
     }
   }, [user, router]);
 
-  
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
     const newUser = urlParams.get("newUser"); // 👈 capture newUser
     const email = urlParams.get("email"); // 👈 capture email
-  
+
     if (token) {
       localStorage.setItem("token", token);
-  
+
       if (newUser === "true" && email) {
         router.push(`/register?email=${email}`); // 👈 redirect to register page
       } else {
@@ -110,6 +110,10 @@ const Signup = () => {
   const handleGoogleLogin = () => {
     window.location.href = "https://claireapi.onrender.com/auth/google";
   };
+
+  // On any page where user clicks "Sign in with Google"
+const currentUrl = window.location.href; // current page
+const googleLoginUrl = `/auth/google?redirect=${encodeURIComponent(currentUrl)}`;
 
 
   return (
@@ -129,9 +133,10 @@ const Signup = () => {
           className="w-full bg-white hover:bg-[#43825c] border border-[#43825c] text-[#43825c] hover:text-white font-semibold py-3 rounded-lg transition duration-300 flex items-center justify-center gap-2"
         >
           <Image src="/assets/google-icon.svg" alt="Google" width={20} height={20} />
-          Sign in with Google
+          <a href={googleLoginUrl}>Sign in with Google</a>
+
         </button>
-          <h4 className="text-center text-[#9f7d48] my-4">or</h4>
+        <h4 className="text-center text-[#9f7d48] my-4">or</h4>
         <form onSubmit={handleSignup}>
           <div className="mb-4">
             <label className="block text-[#43825c] font-medium mb-2">Email</label>

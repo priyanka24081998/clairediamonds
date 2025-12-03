@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
@@ -13,7 +15,32 @@ import { FaWhatsapp } from "react-icons/fa";
 import Currency from "./Currency";
 import Profile from "./Profile";
 
+
+
+
 const Header = () => {
+ 
+  const [cartCount, setCartCount] = useState(0);
+
+  const userId = typeof window !== "undefined" ? localStorage.getItem("userId") || "" : "";
+  const API_BASE = "https://claireapi.onrender.com"; // replace with your backend URL
+
+  // Fetch cart count
+ useEffect(() => {
+    if (!userId) return;
+    const fetchCartCount = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/cart/${userId}`);
+        setCartCount(res.data.length);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchCartCount();
+  }, [userId]);
+
+
+
   return (
     <>
       <div className="header w-full">
@@ -191,21 +218,27 @@ const Header = () => {
                 <div className="W-1/3 grid grid-cols-3 gap-x-4 flex items-center">
                   {/* Wishlist */}
                   <span className="wishlist">
-                    <a href="" title="Your Wishlist">
+                    <a href="/favorites" title="Your Wishlist">
                       <FaRegHeart className="w-8 h-8 sm:block hidden text-[#9f7d48]" />
                       <FaRegHeart className="w-6 h-6 sm:hidden block text-[#9f7d48]" />
                     </a>
                   </span>
 
+
                   {/* Cart Section */}
-                  <span className="cartsection">
-                    <a href="" title="Shopping Bag">
-                      <HiOutlineShoppingBag className="w-8 h-8 sm:block hidden text-[#9f7d48]" />
-                      <HiOutlineShoppingBag className="w-6 h-7 sm:hidden block text-[#9f7d48]" />
-                      <span id="topminiquantyDiv"></span>
-                    </a>
-                    <div id="minicartMainDiv"></div>
-                  </span>
+      <span className="cartsection">
+        <a href="/cart" title="Shopping Bag" className="relative">
+          <HiOutlineShoppingBag className="w-8 h-8 sm:block hidden text-[#9f7d48]" />
+          <HiOutlineShoppingBag className="w-6 h-7 sm:hidden block text-[#9f7d48]" />
+
+          {/* Cart count badge */}
+          {cartCount > 0 && (
+            <span className="absolute top-0 right-0 bg-red-500 rounded-full text-white w-5 h-5 text-xs flex items-center justify-center">
+              {cartCount}
+            </span>
+          )}
+        </a>
+      </span>
                   <Profile />
                 </div>
               </div>
