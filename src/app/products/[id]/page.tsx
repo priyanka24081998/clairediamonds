@@ -237,6 +237,14 @@ export default function ProductPage({
         fetchFavorites();
     }, [userId, product]);
 
+    // load userId on client
+useEffect(() => {
+  const storedUserId = localStorage.getItem("userId");
+  if (storedUserId) {
+    setUserId(storedUserId);
+  }
+}, []);
+
    const handleAddToCart = async () => {
     if (!userId || !product) {
         alert("Please login first!");
