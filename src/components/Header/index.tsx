@@ -227,7 +227,7 @@ const Header = () => {
 
                   {/* Cart Section */}
       <span className="cartsection">
-        <a href="/cart" title="Shopping Bag" className="relative">
+        <a href="/cartpage" title="Shopping Bag" className="relative">
           <HiOutlineShoppingBag className="w-8 h-8 sm:block hidden text-[#9f7d48]" />
           <HiOutlineShoppingBag className="w-6 h-7 sm:hidden block text-[#9f7d48]" />
 
