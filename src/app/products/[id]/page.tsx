@@ -125,10 +125,17 @@ export default function ProductPage({
     const [convertedPrices, setConvertedPrices] = useState<Record<string, number>>({});
     const [customizeOpen, setCustomizeOpen] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [userId, setUserId] = useState<string | null>(null);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
 
-    const userId = typeof window !== "undefined" ? localStorage.getItem("userId") || "" : "";
+    useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+        setUserId(storedUserId);
+    }
+}, []);
     const API_BASE = "https://claireapi.onrender.com";
 
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -230,26 +237,29 @@ export default function ProductPage({
         fetchFavorites();
     }, [userId, product]);
 
-    // Add to cart
-    const handleAddToCart = async () => {
-        if (!userId || !product) return alert("Please login first!");
-        setLoading(true);
+   const handleAddToCart = async () => {
+    if (!userId || !product) {
+        alert("Please login first!");
+        return;
+    }
+    setLoading(true);
 
-        try {
-            await axios.post(`${API_BASE}/cart`, {
-                userId,
-                productId: product._id,
-                quantity,
-            });
-            alert("Product added to cart!");
-            router.push("/cartpage");
-        } catch (err) {
-            console.error(err);
-            alert("Failed to add to cart");
-        } finally {
-            setLoading(false);
-        }
-    };
+    try {
+        await axios.post(`${API_BASE}/cart`, {
+            userId,
+            productId: product._id,
+            quantity,
+        });
+        alert("Product added to cart!");
+        router.push("/cartpage");
+    } catch (err) {
+        console.error(err);
+        alert("Failed to add to cart");
+    } finally {
+        setLoading(false);
+    }
+};
+
 
     // Toggle wishlist / favorite
     const toggleFavorite = async () => {
@@ -272,7 +282,7 @@ export default function ProductPage({
     if (!product) return <p className="text-center py-10">Product not found.</p>;
 
     return (
-        <div ref={dropdownRef} className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div  className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* LEFT SIDE - IMAGE & VIDEO SLIDER */}
             <div className="flex flex-col lg:flex-row gap-4">
 
@@ -370,7 +380,7 @@ export default function ProductPage({
             </div>
 
             {/* RIGHT SIDE - PRODUCT DETAILS */}
-            <div className="flex flex-col gap-4 md:py-6 font-sans">
+            <div ref={dropdownRef} className="flex flex-col gap-4 md:py-6 font-sans">
                 <h1
                     className={`text-[20px] md:text-3xl text-[#43825c] capitalize font-bold md:mb-2 ${philosopher.className}`}>
                     {product.name}
