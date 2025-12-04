@@ -131,8 +131,8 @@ export default function FavoritesPage() {
         {favorites.map(fav => {
           const product = fav.product;
           const productConverted = converted[fav._id] || {};
-        //   const firstMetal = Object.keys(product.price)[0];
-          const defaultPrice = productConverted[product.price.silver] || 0;
+          const firstMetal = Object.keys(product.price.silver)[0];
+          const defaultPrice = productConverted[firstMetal] || 0;
 
           return (
             <div key={fav._id} className="border rounded-xl p-4 shadow-md bg-white">
