@@ -63,9 +63,9 @@ export default function CartPage() {
   // ----------------------------------------
   useEffect(() => {
     if (!userId) {
-    setCartItems([]);  // 👈 clear old cart
-    return;
-  }
+      setCartItems([]);  // 👈 clear old cart
+      return;
+    }
 
     const fetchCart = async () => {
       try {
@@ -134,6 +134,23 @@ export default function CartPage() {
     const converted = convertedPrices[item._id] || 0;
     return acc + converted * item.quantity;
   }, 0);
+  // ----------------------------------------
+  // 7️⃣ Add to Favorites
+  // ----------------------------------------
+  const addToFavorites = async (productId: string) => {
+    if (!userId) return;
+
+    try {
+      await axios.post(`${API_BASE}/favorites`, {
+        userId,
+        productId,
+      });
+
+      alert("Added to favorites ❤️");
+    } catch (err) {
+      console.error("Favorite error:", err);
+    }
+  };
 
   // ----------------------------------------
   // RETURN UI
@@ -197,14 +214,24 @@ export default function CartPage() {
               </div>
             </div>
 
-            <button
-              onClick={() =>
-                removeItem(item.productId, item.selectedMetal)
-              }
-              className="text-red-500 font-bold"
-            >
-              Remove
-            </button>
+            <div className="flex flex-col items-end gap-2">
+              <button
+                onClick={() =>
+                  removeItem(item.productId, item.selectedMetal)
+                }
+                className="text-red-500 font-bold"
+              >
+                Remove
+              </button>
+
+              <button
+                onClick={() => addToFavorites(item.productId)}
+                className="text-blue-600 font-semibold hover:underline"
+              >
+                Add to Favorites
+              </button>
+            </div>
+
           </div>
         );
       })}
