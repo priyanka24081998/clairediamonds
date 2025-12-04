@@ -175,151 +175,164 @@ export default function CartPage() {
   if (!userId) return <p className="p-6">Loading...</p>;
 
   return (
-    <div className="py-10 container mx-auto">
-      <h1
-        className={`text-[20px] md:text-3xl text-[#43825c] text-center capitalize font-bold md:mb-2 ${philosopher.className}`}>
-        Shopping bag</h1>
+    <div className="py-10 container mx-auto px-4">
+  <h1
+    className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#43825c] text-center font-bold mb-6 ${philosopher.className}`}
+  >
+    Shopping Bag
+  </h1>
 
-      <div className="w-full flex flex-col lg:flex-row gap-10 mt-10">
+  <div className="w-full flex flex-col lg:flex-row gap-10">
 
-        {loading && <p>Loading cart...</p>}
-        {cartItems.length === 0 && <p>Your cart is empty</p>}
+    {/* CART LEFT SIDE */}
+    <div className="flex-1 space-y-10">
 
-        <div className="flex-1 space-y-8">
+      {loading && <p>Loading cart...</p>}
+      {cartItems.length === 0 && <p>Your cart is empty</p>}
 
-          {cartItems.map((item) => {
-            const convertedPrice = convertedPrices[item._id] || 0;
+      {cartItems.map((item) => {
+        const convertedPrice = convertedPrices[item._id] || 0;
 
-            return (
-              <div
-                key={item._id}
-                className="border-b pb-8"
-              >
-              <div className="section flex gap-6">
+        return (
+          <div
+            key={item._id}
+            className="border-b pb-8"
+          >
+            <div className="flex flex-col sm:flex-row gap-6">
 
-                {/* PRODUCT IMAGE */}
-                <div className="lg:w-[300px] mx-auto">
-                  {item.product?.images?.[0] && (
-                    <Image
-                      src={item.product.images[0]}
-                      alt={item.product.name}
-                      width={140}
-                      height={140}
-                      className="rounded-lg shadow-sm"
-                    />
-                  )}
-                </div>
+              {/* IMAGE */}
+              <div className="w-full sm:w-[200px] lg:w-[280px] mx-auto flex justify-center">
+                {item.product?.images?.[0] && (
+                  <Image
+                    src={item.product.images[0]}
+                    alt={item.product.name}
+                    width={200}
+                    height={200}
+                    className="rounded-lg shadow-sm object-cover max-h-[220px]"
+                  />
+                )}
+              </div>
 
-                {/* PRODUCT DETAILS */}
-                <div className="flex-1">
-                  <h2 className={`text-[20px] md:text-3xl font-sans text-gray-900 ${philosopher.className}`}>
-                    {item.product?.name}
-                  </h2>
+              {/* DETAILS */}
+              <div className="flex-1">
 
-                  <p className="text-gray-700 mt-1">
-                    Metal: {item.selectedMetal}
-                  </p>
+                <h2
+                  className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-900 ${philosopher.className}`}
+                >
+                  {item.product?.name}
+                </h2>
 
-                  {/* Tiffany-Style Description */}
-                  <div className="text-sm font-sans text-gray-600 mt-3 space-y-1 lg:w-[500px]">
-                    <div className="grid grid-col-2 ">
-                      <p>Carat - {item.product?.weight || "-"}</p>
-                      <p>Cut - {item.product?.cut || "-"}</p>
-                      <p>Clarity - {item.product?.clarity || "-"}</p>
-                      <p>Color - {item.product?.color || "-"}</p>
-                    </div>
-                    <p>Claire Diamonds Certificate</p>
-                    <p className="font-medium text-gray-700 pt-2">
-                      Express Delivery With Signature
-                    </p>
-                    <p className="text-gray-500 hidden lg:block">
-                      We offer complimentary engraving for our all jewellery.
-                      Engravings are the perfect way to show your partner how much
-                      you think of them. Take a cue from these engraving ideas,
-                      or use them as inspiration when you design any of our personalized jewelry
-                      or engraved gifts. We have collections for both men and women.
-                    </p>
+                <p className="text-sm sm:text-base text-gray-700 mt-1">
+                  Metal: {item.selectedMetal}
+                </p>
+
+                {/* Tiffany-Style Description */}
+                <div className="text-xs sm:text-sm md:text-base text-gray-600 mt-3 space-y-1 lg:w-[600px]">
+
+                  <div className="grid grid-cols-2 gap-y-1">
+                    <p>Carat - {item.product?.weight || "-"}</p>
+                    <p>Cut - {item.product?.cut || "-"}</p>
+                    <p>Clarity - {item.product?.clarity || "-"}</p>
+                    <p>Color - {item.product?.color || "-"}</p>
                   </div>
 
-                  {/* PRICE */}
-                  <p className="mt-4 text-xl font-semibold text-[#32796B]">
-                    {currencySymbol[currency] || currency} {(convertedPrice * item.quantity).toFixed(2)}
+                  <p className="pt-1">Claire Diamonds Certificate</p>
+
+                  <p className="font-medium text-gray-700 pt-2">
+                    Express Delivery With Signature
                   </p>
 
-                  {/* ACTION BUTTONS */}
-                  <div className="flex gap-6 mt-5">
-                    <Link href="/favorites">
-                      <button
-                        onClick={() => moveToFavorites(item.productId, item.selectedMetal)}
-                        className="text-[#0A6E6E] underline font-medium"
-                      >
-                        Save for Later
-                      </button>
-                    </Link>
+                  <p className="text-gray-500 hidden lg:block leading-relaxed">
+                    We offer complimentary engraving for all jewellery. Engravings
+                    are the perfect way to show your partner how much you think of them.
+                    Use these ideas as inspiration when designing any of our personalized
+                    jewellery or engraved gifts.
+                  </p>
+
+                </div>
+
+                {/* PRICE */}
+                <p className="mt-4 text-lg sm:text-xl md:text-2xl font-semibold text-[#32796B]">
+                  {currencySymbol[currency] || currency}{" "}
+                  {(convertedPrice * item.quantity).toFixed(2)}
+                </p>
+
+                {/* BUTTONS */}
+                <div className="flex gap-6 mt-5 text-sm sm:text-base">
+                  <Link href="/favorites">
                     <button
-                      onClick={() => removeItem(item.productId, item.selectedMetal)}
-                      className="text-red-500 font-medium underline"
+                      onClick={() => moveToFavorites(item.productId, item.selectedMetal)}
+                      className="text-[#0A6E6E] underline font-medium"
                     >
-                      Remove
+                      Save for Later
                     </button>
+                  </Link>
 
-                  </div>
+                  <button
+                    onClick={() => removeItem(item.productId, item.selectedMetal)}
+                    className="text-red-500 font-medium underline"
+                  >
+                    Remove
+                  </button>
                 </div>
 
               </div>
-               <p className="text-gray-500  lg:hidden">
-                We offer complimentary engraving for our all jewellery.  
-                Engravings are the perfect way to show your partner how much
-                 you think of them. Take a cue from these engraving ideas,
-                  or use them as inspiration when you design any of our personalized jewelry 
-                  or engraved gifts. We have collections for both men and women.
-              </p>
-              </div>
-            );
-          })}
 
-        </div>
-
-        {/* ------ RIGHT: ORDER SUMMARY (Tiffany Style) ------ */}
-        <div className="w-full lg:w-80 border p-6 rounded-lg shadow-sm bg-[#FAFAFA]">
-
-          <h3 className="text-xl font-serif mb-4">Order Summary</h3>
-
-          <div className="space-y-4">
-
-            <div className="flex justify-between text-gray-700">
-              <span>Subtotal</span>
-              <span>{currencySymbol[currency] || currency} {total.toFixed(2)}</span>
             </div>
 
-            <div className="flex justify-between text-gray-700">
-              <span>Express Delivery With Signature</span>
-              <span>{currencySymbol[currency] || currency} 0.00</span>
-            </div>
-
-            <div className="flex justify-between text-gray-700">
-              <span>Estimated Tax</span>
-              <span>-</span>
-            </div>
-
-            <p className="text-sm text-gray-500">
-              Taxes and other shipping methods may apply.
-            </p>
-
-            <div className="flex justify-between pt-3 border-t font-semibold text-lg text-gray-900">
-              <span>Estimated Total</span>
-              <span>{currencySymbol[currency] || currency} {total.toFixed(2)}</span>
-            </div>
-
-            <p className="text-sm text-[#0A6E6E] mt-2 font-medium">
-              Complimentary Delivery & Returns
+            {/* MOBILE DESCRIPTION */}
+            <p className="text-gray-500 lg:hidden mt-3 text-xs sm:text-sm leading-relaxed">
+              We offer complimentary engraving for all jewellery. Engravings
+              help personalize your gift. Use these ideas as inspiration when
+              designing any of our personalized jewellery or engraved gifts.
             </p>
 
           </div>
+        );
+      })}
 
+    </div>
+
+    {/* RIGHT SIDE ORDER SUMMARY */}
+    <div className="w-full lg:w-[340px] border p-6 rounded-lg shadow-sm bg-[#FAFAFA] h-fit">
+
+      <h3 className="text-lg sm:text-xl font-serif mb-4">Order Summary</h3>
+
+      <div className="space-y-4 text-sm sm:text-base">
+
+        <div className="flex justify-between text-gray-700">
+          <span>Subtotal</span>
+          <span>{currencySymbol[currency] || currency} {total.toFixed(2)}</span>
         </div>
 
+        <div className="flex justify-between text-gray-700">
+          <span>Express Delivery With Signature</span>
+          <span>{currencySymbol[currency] || currency} 0.00</span>
+        </div>
+
+        <div className="flex justify-between text-gray-700">
+          <span>Estimated Tax</span>
+          <span>-</span>
+        </div>
+
+        <p className="text-xs sm:text-sm text-gray-500">
+          Taxes and other shipping methods may apply.
+        </p>
+
+        <div className="flex justify-between pt-3 border-t font-semibold text-base sm:text-lg text-gray-900">
+          <span>Estimated Total</span>
+          <span>{currencySymbol[currency] || currency} {total.toFixed(2)}</span>
+        </div>
+
+        <p className="text-sm text-[#0A6E6E] mt-2 font-medium">
+          Complimentary Delivery & Returns
+        </p>
+
       </div>
+
     </div>
+  </div>
+</div>
+
   );
 }
