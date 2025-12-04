@@ -557,7 +557,7 @@ const handleAddToCart = async () => {
                             className="p-[7px] border border-gray-400 rounded-lg w-[50px] flex justify-center"
                         >
                             <FaRegHeart
-                                className={`w-6 h-6 ${isFavorite ? "text-red-500" : "text-[#9f7d48]"}`}
+                                className={`w-6 h-6 ${isFavorite ? "text-[#9f7d48] bg-[#9f7d48]" : "text-[#9f7d48]"}`}
                             />
                         </button>
                     </Link>
