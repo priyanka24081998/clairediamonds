@@ -1,180 +1,106 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 
-import { getLocation } from "@/lib/getLocation";
-import { convertCurrency } from "@/lib/convertCurrency";
-import { currencyMap } from "@/lib/currencyMap";
-import { currencySymbol } from "@/lib/currencySymbol";
-
-interface FavoriteItem {
+// -------------------- TYPES --------------------
+interface Product {
   _id: string;
-  userId: string;
-  productId: string;
-  selectedMetal: string;
-
-  product: {
-    name: string;
-    images: string[];
-    price: Record<string, number>;
-  };
+  name: string;
+  price: number;
+  images?: string[];
 }
 
+interface Favorite {
+  userId: string;
+  product: Product | null;
+}
+
+// -------------------- COMPONENT --------------------
 export default function FavoritesPage() {
-  const [userId, setUserId] = useState<string | null>(null);
-  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const userId =
+    typeof window !== "undefined" ? localStorage.getItem("userId") : null;
 
-  const [currency, setCurrency] = useState("USD");
-  const [convertedPrices, setConvertedPrices] = useState<Record<string, number>>({});
-
-  const API_BASE = "https://claireapi.onrender.com";
-
-  // 🌍 1️⃣ Detect User ID
-  useEffect(() => {
-    const id = localStorage.getItem("userId");
-    setUserId(id);
-  }, []);
-
-  // 💱 2️⃣ Detect Currency
-  useEffect(() => {
-    async function loadCurr() {
-      const loc = await getLocation();
-      if (loc) {
-        const cur = currencyMap[loc.country] || loc.currency || "USD";
-        setCurrency(cur);
-      }
-    }
-    loadCurr();
-  }, []);
-
-  // ❤️ 3️⃣ Load all favorites
   useEffect(() => {
     if (!userId) return;
 
-    async function loadFavorites() {
+    const fetchFavorites = async () => {
       try {
-        setLoading(true);
-        const res = await axios.get(`${API_BASE}/favorites/${userId}`);
-        setFavorites(res.data);
-      } catch (err) {
-        console.error("Fetch favorites error:", err);
-      } finally {
-        setLoading(false);
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/favorites/${userId}`
+        );
+        setFavorites(res.data.favorites || []);
+      } catch (error) {
+        console.log("Error fetching favorites:", error);
       }
-    }
+    };
 
-    loadFavorites();
+    fetchFavorites();
   }, [userId]);
 
-  // 💱 4️⃣ Convert prices
-  useEffect(() => {
-    async function convertAll() {
-      const map: Record<string, number> = {};
-
-      for (const item of favorites) {
-        const metalKey = item.selectedMetal;
-        const base = item.product?.price?.[metalKey] || 0;
-
-        const converted = await convertCurrency(base, "USD", currency);
-        map[item._id] = converted;
-      }
-
-      setConvertedPrices(map);
-    }
-
-    if (favorites.length > 0 && currency) {
-      convertAll();
-    }
-  }, [favorites, currency]);
-
-  // ❌ 5️⃣ Remove Favorite
-  const removeFavorite = async (productId: string, selectedMetal: string) => {
-    if (!userId) return;
-
+  // REMOVE FAVORITE
+  const removeFavorite = async (productId: string) => {
     try {
-      await axios.delete(`${API_BASE}/favorites`, {
-        data: { userId, productId, selectedMetal },
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/favorites`, {
+        data: { userId, productId },
       });
 
-      setFavorites(
-        favorites.filter(
-          (f) =>
-            f.productId !== productId ||
-            f.selectedMetal !== selectedMetal
-        )
+      setFavorites((prev) =>
+        prev.filter((fav) => fav.product?._id !== productId)
       );
-    } catch (err) {
-      console.error("Remove favorite error:", err);
+    } catch (error) {
+      console.log("Error removing favorite:", error);
     }
   };
-
-  // UI ⬇⬇⬇
-  if (!userId) return <p className="p-6">Please login to view favorites.</p>;
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4 text-[#43825c]">Your Favourites</h1>
+      <h1 className="text-3xl font-semibold mb-6">Your Favorites</h1>
 
-      {loading && <p>Loading favorites...</p>}
-      {!loading && favorites.length === 0 && (
-        <p className="text-gray-500">No favourite products yet.</p>
-      )}
+      {favorites.length === 0 ? (
+        <p>No favorites added yet.</p>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          {favorites.map((fav) => {
+            const product = fav.product;
+            if (!product) return null;
 
-      {favorites.map((item) => {
-        const converted = convertedPrices[item._id];
-        const usdPrice = item.product?.price?.[item.selectedMetal] ?? 0;
+            const imageUrl =
+              product?.images && product.images.length > 0
+                ? product.images[0]
+                : "/placeholder.png";
 
-        return (
-          <div
-            key={item._id}
-            className="flex justify-between items-center mb-4 border p-4 rounded-lg"
-          >
-            {/* Image + Info */}
-            <div className="flex items-center gap-4">
-              <Image
-                src={item.product.images?.[0] || "/placeholder.jpg"}
-                alt={item.product.name}
-                width={80}
-                height={80}
-                className="rounded"
-              />
+            return (
+              <div
+                key={product._id}
+                className="border rounded-lg p-3 shadow-md"
+              >
+                <Link href={`/product/${product._id}`}>
+                  <Image
+                    src={imageUrl}
+                    width={300}
+                    height={300}
+                    alt={product.name}
+                    className="w-full h-48 object-cover rounded-md"
+                  />
+                </Link>
 
-              <div>
-                <p className="font-semibold text-[#9f7d48]">
-                  {item.product.name}
-                </p>
-                <p className="text-sm text-gray-500">
-                  Metal: {item.selectedMetal}
-                </p>
+                <h2 className="text-lg font-medium mt-2">{product.name}</h2>
+                <p className="text-gray-600">₹{product.price}</p>
 
-                <p className="mt-1 font-semibold text-[#43825c]">
-                  {converted ? (
-                    <>
-                      {currencySymbol[currency] || currency}{" "}
-                      {converted.toFixed(2)}
-                    </>
-                  ) : (
-                    <>USD {usdPrice}</>
-                  )}
-                </p>
+                <button
+                  onClick={() => removeFavorite(product._id)}
+                  className="mt-3 w-full bg-red-500 text-white py-2 rounded-md"
+                >
+                  Remove
+                </button>
               </div>
-            </div>
-
-            {/* Remove */}
-            <button
-              className="text-red-600 font-bold"
-              onClick={() =>
-                removeFavorite(item.productId, item.selectedMetal)
-              }
-            >
-              Remove
-            </button>
-          </div>
-        );
-      })}
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

@@ -12,6 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 import Image from "next/image";
 import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa6";
 import { Accordion, AccordionSummary, AccordionDetails, } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { getLocation } from "@/lib/getLocation";      // ✅ FIXED
@@ -107,7 +108,7 @@ const getMetalDisplayName = (key: string) => {
         .replace(/\b\w/g, (c) => c.toUpperCase());
 };
 
-  
+
 
 export default function ProductPage({
     params,
@@ -130,16 +131,16 @@ export default function ProductPage({
     const [isFavorite, setIsFavorite] = useState(false);
     const [userId, setUserId] = useState<string | null>(null);
 
-  const dropdownRef = useRef<HTMLDivElement>(null);
-   const router = useRouter();
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const router = useRouter();
 
 
     useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-        setUserId(storedUserId);
-    }
-}, []);
+        const storedUserId = localStorage.getItem("userId");
+        if (storedUserId) {
+            setUserId(storedUserId);
+        }
+    }, []);
     const API_BASE = "https://claireapi.onrender.com";
 
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -166,20 +167,20 @@ export default function ProductPage({
 
         fetchProduct();
     }, [id]);
-  
-    // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
 
     // Update price when metal changes
@@ -242,63 +243,63 @@ export default function ProductPage({
     }, [userId, product]);
 
     // load userId on client
-useEffect(() => {
-  const storedUserId = localStorage.getItem("userId");
-  if (storedUserId) {
-    setUserId(storedUserId);
-  }
-}, []);
+    useEffect(() => {
+        const storedUserId = localStorage.getItem("userId");
+        if (storedUserId) {
+            setUserId(storedUserId);
+        }
+    }, []);
 
-const handleAddToCart = async () => {
-  if (!product?._id) {
-    alert("Product not found!");
-    return;
-  }
+    const handleAddToCart = async () => {
+        if (!product?._id) {
+            alert("Product not found!");
+            return;
+        }
 
-  const userId = localStorage.getItem("userId");
-  if (!userId) {
-    alert("Please login first!");
-    return;
-  }
-  if (!selectedMetal) return alert("Please select a metal!");
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+            alert("Please login first!");
+            return;
+        }
+        if (!selectedMetal) return alert("Please select a metal!");
 
-  setLoading(true);
+        setLoading(true);
 
-  try {
-    const token = localStorage.getItem("token");
-    const res = await axios.post(
-      `${API_BASE}/cart`,
-      { userId, productId: product._id, quantity: Number(quantity),selectedMetal },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+        try {
+            const token = localStorage.getItem("token");
+            const res = await axios.post(
+                `${API_BASE}/cart`,
+                { userId, productId: product._id, quantity: Number(quantity), selectedMetal },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
 
-    console.log("Add to Cart response:", res.data);
+            console.log("Add to Cart response:", res.data);
 
-    if (res.data?._id) {
-        console.log(res.data._id);
-        
-      alert("Product added to cart!");
-      // Delay router.push to make sure alert finishes
-      setTimeout(() => {
-        router.push("/cartpage");
-      }, 50);
-      return;
-    }
+            if (res.data?._id) {
+                console.log(res.data._id);
 
-    alert("Failed to add to cart");
+                alert("Product added to cart!");
+                // Delay router.push to make sure alert finishes
+                setTimeout(() => {
+                    router.push("/cartpage");
+                }, 50);
+                return;
+            }
 
-  } catch (err: unknown) {
-    if (axios.isAxiosError(err)) {
-      console.error("Cart Error:", err.response?.data || err.message);
-      alert(err.response?.data?.error || "Failed to add to cart");
-    } else {
-      console.error("Unexpected error:", err);
-      alert("Failed to add to cart");
-    }
-  } finally {
-    setLoading(false);
-  }
-};
+            alert("Failed to add to cart");
+
+        } catch (err: unknown) {
+            if (axios.isAxiosError(err)) {
+                console.error("Cart Error:", err.response?.data || err.message);
+                alert(err.response?.data?.error || "Failed to add to cart");
+            } else {
+                console.error("Unexpected error:", err);
+                alert("Failed to add to cart");
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
 
@@ -325,7 +326,7 @@ const handleAddToCart = async () => {
     if (!product) return <p className="text-center py-10">Product not found.</p>;
 
     return (
-        <div  className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* LEFT SIDE - IMAGE & VIDEO SLIDER */}
             <div className="flex flex-col lg:flex-row gap-4">
 
@@ -541,7 +542,7 @@ const handleAddToCart = async () => {
                     <Link href="" className="w-full">
                         <button
                             onClick={handleAddToCart}
-                              disabled={loading || !userId}
+                            disabled={loading || !userId}
 
                             className="px-4 py-2 bg-[#43825c] text-white rounded-lg w-full"
                         >
@@ -555,10 +556,10 @@ const handleAddToCart = async () => {
                         <button
                             onClick={toggleFavorite}
                             className="p-[7px] border border-gray-400 rounded-lg w-[50px] flex justify-center"
-                        >
-                            <FaRegHeart
-                                className={`w-6 h-6 ${isFavorite ? "text-[#9f7d48] bg-[#9f7d48]" : "text-[#9f7d48]"}`}
-                            />
+                        > {isFavorite ? <FaRegHeart
+                            className={`w-6 h-6 "text-[#9f7d48]`}
+                        /> : <FaHeart className={`w-6 h-6 "text-[#9f7d48]`} />}
+
                         </button>
                     </Link>
 
