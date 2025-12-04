@@ -223,10 +223,10 @@ export default function CartPage() {
                   {/* Tiffany-Style Description */}
                   <div className="text-sm font-sans text-gray-600 mt-3 space-y-1 lg:w-[500px]">
                     <div className="grid grid-col-2 ">
-                      <p>Carat {item.product?.weight || "-"}</p>
-                      <p>Clarity {item.product?.clarity || "-"}</p>
-                      <p>Color {item.product?.color || "-"}</p>
-                      <p>Cut {item.product?.cut || "-"}</p>
+                      <p>Carat - {item.product?.weight || "-"}</p>
+                      <p>Cut - {item.product?.cut || "-"}</p>
+                      <p>Clarity - {item.product?.clarity || "-"}</p>
+                      <p>Color - {item.product?.color || "-"}</p>
                     </div>
                     <p>Claire Diamonds Certificate</p>
                     <p className="font-medium text-gray-700 pt-2">
