@@ -24,7 +24,7 @@ interface CartItem {
   name: string;
   price: Record<string, number>;
   images: string[];
-  carat?: string;
+  weight?: string;
   clarity?: string;
   color?: string;
   cut?: string;
@@ -177,7 +177,7 @@ export default function CartPage() {
   return (
     <div className="py-10">
     <h1                     
-    className={`text-[20px] md:text-3xl text-[#43825c] capitalize font-bold md:mb-2 ${philosopher.className}`}>
+    className={`text-[20px] md:text-3xl text-[#43825c] text-center capitalize font-bold md:mb-2 ${philosopher.className}`}>
       Shopping bag</h1>
 
 <div className="w-full flex flex-col lg:flex-row gap-10 mt-10">
@@ -197,7 +197,7 @@ const convertedPrice = convertedPrices[item._id] || 0;
         >
 
           {/* PRODUCT IMAGE */}
-          <div>
+          <div className="lg:w-[300px]">
             {item.product?.images?.[0] && (
               <Image
                 src={item.product.images[0]}
@@ -220,11 +220,13 @@ const convertedPrice = convertedPrices[item._id] || 0;
             </p>
 
             {/* Tiffany-Style Description */}
-            <div className="text-sm text-gray-600 mt-3 space-y-1">
-              <p>Carat {item.product?.carat || "-" }</p>
+            <div className="text-sm font-sans text-gray-600 mt-3 space-y-1 lg:w-[500px]">
+              <div className="grid grid-col-2 ">
+              <p>Carat {item.product?.weight || "-" }</p>
               <p>Clarity {item.product?.clarity || "-" }</p>
               <p>Color {item.product?.color || "-" }</p>
               <p>Cut {item.product?.cut || "-" }</p>
+              </div>
               <p>Claire Diamonds Certificate</p>
               <p className="font-medium text-gray-700 pt-2">
                 Express Delivery With Signature
