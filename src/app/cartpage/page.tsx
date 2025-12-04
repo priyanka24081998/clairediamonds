@@ -16,10 +16,14 @@ interface CartItem {
   quantity: number;
   selectedMetal: string;
   product: {
-    name: string;
-    price: Record<string, number>;
-    images: string[];
-  };
+  name: string;
+  price: Record<string, number>;
+  images: string[];
+  carat?: string;
+  clarity?: string;
+  color?: string;
+  cut?: string;
+};
 }
 
 export default function CartPage() {
@@ -175,7 +179,7 @@ export default function CartPage() {
       <div className="flex-1 space-y-8">
 
     {cartItems.map((item) => {
-      const convertedPrice = converted || usdPrice;
+const convertedPrice = convertedPrices[item._id] || 0;
 
       return (
         <div
