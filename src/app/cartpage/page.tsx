@@ -3,12 +3,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-
+import { Philosopher } from "next/font/google";
 import { getLocation } from "@/lib/getLocation";
 import { convertCurrency } from "@/lib/convertCurrency";
 import { currencyMap } from "@/lib/currencyMap";
 import { currencySymbol } from "@/lib/currencySymbol";
 import Link from "next/link";
+
+const philosopher = Philosopher({
+    subsets: ["latin"],
+    weight: ["400", "700"],
+});
 
 interface CartItem {
   _id: string;
@@ -171,7 +176,9 @@ export default function CartPage() {
 
   return (
     <div className="py-10">
-    <h1 className="text-2xl font-bold mb-4">Shopping bag</h1>
+    <h1                     
+    className={`text-[20px] md:text-3xl text-[#43825c] capitalize font-bold md:mb-2 ${philosopher.className}`}>
+      Shopping bag</h1>
 
 <div className="w-full flex flex-col lg:flex-row gap-10 mt-10">
       
