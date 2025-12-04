@@ -198,7 +198,7 @@ export default function CartPage() {
               <div className="section flex gap-6">
 
                 {/* PRODUCT IMAGE */}
-                <div className="lg:w-[300px] flex justify-center item-center">
+                <div className="lg:w-[300px]">
                   {item.product?.images?.[0] && (
                     <Image
                       src={item.product.images[0]}
