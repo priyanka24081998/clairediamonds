@@ -153,7 +153,7 @@ export default function FavoritesPage() {
                 {Object.keys(product.price).map(metal => (
                   <option key={metal} value={metal}>
                     {metal.toUpperCase()} — {currencySymbol[currency]}{" "}
-                    {(productConverted[metal] || 0).toFixed(2)}
+                     {(productConverted["silver"] || product.price["silver"] || 0).toFixed(2)}
                   </option>
                 ))}
               </select>
@@ -167,6 +167,7 @@ export default function FavoritesPage() {
                   Remove
                 </button>
 
+                <Link href="/cartpage">
                 <button
                   onClick={() => {
                     const select = document.getElementById(
@@ -179,6 +180,7 @@ export default function FavoritesPage() {
                 >
                   Add to Cart
                 </button>
+                </Link>
               </div>
             </div>
           );

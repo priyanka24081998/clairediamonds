@@ -8,6 +8,7 @@ import { getLocation } from "@/lib/getLocation";
 import { convertCurrency } from "@/lib/convertCurrency";
 import { currencyMap } from "@/lib/currencyMap";
 import { currencySymbol } from "@/lib/currencySymbol";
+import Link from "next/link";
 
 interface CartItem {
   _id: string;
@@ -224,12 +225,14 @@ export default function CartPage() {
                 Remove
               </button>
 
+                <Link href="/favorites">
               <button
                 onClick={() => addToFavorites(item.productId)}
                 className="text-blue-600 font-semibold hover:underline"
               >
                 Add to Favorites
               </button>
+              </Link>
             </div>
 
           </div>
