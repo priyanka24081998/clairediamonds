@@ -179,68 +179,72 @@ export default function CartPage() {
         return (
           <div
             key={item._id}
-            className="flex justify-between items-center gap-6 p-5 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-[#e8e2da] bg-white hover:shadow-[0_6px_28px_rgba(0,0,0,0.12)] transition-all mb-6"
+            className="flex justify-between items-center gap-6 mb-6 p-6 rounded-xl border border-[#dbe7e6] bg-white shadow-sm hover:shadow-md transition-all"
+            style={{ borderColor: "#CDE8E6" }}
           >
-            {/* LEFT SIDE */}
-            <div className="flex items-center gap-5">
+            {/* LEFT */}
+            <div className="flex items-center gap-6">
               {item.product?.images?.[0] && (
                 <Image
                   src={item.product.images[0]}
                   alt={item.product.name}
-                  width={90}
-                  height={90}
-                  className="rounded-xl border border-[#d8d2c4] p-1 bg-[#faf7f3]"
+                  width={95}
+                  height={95}
+                  className="rounded-lg border border-[#dbe7e6] p-1 bg-[#f9ffff]"
                 />
               )}
 
               <div className="space-y-1">
-                <p className="font-semibold text-lg text-[#2a2a2a] tracking-wide">
+                {/* PRODUCT NAME */}
+                <p className="font-semibold text-xl text-[#1A3C40] tracking-wide"
+                  style={{ fontFamily: "Georgia, serif" }}>
                   {item.product?.name || "Unknown Product"}
                 </p>
 
-                <p className="text-sm text-[#6d6d6d]">
+                {/* METAL */}
+                <p className="text-sm text-[#4f6f72]">
                   Metal:{" "}
-                  <span className="font-medium text-[#8c6b43] uppercase">
+                  <span className="font-medium text-[#1A3C40] uppercase">
                     {item.selectedMetal}
                   </span>
                 </p>
 
                 {/* PRICE */}
-                <p className="mt-2 font-semibold text-[#4c7d62] text-lg">
+                <p className="mt-2 font-semibold text-[#1A3C40] text-lg">
                   {converted ? (
                     <>
                       {currencySymbol[currency] || currency}{" "}
                       {(converted * item.quantity).toFixed(2)}
 
-                      <span className="block text-gray-500 text-xs mt-1">
+                      <span className="block text-[#688a8c] text-xs mt-1">
                         ({currencySymbol[currency] || currency}{" "}
                         {converted.toFixed(2)} × {item.quantity})
                       </span>
                     </>
                   ) : (
-                    <>
-                      USD {usdPrice} × {item.quantity}
-                    </>
+                    <>USD {usdPrice} × {item.quantity}</>
                   )}
                 </p>
               </div>
             </div>
 
-            {/* RIGHT SIDE BUTTONS */}
+            {/* RIGHT BUTTONS */}
             <div className="flex flex-col items-end gap-3">
+              {/* Remove */}
               <button
                 onClick={() =>
                   removeItem(item.productId, item.selectedMetal)
                 }
-                className="text-red-500 font-semibold hover:text-red-600 transition"
+                className="text-[#ba4b4b] font-medium hover:text-red-600 transition"
               >
                 Remove
               </button>
 
+              {/* Favorites */}
               <Link href="/favorites" className="w-full">
                 <button
                   onClick={() => moveToFavorites(item.productId, item.selectedMetal)}
-                  className="text-[#8c6b43] font-semibold hover:text-[#6f522f] hover:underline transition"
+                  className="font-semibold text-[#008C8C] hover:text-[#006e6e] transition hover:underline"
                 >
                   Add to Favorites
                 </button>
@@ -251,7 +255,8 @@ export default function CartPage() {
       })}
 
       {cartItems.length > 0 && (
-        <p className="mt-10 font-bold text-2xl text-[#2b2b2b] tracking-wide border-t pt-6">
+        <p className="mt-10 font-bold text-2xl text-[#1A3C40] tracking-wide border-t pt-6"
+          style={{ borderColor: "#CDE8E6" }}>
           Total: {currencySymbol[currency] || currency} {total.toFixed(2)}
         </p>
       )}
