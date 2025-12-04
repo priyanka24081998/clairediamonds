@@ -89,26 +89,36 @@ export default function FavoritesPage() {
   };
 
   // 6️⃣ Add to cart
-  const addToCart = async (productId: string, selectedMetal: string) => {
-    if (!userId) {
-      alert("Please login first.");
-      return;
-    }
+  const handleAddToCartAndRemove = async (productId: string, selectedMetal: string) => {
+  if (!userId) {
+    alert("Please login first.");
+    return;
+  }
 
-    try {
-      await axios.post(`${API_BASE}/cart`, {
-        userId,
-        productId,
-        quantity: 1,
-        selectedMetal,
-      });
+  try {
+    // 1️⃣ Add to cart
+    await axios.post(`${API_BASE}/cart`, {
+      userId,
+      productId,
+      quantity: 1,
+      selectedMetal,
+    });
 
-      alert("Added to cart!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to add to cart");
-    }
-  };
+    // 2️⃣ Remove from favorites
+    await axios.delete(`${API_BASE}/favorites`, {
+      data: { userId, productId },
+    });
+
+    // 3️⃣ Update local state to remove it from UI
+    setFavorites(favorites.filter(f => f.productId !== productId));
+
+    // 4️⃣ Redirect to cart page
+    // window.location.href = "/cartpage";
+  } catch (err) {
+    console.error(err);
+    alert("Failed to move product to cart");
+  }
+};
 
   // 7️⃣ Render UI
   return (
@@ -170,12 +180,12 @@ export default function FavoritesPage() {
                 <Link href="/cartpage">
                 <button
                   onClick={() => {
-                    const select = document.getElementById(
-                      `metal-${product._id}`
-                    ) as HTMLSelectElement;
-                    const metal = select.value;
-                    addToCart(product._id, metal);
-                  }}
+    const select = document.getElementById(
+      `metal-${product._id}`
+    ) as HTMLSelectElement;
+    const metal = select.value;
+    handleAddToCartAndRemove(product._id, metal);
+  }}
                   className="bg-[#43825c] text-white px-3 py-1 rounded-lg"
                 >
                   Add to Cart

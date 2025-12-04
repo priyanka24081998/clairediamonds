@@ -136,23 +136,30 @@ export default function CartPage() {
     return acc + converted * item.quantity;
   }, 0);
   // ----------------------------------------
-  // 7️⃣ Add to Favorites
-  // ----------------------------------------
-  const addToFavorites = async (productId: string) => {
+   // 6️⃣ Add to Favorites and remove from Cart
+  const moveToFavorites = async (productId: string, selectedMetal: string) => {
     if (!userId) return;
 
     try {
-      await axios.post(`${API_BASE}/favorites`, {
-        userId,
-        productId,
+      // Add to favorites
+      await axios.post(`${API_BASE}/favorites`, { userId, productId });
+
+      // Remove from cart
+      await axios.delete(`${API_BASE}/cart`, {
+        data: { userId, productId, selectedMetal },
       });
 
-      alert("Added to favorites ❤️");
+      // Update UI
+      setCartItems(cartItems.filter(
+        item => item.productId !== productId || item.selectedMetal !== selectedMetal
+      ));
+
+      alert("Moved to Favorites ❤️");
     } catch (err) {
-      console.error("Favorite error:", err);
+      console.error(err);
+      alert("Failed to move to favorites");
     }
   };
-
   // ----------------------------------------
   // RETURN UI
   // ----------------------------------------
@@ -227,7 +234,7 @@ export default function CartPage() {
 
                 <Link href="/favorites">
               <button
-                onClick={() => addToFavorites(item.productId)}
+                onClick={() => moveToFavorites(item.productId, item.selectedMetal)}
                 className="text-blue-600 font-semibold hover:underline"
               >
                 Add to Favorites
