@@ -22,15 +22,18 @@ export default function FavoritesPage() {
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const userId =
     typeof window !== "undefined" ? localStorage.getItem("userId") : null;
-
+    
+    
   useEffect(() => {
     if (!userId) return;
+
 
     const fetchFavorites = async () => {
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/favorites/${userId}`
+          `https://claireapi.onrender.com/favorites/${userId}`
         );
+        
         setFavorites(res.data.favorites || []);
       } catch (error) {
         console.log("Error fetching favorites:", error);
@@ -43,7 +46,7 @@ export default function FavoritesPage() {
   // REMOVE FAVORITE
   const removeFavorite = async (productId: string) => {
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/favorites`, {
+      await axios.delete(`https://claireapi.onrender.com/favorites`, {
         data: { userId, productId },
       });
 
