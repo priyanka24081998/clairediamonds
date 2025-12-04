@@ -136,7 +136,7 @@ export default function CartPage() {
     return acc + converted * item.quantity;
   }, 0);
   // ----------------------------------------
-   // 6️⃣ Add to Favorites and remove from Cart
+  // 6️⃣ Add to Favorites and remove from Cart
   const moveToFavorites = async (productId: string, selectedMetal: string) => {
     if (!userId) return;
 
@@ -174,41 +174,45 @@ export default function CartPage() {
 
       {cartItems.map((item) => {
         const converted = convertedPrices[item._id];
-        const usdPrice =
-          item.product?.price?.[item.selectedMetal] ?? 0;
+        const usdPrice = item.product?.price?.[item.selectedMetal] ?? 0;
 
         return (
           <div
             key={item._id}
-            className="flex justify-between items-center mb-4 border p-3 rounded-lg"
+            className="flex justify-between items-center gap-6 p-5 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-[#e8e2da] bg-white hover:shadow-[0_6px_28px_rgba(0,0,0,0.12)] transition-all mb-6"
           >
-            <div className="flex items-center gap-4">
+            {/* LEFT SIDE */}
+            <div className="flex items-center gap-5">
               {item.product?.images?.[0] && (
                 <Image
                   src={item.product.images[0]}
                   alt={item.product.name}
-                  width={80}
-                  height={80}
-                  className="rounded"
+                  width={90}
+                  height={90}
+                  className="rounded-xl border border-[#d8d2c4] p-1 bg-[#faf7f3]"
                 />
               )}
 
-              <div>
-                <p className="font-semibold">
+              <div className="space-y-1">
+                <p className="font-semibold text-lg text-[#2a2a2a] tracking-wide">
                   {item.product?.name || "Unknown Product"}
                 </p>
-                <p className="text-sm text-gray-600">
-                  Metal: {item.selectedMetal}
+
+                <p className="text-sm text-[#6d6d6d]">
+                  Metal:{" "}
+                  <span className="font-medium text-[#8c6b43] uppercase">
+                    {item.selectedMetal}
+                  </span>
                 </p>
 
-                <p className="mt-1 font-semibold text-[#43825c]">
+                {/* PRICE */}
+                <p className="mt-2 font-semibold text-[#4c7d62] text-lg">
                   {converted ? (
                     <>
-                      {currencySymbol[currency] || currency}
-                      {" "}
+                      {currencySymbol[currency] || currency}{" "}
                       {(converted * item.quantity).toFixed(2)}
-                      {" "}
-                      <span className="text-gray-500 text-sm">
+
+                      <span className="block text-gray-500 text-xs mt-1">
                         ({currencySymbol[currency] || currency}{" "}
                         {converted.toFixed(2)} × {item.quantity})
                       </span>
@@ -222,37 +226,36 @@ export default function CartPage() {
               </div>
             </div>
 
-            <div className="flex flex-col items-end gap-2">
+            {/* RIGHT SIDE BUTTONS */}
+            <div className="flex flex-col items-end gap-3">
               <button
                 onClick={() =>
                   removeItem(item.productId, item.selectedMetal)
                 }
-                className="text-red-500 font-bold"
+                className="text-red-500 font-semibold hover:text-red-600 transition"
               >
                 Remove
               </button>
 
-                <Link href="/favorites">
-              <button
-                onClick={() => moveToFavorites(item.productId, item.selectedMetal)}
-                className="text-blue-600 font-semibold hover:underline"
-              >
-                Add to Favorites
-              </button>
+              <Link href="/favorites" className="w-full">
+                <button
+                  onClick={() => moveToFavorites(item.productId, item.selectedMetal)}
+                  className="text-[#8c6b43] font-semibold hover:text-[#6f522f] hover:underline transition"
+                >
+                  Add to Favorites
+                </button>
               </Link>
             </div>
-
           </div>
         );
       })}
 
       {cartItems.length > 0 && (
-        <p className="mt-6 font-bold text-xl">
-          Total: {currencySymbol[currency] || currency}
-          {" "}
-          {total.toFixed(2)}
+        <p className="mt-10 font-bold text-2xl text-[#2b2b2b] tracking-wide border-t pt-6">
+          Total: {currencySymbol[currency] || currency} {total.toFixed(2)}
         </p>
       )}
+
     </div>
   );
 }
