@@ -1,109 +1,133 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 
-// -------------------- TYPES --------------------
 interface Product {
   _id: string;
   name: string;
-  price: number;
-  images?: string[];
+  price: Record<string, number>;
+  images: string[];
 }
 
-interface Favorite {
+interface FavoriteItem {
+  _id: string;
   userId: string;
+  productId: string;
   product: Product | null;
 }
 
-// -------------------- COMPONENT --------------------
 export default function FavoritesPage() {
-  const [favorites, setFavorites] = useState<Favorite[]>([]);
-  const userId =
-    typeof window !== "undefined" ? localStorage.getItem("userId") : null;
-    
-    
+  const [userId, setUserId] = useState<string | null>(null);
+  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const API_BASE = "https://claireapi.onrender.com";
+
+  // Get userId from localStorage
+  useEffect(() => {
+    setUserId(localStorage.getItem("userId"));
+  }, []);
+
+  // Fetch favorites
   useEffect(() => {
     if (!userId) return;
 
-
     const fetchFavorites = async () => {
       try {
-        const res = await axios.get(
-          `https://claireapi.onrender.com/favorites/${userId}`
-        );
-        
-        setFavorites(res.data.favorites || []);
-      } catch (error) {
-        console.log("Error fetching favorites:", error);
+        setLoading(true);
+        const res = await axios.get(`${API_BASE}/favorites/${userId}`);
+        setFavorites(res.data);
+      } catch (err) {
+        console.error("Failed to load favorites:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchFavorites();
   }, [userId]);
 
-  // REMOVE FAVORITE
+  // Remove favorite
   const removeFavorite = async (productId: string) => {
+    if (!userId) return;
     try {
-      await axios.delete(`https://claireapi.onrender.com/favorites`, {
+      await axios.delete(`${API_BASE}/favorites`, {
         data: { userId, productId },
       });
 
       setFavorites((prev) =>
-        prev.filter((fav) => fav.product?._id !== productId)
+        prev.filter((item) => item.productId !== productId)
       );
-    } catch (error) {
-      console.log("Error removing favorite:", error);
+    } catch (err) {
+      console.error("Failed to remove favorite:", err);
     }
   };
 
+  if (!userId) return <p className="p-6">Loading...</p>;
+
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-semibold mb-6">Your Favorites</h1>
+      <h1 className="text-2xl font-bold mb-4">Your Favorites</h1>
 
-      {favorites.length === 0 ? (
+      {loading && <p>Loading favorites...</p>}
+
+      {!loading && favorites.length === 0 && (
         <p>No favorites added yet.</p>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-          {favorites.map((fav) => {
-            const product = fav.product;
-            if (!product) return null;
-
-            const imageUrl =
-              product?.images && product.images.length > 0
-                ? product.images[0]
-                : "/placeholder.png";
-
-            return (
-              <div
-                key={product._id}
-                className="border rounded-lg p-3 shadow-md"
-              >
-                <Link href={`/product/${product._id}`}>
-                  <Image
-                    src={imageUrl}
-                    width={300}
-                    height={300}
-                    alt={product.name}
-                    className="w-full h-48 object-cover rounded-md"
-                  />
-                </Link>
-
-                <h2 className="text-lg font-medium mt-2">{product.name}</h2>
-                <p className="text-gray-600">₹{product.price}</p>
-
-                <button
-                  onClick={() => removeFavorite(product._id)}
-                  className="mt-3 w-full bg-red-500 text-white py-2 rounded-md"
-                >
-                  Remove
-                </button>
-              </div>
-            );
-          })}
-        </div>
       )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {favorites.map((item) => {
+          const product = item.product;
+          if (!product) return null; // in case of missing product
+
+          return (
+            <div
+              key={item._id}
+              className="border p-3 rounded-lg flex items-center justify-between"
+            >
+              <div className="flex items-center gap-4">
+                {product.images?.[0] && (
+                  <Image
+                    src={product.images[0]}
+                    alt={product.name}
+                    width={90}
+                    height={90}
+                    className="rounded-md"
+                  />
+                )}
+
+                <div>
+                  <p className="font-semibold">{product.name}</p>
+
+                  {/* show lowest price */}
+                  {product.price && (
+                    <p className="text-gray-600 text-sm">
+                      From ₹{Math.min(...Object.values(product.price))}
+                    </p>
+                  )}
+
+                  <Link
+                    href={`/product/${product._id}`}
+                    className="text-blue-600 text-sm underline"
+                  >
+                    View Product
+                  </Link>
+                </div>
+              </div>
+
+              <button
+                onClick={() => removeFavorite(item.productId)}
+                className="text-red-500 font-bold"
+              >
+                ✕
+              </button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

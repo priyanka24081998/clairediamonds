@@ -555,7 +555,7 @@ export default function ProductPage({
                     <Link href="">
                         <button
                             onClick={toggleFavorite}
-                            className="p-[7px] border border-gray-400 rounded-lg w-[50px] flex justify-center"
+                            className="p-[7px] border border-[#9f7d48] rounded-lg w-[50px] flex justify-center"
                         > {isFavorite ? <FaRegHeart
                             className={`w-6 h-6 text-[#9f7d48]`}
                         /> : <FaHeart className={`w-6 h-6 text-[#9f7d48]`} />}
