@@ -158,7 +158,7 @@ export default function FavoritesPage() {
               {/* SELECT METAL */}
               <select
                 id={`metal-${product._id}`}
-                className="mt-3 border px-2 py-1 rounded w-full"
+                className="mt-3 border px-2 py-1 rounded w-full text-[16px]"
               >
                 {Object.keys(product.price).map(metal => (
                   <option key={metal} value={metal}>
