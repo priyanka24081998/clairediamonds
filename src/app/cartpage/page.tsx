@@ -170,9 +170,11 @@ export default function CartPage() {
   if (!userId) return <p className="p-6">Loading...</p>;
 
   return (
-<div className="w-full flex flex-col lg:flex-row gap-10 mt-10">
-      <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+    <div className="py-10">
+    <h1 className="text-2xl font-bold mb-4">Shopping bag</h1>
 
+<div className="w-full flex flex-col lg:flex-row gap-10 mt-10">
+      
       {loading && <p>Loading cart...</p>}
       {cartItems.length === 0 && <p>Your cart is empty</p>}
 
@@ -216,14 +218,16 @@ const convertedPrice = convertedPrices[item._id] || 0;
               <p>Clarity {item.product?.clarity || "-" }</p>
               <p>Color {item.product?.color || "-" }</p>
               <p>Cut {item.product?.cut || "-" }</p>
-              <p>Tiffany Diamond Certificate</p>
+              <p>Claire Diamonds Certificate</p>
               <p className="font-medium text-gray-700 pt-2">
                 Express Delivery With Signature
               </p>
               <p className="text-gray-500">
-                We offer complimentary resizing for engagement rings.  
-                Bring your ring to a Tiffany store or use the complimentary  
-                shipping label included with your purchase.
+                We offer complimentary engraving for our all jewellery.  
+                Engravings are the perfect way to show your partner how much
+                 you think of them. Take a cue from these engraving ideas,
+                  or use them as inspiration when you design any of our personalized jewelry 
+                  or engraved gifts. We have collections for both men and women.
               </p>
             </div>
 
@@ -297,6 +301,7 @@ const convertedPrice = convertedPrices[item._id] || 0;
 
   </div>
 
+</div>
 </div>
   );
 }
