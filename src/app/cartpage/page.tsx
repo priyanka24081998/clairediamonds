@@ -197,13 +197,13 @@ const convertedPrice = convertedPrices[item._id] || 0;
         >
 
           {/* PRODUCT IMAGE */}
-          <div className="lg:w-[300px]">
+          <div className="lg:w-[300px] flex justify-center item-center">
             {item.product?.images?.[0] && (
               <Image
                 src={item.product.images[0]}
                 alt={item.product.name}
-                width={140}
-                height={140}
+                width={200}
+                height={200}
                 className="rounded-lg shadow-sm"
               />
             )}
