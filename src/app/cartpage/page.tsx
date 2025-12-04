@@ -211,7 +211,7 @@ const convertedPrice = convertedPrices[item._id] || 0;
 
           {/* PRODUCT DETAILS */}
           <div className="flex-1">
-            <h2 className="text-2xl font-serif text-gray-900">
+            <h2 className="text-[20px] md:text-3xl font-sans text-gray-900">
               {item.product?.name}
             </h2>
 
