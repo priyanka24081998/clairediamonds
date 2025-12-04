@@ -212,7 +212,7 @@ export default function CartPage() {
 
                 {/* PRODUCT DETAILS */}
                 <div className="flex-1">
-                  <h2 className="text-[20px] md:text-3xl font-sans text-gray-900">
+                  <h2 className={`text-[20px] md:text-3xl font-sans text-gray-900 ${philosopher.className}`}>
                     {item.product?.name}
                   </h2>
 
