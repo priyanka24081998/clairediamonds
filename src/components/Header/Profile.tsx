@@ -36,8 +36,15 @@ useEffect(() => {
   const token = params.get("token");
   const userId = params.get("userId");
 
-  if (token) localStorage.setItem("token", token);
-  if (userId) localStorage.setItem("userId", userId);
+   if (token) {
+    localStorage.setItem("token", token);
+    params.delete("token");
+  }
+  if (userId) {
+    localStorage.setItem("userId", userId);
+    params.delete("userId");
+  }
+  window.history.replaceState({}, "", window.location.pathname);
 }, []);
 
 
@@ -62,6 +69,9 @@ useEffect(() => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+      setUser(null);  // 👈 RESET USER IMMEDIATELY
+
     setIsOpen(false);
     setTimeout(() => {
       router.push("/");

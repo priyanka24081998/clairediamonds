@@ -62,7 +62,10 @@ export default function CartPage() {
   // 3️⃣ Fetch Cart Items
   // ----------------------------------------
   useEffect(() => {
-    if (!userId) return;
+    if (!userId) {
+    setCartItems([]);  // 👈 clear old cart
+    return;
+  }
 
     const fetchCart = async () => {
       try {
@@ -194,14 +197,14 @@ export default function CartPage() {
               </div>
             </div>
 
-            <a href=""><button
+            <button
               onClick={() =>
                 removeItem(item.productId, item.selectedMetal)
               }
               className="text-red-500 font-bold"
             >
               Remove
-            </button></a>
+            </button>
           </div>
         );
       })}
