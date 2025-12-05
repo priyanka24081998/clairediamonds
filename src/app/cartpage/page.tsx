@@ -218,7 +218,7 @@ export default function CartPage() {
                   <div className="flex-1 min-w-0">
 
                     <h2
-                      className={`text-lg sm:text-xl md:text-2xl  font-semibold text-gray-900 ${philosopher.className}`}
+                      className={`text-lg sm:text-xl font-semibold text-gray-900 ${philosopher.className}`}
                     >
                       {item.product?.name}
                     </h2>
