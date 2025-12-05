@@ -133,41 +133,48 @@ export default function FavoritesPage() {
       {!loading && favorites.length === 0 && <p>You have no favorite items yet.</p>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {favorites
-        .filter((item): item is FavoriteItem => item != null) 
-        .map(item => {
-          const convertedPrice = convertedPrices[item._id] || 0;
-          return (
-            <div key={item._id} className="border rounded-lg p-4 shadow-sm">
-              {item.product.images?.[0] && (
-                <Image
-                  src={item.product.images[0]}
-                  alt={item.product.name}
-                  width={200}
-                  height={200}
-                  className="rounded-lg object-cover w-full h-48"
-                />
-              )}
-              <h2 className={`text-lg font-semibold mt-2 ${philosopher.className}`}>{item.product.name}</h2>
-              <p className="text-gray-700">Metal: {item.selectedMetal}</p>
-              <p className="text-[#32796B] font-semibold mt-1">
-                {currencySymbol[currency] || currency} {convertedPrice.toFixed(2)}
-              </p>
+        {favorites && favorites.length > 0 ? (
+          favorites
+            .filter((item): item is CartItem => !!item && !!item._id) // remove null or missing _id
+            .map((item) => {
+              const convertedPrice = convertedPrices[item._id] || 0;
 
-              <div className="flex gap-4 mt-3">
-                <Link href={`/product/${item.productId}`}>
-                  <button className="text-[#0A6E6E] underline font-medium">View Product</button>
-                </Link>
-                <button
-                  onClick={() => removeFavorite(item.productId, item.selectedMetal)}
-                  className="text-red-500 underline font-medium"
-                >
-                  Remove
-                </button>
-              </div>
-            </div>
-          );
-        })}
+              return (
+                <div key={item._id} className="border rounded-lg p-4 shadow-sm">
+                  {item.product?.images?.[0] && (
+                    <Image
+                      src={item.product.images[0]}
+                      alt={item.product.name || "Product Image"}
+                      width={200}
+                      height={200}
+                      className="rounded-lg object-cover w-full h-48"
+                    />
+                  )}
+                  <h2 className={`text-lg font-semibold mt-2 ${philosopher.className}`}>
+                    {item.product?.name || "Unnamed Product"}
+                  </h2>
+                  <p className="text-gray-700">Metal: {item.selectedMetal || "-"}</p>
+                  <p className="text-[#32796B] font-semibold mt-1">
+                    {currencySymbol[currency] || currency} {convertedPrice.toFixed(2)}
+                  </p>
+
+                  <div className="flex gap-4 mt-3">
+                    <Link href={`/product/${item.productId}`}>
+                      <button className="text-[#0A6E6E] underline font-medium">View Product</button>
+                    </Link>
+                    <button
+                      onClick={() => removeFavorite(item.productId, item.selectedMetal)}
+                      className="text-red-500 underline font-medium"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+        ) : (
+          <p className="text-center text-gray-500">No favorites yet.</p>
+        )}
       </div>
     </div>
   );
