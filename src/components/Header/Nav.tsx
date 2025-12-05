@@ -305,12 +305,12 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Mens Plain Bands",
-              href: "/weddingbands/menplainbands",
+              href: "/bridalsets/menplainbands",
               icon: "mens-plain-wedding.svg",
             },
             {
               name: "Mens Diamond Bands",
-              href: "/weddingbands/mendiamondband",
+              href: "/bridalsets/mendiamondband",
               icon: "mens-diamond-ring.svg",
             },
           ],
@@ -320,12 +320,12 @@ const Nav: React.FC = () => {
           items: [
             {
               name: "Ladies Plain Bands",
-              href: "/weddingbands/ladiesplainbands",
+              href: "/bridalsets/ladiesplainbands",
               icon: "ladies-plain-wedding.svg",
             },
             {
               name: "Ladies Diamond Bands",
-              href: "/weddingbands/ladiesdiamondbands",
+              href: "/bridalsets/ladiesdiamondbands",
               icon: "ladies-diamond-wedding.svg",
             },
           ],
@@ -336,17 +336,17 @@ const Nav: React.FC = () => {
             { name: "Sterline Silver", href: "/weddingbands/silver", icon: "silvermetal.png" },
             {
               name: "White Gold",
-              href: "/weddingbands/whitegold",
+              href: "/bridalsets/whitegold",
               icon: "whitemetal.png",
             },
             {
               name: "Yellow Gold",
-              href: "/weddingbands/gold",
+              href: "/bridalsets/gold",
               icon: "goldmetal.png",
             },
             {
               name: "Rose Gold",
-              href: "/weddingbands/rosegold",
+              href: "/bridalsets/rosegold",
               icon: "rosemetal.png",
             },
            
