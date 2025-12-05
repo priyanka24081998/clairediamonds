@@ -118,7 +118,7 @@ const Bracelates = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-8 py-4 lg:py-10 mx-auto">
         {products.length > 0 ? (
           products.map((product) => (
-            <Link key={product._id} href={`/products/${product._id}`}>
+              <Link key={product._id} href={`/products/${product._id}`}>
               <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 border border-gray-100 cursor-pointer">
 
                 <div className="overflow-hidden rounded-xl">
