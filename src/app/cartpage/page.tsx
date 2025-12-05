@@ -133,7 +133,9 @@ export default function FavoritesPage() {
       {!loading && favorites.length === 0 && <p>You have no favorite items yet.</p>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {favorites.map(item => {
+        {favorites
+        .filter((item): item is FavoriteItem => item != null) 
+        .map(item => {
           const convertedPrice = convertedPrices[item._id] || 0;
           return (
             <div key={item._id} className="border rounded-lg p-4 shadow-sm">
