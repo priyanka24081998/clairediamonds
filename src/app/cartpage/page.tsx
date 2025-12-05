@@ -175,17 +175,17 @@ export default function CartPage() {
   if (!userId) return <p className="p-6">Loading...</p>;
 
   return (
-    <div className="py-10 container mx-auto px-4 overflow-x-hidden">
+   <div className="py-10 container mx-auto px-4 overflow-x-hidden">
   <h1
     className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#43825c] text-center font-bold mb-6 ${philosopher.className}`}
   >
     Shopping Bag
   </h1>
 
-  <div className="w-full flex flex-col lg:flex-row gap-10">
+  <div className="w-full flex flex-col lg:flex-row gap-10 overflow-x-hidden">
 
     {/* CART LEFT SIDE */}
-    <div className="flex-1 space-y-10">
+    <div className="flex-1 space-y-10 overflow-x-hidden">
 
       {loading && <p>Loading cart...</p>}
       {cartItems.length === 0 && <p>Your cart is empty</p>}
@@ -196,25 +196,25 @@ export default function CartPage() {
         return (
           <div
             key={item._id}
-            className="border-b pb-8"
+            className="border-b pb-8 w-full overflow-hidden"
           >
-            <div className="flex flex-col sm:flex-row gap-6">
+            <div className="flex flex-col sm:flex-row gap-6 w-full">
 
               {/* IMAGE */}
-              <div className="w-full sm:w-[200px] lg:w-[280px] mx-auto flex justify-center">
+              <div className="w-full sm:w-[180px] lg:w-[240px] mx-auto flex justify-center flex-shrink-0">
                 {item.product?.images?.[0] && (
                   <Image
                     src={item.product.images[0]}
                     alt={item.product.name}
                     width={200}
                     height={200}
-                    className="rounded-lg shadow-sm object-cover max-h-[220px]"
+                    className="rounded-lg shadow-sm object-cover max-h-[220px] w-auto max-w-full"
                   />
                 )}
               </div>
 
               {/* DETAILS */}
-              <div className="flex-1">
+              <div className="flex-1 min-w-0">
 
                 <h2
                   className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-900 ${philosopher.className}`}
@@ -227,9 +227,9 @@ export default function CartPage() {
                 </p>
 
                 {/* Tiffany-Style Description */}
-                <div className="text-xs sm:text-sm md:text-base text-gray-600 mt-3 space-y-1 lg:w-[600px]">
+                <div className="text-xs sm:text-sm md:text-base text-gray-600 mt-3 space-y-1 max-w-full">
 
-                  <div className="grid grid-cols-2 gap-y-1">
+                  <div className="grid grid-cols-2 gap-y-1 max-w-full">
                     <p>Carat - {item.product?.weight || "-"}</p>
                     <p>Cut - {item.product?.cut || "-"}</p>
                     <p>Clarity - {item.product?.clarity || "-"}</p>
@@ -258,7 +258,7 @@ export default function CartPage() {
                 </p>
 
                 {/* BUTTONS */}
-                <div className="flex gap-6 mt-5 text-sm sm:text-base">
+                <div className="flex gap-6 mt-5 text-sm sm:text-base flex-wrap">
                   <Link href="/favorites">
                     <button
                       onClick={() => moveToFavorites(item.productId, item.selectedMetal)}
@@ -294,8 +294,7 @@ export default function CartPage() {
     </div>
 
     {/* RIGHT SIDE ORDER SUMMARY */}
-    <div className="w-full lg:w-[340px] border p-6 rounded-lg shadow-sm bg-[#FAFAFA] h-fit">
-
+    <div className="w-full lg:w-[340px] border p-6 rounded-lg shadow-sm bg-[#FAFAFA] h-fit overflow-hidden">
       <h3 className="text-lg sm:text-xl font-serif mb-4">Order Summary</h3>
 
       <div className="space-y-4 text-sm sm:text-base">
@@ -329,10 +328,10 @@ export default function CartPage() {
         </p>
 
       </div>
-
     </div>
   </div>
 </div>
+
 
   );
 }
