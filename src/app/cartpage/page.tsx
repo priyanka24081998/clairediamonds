@@ -10,6 +10,7 @@ import { currencyMap } from "@/lib/currencyMap";
 import { currencySymbol } from "@/lib/currencySymbol";
 import Link from "next/link";
 
+
 const philosopher = Philosopher({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -175,162 +176,173 @@ export default function CartPage() {
   if (!userId) return <p className="p-6">Loading...</p>;
 
   return (
-   <div className="py-10 container mx-auto px-4 overflow-x-hidden">
-  <h1
-    className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#43825c] text-center font-bold mb-6 ${philosopher.className}`}
-  >
-    Shopping Bag
-  </h1>
+    <div className="py-10 container mx-auto px-4 overflow-x-hidden">
+      <h1
+        className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#43825c] text-center font-bold mb-6 ${philosopher.className}`}
+      >
+        Shopping Bag
+      </h1>
 
-  <div className="w-full flex flex-col lg:flex-row gap-10 overflow-x-hidden">
+      <div className="w-full flex flex-col lg:flex-row gap-10 overflow-x-hidden">
 
-    {/* CART LEFT SIDE */}
-    <div className="flex-1 space-y-10 overflow-x-hidden">
+        {/* CART LEFT SIDE */}
+        <div className="flex-1 space-y-10 overflow-x-hidden">
 
-      {loading && <p>Loading cart...</p>}
-      {cartItems.length === 0 && <p>Your cart is empty</p>}
+          {loading && <p>Loading cart...</p>}
+          {cartItems.length === 0 && <p>Your cart is empty</p>}
 
-      {cartItems.map((item) => {
-        const convertedPrice = convertedPrices[item._id] || 0;
+          {cartItems.map((item) => {
+            const convertedPrice = convertedPrices[item._id] || 0;
 
-        return (
-          <div
-            key={item._id}
-            className="border-b pb-8 w-full overflow-hidden"
-          >
-            <div className="flex flex-col sm:flex-row gap-6 w-full">
+            return (
+              <div
+                key={item._id}
+                className="border-b pb-8 w-full overflow-hidden"
+              >
+                <div className="flex flex-col sm:flex-row gap-6 w-full">
 
-              {/* IMAGE */}
-              <div className="w-full sm:w-[180px] lg:w-[240px] mx-auto flex justify-center flex-shrink-0">
-                {item.product?.images?.[0] && (
-                  <Image
-                    src={item.product.images[0]}
-                    alt={item.product.name}
-                    width={200}
-                    height={200}
-                    className="rounded-lg shadow-sm object-cover max-h-[220px] w-auto max-w-full"
-                  />
-                )}
-              </div>
-
-              {/* DETAILS */}
-              <div className="flex-1 min-w-0">
-
-                <h2
-                  className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-900 ${philosopher.className}`}
-                >
-                  {item.product?.name}
-                </h2>
-
-                <p className="text-sm sm:text-base text-gray-700 mt-1">
-                  Metal: {item.selectedMetal}
-                </p>
-
-                {/* Tiffany-Style Description */}
-                <div className="text-xs sm:text-sm md:text-base text-gray-600 mt-3 space-y-1 max-w-full">
-
-                  <div className="grid grid-cols-2 gap-y-1 max-w-full">
-                    <p>Carat - {item.product?.weight || "-"}</p>
-                    <p>Cut - {item.product?.cut || "-"}</p>
-                    <p>Clarity - {item.product?.clarity || "-"}</p>
-                    <p>Color - {item.product?.color || "-"}</p>
+                  {/* IMAGE */}
+                  <div className="w-full sm:w-[180px] lg:w-[240px] mx-auto flex justify-center flex-shrink-0">
+                    {item.product?.images?.[0] && (
+                      <Image
+                        src={item.product.images[0]}
+                        alt={item.product.name}
+                        width={200}
+                        height={200}
+                        className="rounded-lg shadow-sm object-cover max-h-[220px] w-auto max-w-full"
+                      />
+                    )}
                   </div>
 
-                  <p className="pt-1">Claire Diamonds Certificate</p>
+                  {/* DETAILS */}
+                  <div className="flex-1 min-w-0">
 
-                  <p className="font-medium text-gray-700 pt-2">
-                    Express Delivery With Signature
-                  </p>
+                    <h2
+                      className={`text-lg sm:text-xl md:text-2xl  font-semibold text-gray-900 ${philosopher.className}`}
+                    >
+                      {item.product?.name}
+                    </h2>
 
-                  <p className="text-gray-500 hidden lg:block leading-relaxed">
-                    We offer complimentary engraving for all jewellery. Engravings
-                    are the perfect way to show your partner how much you think of them.
-                    Use these ideas as inspiration when designing any of our personalized
-                    jewellery or engraved gifts.
-                  </p>
+                    <p className="text-sm sm:text-base text-gray-700 mt-1">
+                      Metal: {item.selectedMetal}
+                    </p>
+
+                    {/* Tiffany-Style Description */}
+                    <div className="text-xs sm:text-sm md:text-base text-gray-600 mt-3 space-y-1 max-w-full">
+
+                      <div className="grid grid-cols-2 gap-y-1 max-w-full">
+                        <p>Carat - {item.product?.weight || "-"}</p>
+                        <p>Cut - {item.product?.cut || "-"}</p>
+                        <p>Clarity - {item.product?.clarity || "-"}</p>
+                        <p>Color - {item.product?.color || "-"}</p>
+                      </div>
+
+                      <p className="pt-1">Claire Diamonds Certificate</p>
+
+                      <p className="font-medium text-gray-700 pt-2">
+                        Express Delivery With Signature
+                      </p>
+
+                      <p className="text-gray-500 hidden lg:block leading-relaxed">
+                        We offer complimentary engraving for all jewellery. Engravings
+                        are the perfect way to show your partner how much you think of them.
+                        Use these ideas as inspiration when designing any of our personalized
+                        jewellery or engraved gifts.
+                      </p>
+
+                    </div>
+
+                    {/* PRICE */}
+                    <p className="mt-4 text-lg sm:text-xl md:text-2xl font-semibold text-[#32796B]">
+                      {currencySymbol[currency] || currency}{" "}
+                      {(convertedPrice * item.quantity).toFixed(2)}
+                    </p>
+
+                    {/* BUTTONS */}
+                    <div className="flex gap-6 mt-5 text-sm sm:text-base flex-wrap">
+                      <Link href="/favorites">
+                        <button
+                          onClick={() => moveToFavorites(item.productId, item.selectedMetal)}
+                          className="text-[#0A6E6E] underline font-medium"
+                        >
+                          Save for Later
+                        </button>
+                      </Link>
+
+                      <button
+                        onClick={() => removeItem(item.productId, item.selectedMetal)}
+                        className="text-red-500 font-medium underline"
+                      >
+                        Remove
+                      </button>
+                    </div>
+
+                  </div>
 
                 </div>
 
-                {/* PRICE */}
-                <p className="mt-4 text-lg sm:text-xl md:text-2xl font-semibold text-[#32796B]">
-                  {currencySymbol[currency] || currency}{" "}
-                  {(convertedPrice * item.quantity).toFixed(2)}
+                {/* MOBILE DESCRIPTION */}
+                <p className="text-gray-500 lg:hidden mt-3 text-xs sm:text-sm leading-relaxed">
+                  We offer complimentary engraving for all jewellery. Engravings
+                  help personalize your gift. Use these ideas as inspiration when
+                  designing any of our personalized jewellery or engraved gifts.
                 </p>
 
-                {/* BUTTONS */}
-                <div className="flex gap-6 mt-5 text-sm sm:text-base flex-wrap">
-                  <Link href="/favorites">
-                    <button
-                      onClick={() => moveToFavorites(item.productId, item.selectedMetal)}
-                      className="text-[#0A6E6E] underline font-medium"
-                    >
-                      Save for Later
-                    </button>
-                  </Link>
-
-                  <button
-                    onClick={() => removeItem(item.productId, item.selectedMetal)}
-                    className="text-red-500 font-medium underline"
-                  >
-                    Remove
-                  </button>
-                </div>
-
               </div>
+            );
+          })}
 
+        </div>
+
+        {/* RIGHT SIDE ORDER SUMMARY */}
+        <div className="w-full lg:w-[340px] border p-6 rounded-lg shadow-sm bg-[#FAFAFA] h-fit overflow-hidden">
+          <h3 className="text-lg sm:text-xl font-serif mb-4">Order Summary</h3>
+
+          <div className="space-y-4 text-sm sm:text-base">
+
+            <div className="flex justify-between text-gray-700">
+              <span>Subtotal</span>
+              <span>{currencySymbol[currency] || currency} {total.toFixed(2)}</span>
             </div>
 
-            {/* MOBILE DESCRIPTION */}
-            <p className="text-gray-500 lg:hidden mt-3 text-xs sm:text-sm leading-relaxed">
-              We offer complimentary engraving for all jewellery. Engravings
-              help personalize your gift. Use these ideas as inspiration when
-              designing any of our personalized jewellery or engraved gifts.
+            <div className="flex justify-between text-gray-700">
+              <span>Express Delivery With Signature</span>
+              <span>{currencySymbol[currency] || currency} 0.00</span>
+            </div>
+
+            <div className="flex justify-between text-gray-700">
+              <span>Estimated Tax</span>
+              <span>-</span>
+            </div>
+
+            <p className="text-xs sm:text-sm text-gray-500">
+              Taxes and other shipping methods may apply.
             </p>
 
+            <div className="flex justify-between pt-3 border-t font-semibold text-base sm:text-lg text-gray-900">
+              <span>Estimated Total</span>
+              <span>{currencySymbol[currency] || currency} {total.toFixed(2)}</span>
+            </div>
+
+            <p className="text-sm text-[#0A6E6E] mt-2 font-medium">
+              Complimentary Delivery & Returns
+            </p>
+
+            <Link href={{
+              pathname: "/paymentpage",
+              query: { total: total.toFixed(2), currency } // pass total and currency
+            }}>
+              <button
+                className="w-full mt-4 py-3 bg-[#0A6E6E] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors"
+              >
+                Checkout
+              </button>
+            </Link>
+
           </div>
-        );
-      })}
-
-    </div>
-
-    {/* RIGHT SIDE ORDER SUMMARY */}
-    <div className="w-full lg:w-[340px] border p-6 rounded-lg shadow-sm bg-[#FAFAFA] h-fit overflow-hidden">
-      <h3 className="text-lg sm:text-xl font-serif mb-4">Order Summary</h3>
-
-      <div className="space-y-4 text-sm sm:text-base">
-
-        <div className="flex justify-between text-gray-700">
-          <span>Subtotal</span>
-          <span>{currencySymbol[currency] || currency} {total.toFixed(2)}</span>
         </div>
-
-        <div className="flex justify-between text-gray-700">
-          <span>Express Delivery With Signature</span>
-          <span>{currencySymbol[currency] || currency} 0.00</span>
-        </div>
-
-        <div className="flex justify-between text-gray-700">
-          <span>Estimated Tax</span>
-          <span>-</span>
-        </div>
-
-        <p className="text-xs sm:text-sm text-gray-500">
-          Taxes and other shipping methods may apply.
-        </p>
-
-        <div className="flex justify-between pt-3 border-t font-semibold text-base sm:text-lg text-gray-900">
-          <span>Estimated Total</span>
-          <span>{currencySymbol[currency] || currency} {total.toFixed(2)}</span>
-        </div>
-
-        <p className="text-sm text-[#0A6E6E] mt-2 font-medium">
-          Complimentary Delivery & Returns
-        </p>
-
       </div>
     </div>
-  </div>
-</div>
 
 
   );
