@@ -296,64 +296,64 @@ const Nav: React.FC = () => {
         },
       ],
     },
-    // {
-    //   name: "Wedding Bands",
-    //   href: "/weddingbands",
-    //   subItems: [
-    //     {
-    //       category: "Mens",
-    //       items: [
-    //         {
-    //           name: "Mens Plain Bands",
-    //           href: "/weddingbands/menplainbands",
-    //           icon: "mens-plain-wedding.svg",
-    //         },
-    //         {
-    //           name: "Mens Diamond Bands",
-    //           href: "/weddingbands/mendiamondband",
-    //           icon: "mens-diamond-ring.svg",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       category: "Ladies",
-    //       items: [
-    //         {
-    //           name: "Ladies Plain Bands",
-    //           href: "/weddingbands/ladiesplainbands",
-    //           icon: "ladies-plain-wedding.svg",
-    //         },
-    //         {
-    //           name: "Ladies Diamond Bands",
-    //           href: "/weddingbands/ladiesdiamondbands",
-    //           icon: "ladies-diamond-wedding.svg",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       category: "Metal",
-    //       items: [
-    //         { name: "Sterline Silver", href: "/weddingbands/silver", icon: "silvermetal.png" },
-    //         {
-    //           name: "White Gold",
-    //           href: "/weddingbands/whitegold",
-    //           icon: "whitemetal.png",
-    //         },
-    //         {
-    //           name: "Yellow Gold",
-    //           href: "/weddingbands/gold",
-    //           icon: "goldmetal.png",
-    //         },
-    //         {
-    //           name: "Rose Gold",
-    //           href: "/weddingbands/rosegold",
-    //           icon: "rosemetal.png",
-    //         },
+    {
+      name: "Bridal Sets",
+      href: "/bridalsets",
+      subItems: [
+        {
+          category: "Mens",
+          items: [
+            {
+              name: "Mens Plain Bands",
+              href: "/weddingbands/menplainbands",
+              icon: "mens-plain-wedding.svg",
+            },
+            {
+              name: "Mens Diamond Bands",
+              href: "/weddingbands/mendiamondband",
+              icon: "mens-diamond-ring.svg",
+            },
+          ],
+        },
+        {
+          category: "Ladies",
+          items: [
+            {
+              name: "Ladies Plain Bands",
+              href: "/weddingbands/ladiesplainbands",
+              icon: "ladies-plain-wedding.svg",
+            },
+            {
+              name: "Ladies Diamond Bands",
+              href: "/weddingbands/ladiesdiamondbands",
+              icon: "ladies-diamond-wedding.svg",
+            },
+          ],
+        },
+        {
+          category: "Metal",
+          items: [
+            { name: "Sterline Silver", href: "/weddingbands/silver", icon: "silvermetal.png" },
+            {
+              name: "White Gold",
+              href: "/weddingbands/whitegold",
+              icon: "whitemetal.png",
+            },
+            {
+              name: "Yellow Gold",
+              href: "/weddingbands/gold",
+              icon: "goldmetal.png",
+            },
+            {
+              name: "Rose Gold",
+              href: "/weddingbands/rosegold",
+              icon: "rosemetal.png",
+            },
            
-    //       ],
-    //     },
-    //   ],
-    // },
+          ],
+        },
+      ],
+    },
     {
       name: "Earrings",
       href: "/earrings",
