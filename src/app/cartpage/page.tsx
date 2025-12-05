@@ -175,7 +175,7 @@ export default function CartPage() {
   if (!userId) return <p className="p-6">Loading...</p>;
 
   return (
-    <div className="py-10 container mx-auto px-4">
+    <div className="py-10 container mx-auto px-4 overflow-x-hidden">
   <h1
     className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#43825c] text-center font-bold mb-6 ${philosopher.className}`}
   >
