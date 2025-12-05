@@ -301,7 +301,7 @@ const Nav: React.FC = () => {
       href: "/bridalsets",
       subItems: [
         {
-          category: "Mens",
+          category: "Mens", 
           items: [
             {
               name: "Mens Plain Bands",
