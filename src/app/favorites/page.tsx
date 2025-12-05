@@ -4,11 +4,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-
+import { Philosopher } from "next/font/google";
 import { getLocation } from "@/lib/getLocation";
 import { convertCurrency } from "@/lib/convertCurrency";
 import { currencySymbol } from "@/lib/currencySymbol";
 import { currencyMap } from "@/lib/currencyMap";
+
+const philosopher = Philosopher({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 interface Product {
     _id: string;
@@ -139,8 +144,11 @@ export default function FavoritesPage() {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold mb-6">Your Favorites</h1>
-
+<h1
+        className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#43825c] text-center font-bold mb-6 ${philosopher.className}`}
+      >
+        Your Favorites
+      </h1>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {favorites.map(fav => {
                     if (!fav || !fav.product) return null;
