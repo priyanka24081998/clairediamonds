@@ -28,48 +28,64 @@ export default function FavoritesPage() {
     const [currency, setCurrency] = useState("USD");
     const [converted, setConverted] = useState<Record<string, Record<string, number>>>({});
     const [userId, setUserId] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
 
     const API_BASE = "https://claireapi.onrender.com";
 
-    // 1️⃣ Load userId
     useEffect(() => {
         const id = localStorage.getItem("userId");
         setUserId(id);
     }, []);
 
-    // 2️⃣ Detect currency
     useEffect(() => {
         async function loadCurrency() {
-            const loc = await getLocation();
-            if (loc) {
-                const mapped = currencyMap[loc.country] || loc.currency || "USD";
-                setCurrency(mapped);
+            try {
+                const loc = await getLocation();
+                if (loc) {
+                    const mapped = currencyMap[loc.country] || loc.currency || "USD";
+                    setCurrency(mapped);
+                }
+            } catch (err) {
+                console.error("Currency detection error:", err);
+                setCurrency("USD");
             }
         }
         loadCurrency();
     }, []);
 
-    // 3️⃣ Fetch favorites
     useEffect(() => {
         if (!userId) return;
+
         async function loadFavorites() {
-            const res = await axios.get(`${API_BASE}/favorites/${userId}`);
-            setFavorites(res.data);
+            try {
+                setLoading(true);
+                const res = await axios.get(`${API_BASE}/favorites/${userId}`);
+                const validFavorites = (res.data || []).filter((f: unknown): f is FavoriteItem => {
+                    return f !== null && typeof f === "object" && "product" in f;
+                });
+                setFavorites(validFavorites);
+            } catch (err) {
+                console.error("Fetch favorites error:", err);
+                setFavorites([]);
+            } finally {
+                setLoading(false);
+            }
         }
+
         loadFavorites();
     }, [userId]);
 
-    // 4️⃣ Convert all prices for each metal
     useEffect(() => {
         async function convertAll() {
             const map: Record<string, Record<string, number>> = {};
 
             for (const fav of favorites) {
+                if (!fav || !fav.product) continue;
                 map[fav._id] = {};
                 for (const metal of Object.keys(fav.product.price)) {
                     const base = fav.product.price[metal] || 0;
                     const convertedPrice = await convertCurrency(base, "USD", currency);
-                    map[fav._id][metal] = Number(convertedPrice); // ensure primitive number
+                    map[fav._id][metal] = Number(convertedPrice);
                 }
             }
 
@@ -79,16 +95,19 @@ export default function FavoritesPage() {
         if (favorites.length > 0) convertAll();
     }, [favorites, currency]);
 
-    // 5️⃣ Remove favorite
     const removeFavorite = async (productId: string) => {
         if (!userId) return;
-        await axios.delete(`${API_BASE}/favorites`, {
-            data: { userId, productId },
-        });
-        setFavorites(favorites.filter(f => f.productId !== productId));
+        try {
+            await axios.delete(`${API_BASE}/favorites`, {
+                data: { userId, productId },
+            });
+            setFavorites(favorites.filter(f => f.productId !== productId));
+        } catch (err) {
+            console.error(err);
+            alert("Failed to remove favorite.");
+        }
     };
 
-    // 6️⃣ Add to cart
     const handleAddToCartAndRemove = async (productId: string, selectedMetal: string) => {
         if (!userId) {
             alert("Please login first.");
@@ -96,7 +115,6 @@ export default function FavoritesPage() {
         }
 
         try {
-            // 1️⃣ Add to cart
             await axios.post(`${API_BASE}/cart`, {
                 userId,
                 productId,
@@ -104,61 +122,65 @@ export default function FavoritesPage() {
                 selectedMetal,
             });
 
-            // 2️⃣ Remove from favorites
             await axios.delete(`${API_BASE}/favorites`, {
                 data: { userId, productId },
             });
 
-            // 3️⃣ Update local state to remove it from UI
             setFavorites(favorites.filter(f => f.productId !== productId));
-
-            // 4️⃣ Redirect to cart page
-            // window.location.href = "/cartpage";
         } catch (err) {
             console.error(err);
             alert("Failed to move product to cart");
         }
     };
 
-    // 7️⃣ Render UI
+    if (loading) return <p className="p-6 text-center">Loading favorites...</p>;
+
+    if (!favorites.length) return <p className="p-6 text-center">No favorites added yet.</p>;
+
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold mb-6">Your Favorites</h1>
 
-            {favorites.length === 0 && <p>No favorites added yet.</p>}
-
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {favorites.map(fav => {
+                    if (!fav || !fav.product) return null;
+
                     const product = fav.product;
                     const productConverted = converted[fav._id] || {};
-                    //   const firstMetal = Object.keys(product.price)[0];
                     const defaultPrice = productConverted["silver"] || 0;
 
                     return (
-                        <div key={fav._id} className="border rounded-xl p-4 shadow-md bg-white">
-                            {/* Image */}
-                            <Link href={`/products/${product._id}`}>
-                                <Image
-                                    src={product.images?.[0] || "/placeholder.jpg"}
-                                    alt={product.name}
-                                    width={300}
-                                    height={250}
-                                    className="rounded-xl w-full h-48 object-cover"
-                                />
+                        <div key={fav._id} className="border rounded-xl p-4 shadow-md bg-white relative group">
+
+                            {/* Clickable overlay */}
+                            <Link
+                                href={`/products/${product._id}`}
+                                className="absolute inset-0 z-10"
+                            >
+                                <span className="sr-only">{product.name}</span>
                             </Link>
 
+                            {/* Image */}
+                            <Image
+                                src={product.images?.[0] || "/placeholder.jpg"}
+                                alt={product.name}
+                                width={300}
+                                height={250}
+                                className="rounded-xl w-full h-48 object-cover"
+                            />
+
                             {/* Name */}
-                            <h2 className="text-lg font-semibold mt-3">{product.name}</h2>
+                            <h2 className="text-lg font-semibold mt-3 relative z-20">{product.name}</h2>
 
                             {/* Price */}
-                            <p className="text-[#43825c] font-bold mt-1">
+                            <p className="text-[#43825c] font-bold mt-1 relative z-20">
                                 {currencySymbol[currency] || currency} {defaultPrice.toFixed(2)}
                             </p>
 
                             {/* SELECT METAL */}
                             <select
                                 id={`metal-${product._id}`}
-                                className="mt-3 border px-2 py-1 rounded w-full text-[16px]"
+                                className="mt-3 border px-2 py-1 rounded w-full text-[16px] relative z-20"
                             >
                                 {Object.keys(product.price).map(metal => (
                                     <option key={metal} value={metal}>
@@ -169,7 +191,7 @@ export default function FavoritesPage() {
                             </select>
 
                             {/* BUTTONS */}
-                            <div className="flex justify-between mt-4">
+                            <div className="flex justify-between mt-4 relative z-20">
                                 <button
                                     onClick={() => removeFavorite(product._id)}
                                     className="text-red-500 font-semibold"
@@ -183,7 +205,7 @@ export default function FavoritesPage() {
                                             const select = document.getElementById(
                                                 `metal-${product._id}`
                                             ) as HTMLSelectElement;
-                                            const metal = select.value;
+                                            const metal = select?.value || "silver";
                                             handleAddToCartAndRemove(product._id, metal);
                                         }}
                                         className="bg-[#43825c] text-white px-3 py-1 rounded-lg"
