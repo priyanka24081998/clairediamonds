@@ -93,7 +93,7 @@ export default function FavoritesPage() {
                     map[fav._id][metal] = Number(convertedPrice);
                 }
             }
-
+   
             setConverted(map);
         }
 

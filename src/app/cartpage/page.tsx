@@ -333,7 +333,7 @@ export default function CartPage() {
               query: { total: total.toFixed(2), currency } // pass total and currency
             }}>
               <button
-                className="w-full mt-4 py-3 bg-[#0A6E6E] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors"
+                className="w-full mt-4 py-3 bg-[#43825c] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors"
               >
                 Checkout
               </button>
