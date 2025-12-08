@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { FaChevronDown } from "react-icons/fa";
 import { getLocation } from "@/lib/getLocation";
 import { currencyMap } from "@/lib/currencyMap";
+// import { currencyCodeMap } from "@/lib/currencyCodeMap ";
+
 
 const currencyFlags: Record<string, { flag: string; country: string }> = {
   AUD: { flag: "/assets/aus-flag.png", country: "Australia" },
@@ -21,7 +22,7 @@ const currencyFlags: Record<string, { flag: string; country: string }> = {
   NOK: { flag: "/assets/norway.png", country: "Norway" },
   BRL: { flag: "/assets/brazil.png", country: "Brazil" },
   ZAR: { flag: "/assets/south-africa.png", country: "South Africa" },
- 
+
   AOA: { flag: "/assets/Angola.png", country: "Angola" },
   XCD: { flag: "/assets/antigua-and-barbuda.png", country: "Antigua and Barbuda" },
   ARS: { flag: "/assets/Argentina.png", country: "Argentina" },
@@ -118,46 +119,63 @@ const currencyFlags: Record<string, { flag: string; country: string }> = {
   ZWL: { flag: "/assets/zimbabwe.png", country: "Zimbabwe" },
 };
 
+// interface LocationInfo {
+//   country: string;
+//   currency: string;
+// }
+
 const Currency: React.FC = () => {
-  const [currency, setCurrency] = useState<string>("INR");
+  const [currency, setCurrency] = useState<string>("USD");
+  const [countryName, setCountryName] = useState<string>("United States");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // ✅ 1. Fetch location and set currency based on the location
-  useEffect(() => {
-    async function fetchCurrency() {
-      const savedCurrency = localStorage.getItem("currency");
-      if (savedCurrency) {
-        console.log("Using saved currency:", savedCurrency);
-        setCurrency(savedCurrency);
-      } else {
-        const location = await getLocation();
-       
-        console.log("Detected location:", location); // ✅ Check location data
-  
-        if (location?.country && location.country in currencyMap) {
-          const detectedCurrency =
-            currencyMap[location.country as keyof typeof currencyMap] || "USD";
-            
-          console.log("Detected currency based on location:", detectedCurrency); // ✅ Check detected currency
-          setCurrency(detectedCurrency);
-          localStorage.setItem("currency", detectedCurrency);
-        } else {
-          console.log("Location not detected or currency not mapped. Using default currency: USD");
-          setCurrency("USD");
-        }
-      }
+  // Detect user location and set initial currency
+  const detectCurrency = async () => {
+    const loc = await getLocation();
+
+    if (!loc) {
+      setCurrency("USD");
+      setCountryName("United States");
+      localStorage.setItem("currency", "USD");
+      localStorage.setItem("countryName", "United States");
+      return;
     }
-    fetchCurrency();
+
+    const detectedCurrency = currencyMap[loc.country] || loc.currency || "USD";
+    setCurrency(detectedCurrency);
+
+    const detectedCountry = currencyFlags[detectedCurrency]
+      ? currencyFlags[detectedCurrency].country
+      : loc.country;
+
+    setCountryName(detectedCountry);
+    localStorage.setItem("currency", detectedCurrency);
+    localStorage.setItem("countryName", detectedCountry);
+  };
+
+  // Run currency detection when the component is mounted or refreshed
+  useEffect(() => {
+    localStorage.removeItem("currency");
+    localStorage.removeItem("countryName");
+
+
+    const savedCurrency = localStorage.getItem("currency");
+    const savedCountryName = localStorage.getItem("countryName");
+
+    if (savedCurrency && savedCountryName) {
+      setCurrency(savedCurrency);
+      setCountryName(savedCountryName);
+    } else {
+      detectCurrency(); // If no saved values, fetch the location and update
+    }
   }, []);
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpen(false); // 👈 Close dropdown
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
       }
     }
 
@@ -167,12 +185,16 @@ const Currency: React.FC = () => {
     };
   }, []);
 
-  // ✅ 2. Handle currency change
+  // Handle currency change when user selects a new currency
   const handleCurrencyChange = (newCurrency: string) => {
     setCurrency(newCurrency);
-    localStorage.setItem("currency", newCurrency);
+    setCountryName(currencyFlags[newCurrency]?.country || newCurrency);
     setIsDropdownOpen(false);
+    localStorage.setItem("currency", newCurrency); // Update the currency in localStorage
+    localStorage.setItem("countryName", currencyFlags[newCurrency]?.country || newCurrency); // Update country name
   };
+
+
 
   return (
     <div className="relative inline-block" ref={dropdownRef}>
@@ -181,40 +203,36 @@ const Currency: React.FC = () => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="flex items-center text-[#9f7d48] font-cinzel bg-white px-[5px] rounded-lg border-2 border-[#9f7d48] focus:outline-none"
       >
-        <Image
-          src={currencyFlags[currency].flag}
-          alt={currency}
-          width={20}  
-          height={16}
-        />
-        <span >{currencyFlags[currency].country}</span>
+        {currencyFlags[currency] && (
+          <Image
+            src={currencyFlags[currency]?.flag || "/default-flag.png"}
+            alt={currency}
+            width={20}
+            height={16}
+            className="mr-2"
+          />
+        )}
+        <span>{countryName}</span>
         <FaChevronDown className="ml-2 text-xs" />
       </button>
-      
+
       {/* Dropdown Menu */}
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-300 shadow-lg rounded-md max-h-60 overflow-y-auto z-[200]">
-          {Object.values(currencyMap).map((code) => (
+        <div className="absolute right-0 mt-2 w-44 bg-white border border-gray-300 shadow-lg rounded-md max-h-60 overflow-y-auto z-[200]">
+          {Object.entries(currencyFlags).map(([code, { country, }]) => (
             <button
-              key={code}
+              key={`${country}-${code}`}
               onClick={() => handleCurrencyChange(code)}
-              className={`flex items-center w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 text-sm ${
-                currency === code ? "bg-gray-100" : ""
-              }`}
+              className={`flex items-center w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 text-sm ${currency === code ? "bg-gray-100" : ""
+                }`}
             >
               {currencyFlags[code] ? (
                 <>
-                  <Image
-                    src={currencyFlags[code].flag}
-                    alt={code}
-                    width={20}
-                    height={16}
-                    className="mr-2"
-                  />
-                  <span>{currencyFlags[code].country}</span>
+                  <Image src={currencyFlags[code].flag} alt={country} width={20} height={16} className="mr-2" />
+                  <span>{country}</span>
                 </>
               ) : (
-                <span>{code}</span> 
+                <span>{code}</span>
               )}
             </button>
           ))}
