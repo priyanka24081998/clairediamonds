@@ -100,8 +100,8 @@ const ringSizes = [
     "15", "15.25", "15.5", "15.75",
 ];
 interface ActiveMedia {
-  type: "image" | "video";
-  src: string;
+    type: "image" | "video";
+    src: string;
 }
 
 
@@ -125,9 +125,9 @@ export default function ProductPage({
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [activeMedia, setActiveMedia] = useState<ActiveMedia>({
-    type: "image",
-    src: product?.images?.[0] ?? "",
-  });
+        type: "image",
+        src: product?.images?.[0] ?? "",
+    });
     const [selectedMetal, setSelectedMetal] = useState<string>("silver"); // default to silver
     const [price, setPrice] = useState<number>(0);
     const [open, setOpen] = useState(false);
@@ -145,43 +145,43 @@ export default function ProductPage({
 
     const router = useRouter();
     const dropdownRef = useRef<HTMLDivElement>(null);
- useEffect(() => {
-  if (!product) return; // safeguard against null
+    useEffect(() => {
+        if (!product) return; // safeguard against null
 
-  // Build thumbnails: first image, first video, then rest
-  const imgs = product.images ?? [];
-  const vids = product.videos ?? [];
+        // Build thumbnails: first image, first video, then rest
+        const imgs = product.images ?? [];
+        const vids = product.videos ?? [];
 
-  const thumbnails: { type: "image" | "video"; src: string }[] = [];
+        const thumbnails: { type: "image" | "video"; src: string }[] = [];
 
-  if (imgs[0]) thumbnails.push({ type: "image", src: imgs[0] });
-  if (vids[0]) {
-    const vid0 = typeof vids[0] === "string" ? vids[0] : vids[0].url;
-    thumbnails.push({ type: "video", src: vid0 });
-  }
+        if (imgs[0]) thumbnails.push({ type: "image", src: imgs[0] });
+        if (vids[0]) {
+            const vid0 = typeof vids[0] === "string" ? vids[0] : vids[0].url;
+            thumbnails.push({ type: "video", src: vid0 });
+        }
 
-  imgs.slice(1).forEach((img) => thumbnails.push({ type: "image", src: img }));
-  vids.slice(1).forEach((vidObj) => {
-    const vid = typeof vidObj === "string" ? vidObj : vidObj.url;
-    thumbnails.push({ type: "video", src: vid });
-  });
+        imgs.slice(1).forEach((img) => thumbnails.push({ type: "image", src: img }));
+        vids.slice(1).forEach((vidObj) => {
+            const vid = typeof vidObj === "string" ? vidObj : vidObj.url;
+            thumbnails.push({ type: "video", src: vid });
+        });
 
-  // If you want to store thumbnails in state:
-  setThumbnails(thumbnails);
-}, [product]);
+        // If you want to store thumbnails in state:
+        setThumbnails(thumbnails);
+    }, [product]);
 
-    
+
     // CLOSE WHEN CLICK OUTSIDE
     useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
+        function handleClickOutside(event: MouseEvent) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setOpen(false);
+            }
+        }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
 
 
@@ -362,7 +362,7 @@ export default function ProductPage({
     if (!product) return <p className="text-center py-10">Product not found.</p>;
 
     return (
-        <div  className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8"  >
+        <div className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8"  >
             {/* LEFT SIDE - IMAGE & VIDEO SLIDER */}
             <div ref={dropdownRef} className="flex flex-col lg:flex-row gap-4">
 
@@ -381,57 +381,55 @@ export default function ProductPage({
         "
                     >
                         {thumbnails.map((media, idx) => {
-          if (media.type === "image") {
-            return (
-              <div
-                key={`img-${idx}`}
-                onClick={() => setActiveMedia({ type: "image", src: media.src })}
-                className={`border rounded-lg overflow-hidden cursor-pointer min-w-[70px] md:min-w-[90px] ${
-                  activeMedia.src === media.src ? "border-black" : "border-gray-300"
-                }`}
-              >
-                <Image
-                  src={media.src}
-                  alt={`Thumb ${idx}`}
-                  width={90}
-                  height={90}
-                  className="object-cover w-[70px] h-[70px] md:w-[90px] md:h-[90px]"
-                />
-              </div>
-            );
-          } else {
-            return (
-              <div
-                key={`vid-${idx}`}
-                onClick={() => setActiveMedia({ type: "video", src: media.src })}
-                className={`border rounded-lg relative cursor-pointer min-w-[70px] md:min-w-[90px] ${
-                  activeMedia.src === media.src ? "border-black" : "border-gray-300"
-                }`}
-              >
-                <video
-                  width={90}
-                  height={90}
-                  className="object-cover w-[70px] h-[70px] md:w-[90px] md:h-[90px]"
-                >
-                  <source src={media.src} type="video/mp4" />
-                </video>
+                            if (media.type === "image") {
+                                return (
+                                    <div
+                                        key={`img-${idx}`}
+                                        onClick={() => setActiveMedia({ type: "image", src: media.src })}
+                                        className={`border rounded-lg overflow-hidden cursor-pointer min-w-[70px] md:min-w-[90px] ${activeMedia.src === media.src ? "border-black" : "border-gray-300"
+                                            }`}
+                                    >
+                                        <Image
+                                            src={media.src}
+                                            alt={`Thumb ${idx}`}
+                                            width={90}
+                                            height={90}
+                                            className="object-cover w-[70px] h-[70px] md:w-[90px] md:h-[90px]"
+                                        />
+                                    </div>
+                                );
+                            } else {
+                                return (
+                                    <div
+                                        key={`vid-${idx}`}
+                                        onClick={() => setActiveMedia({ type: "video", src: media.src })}
+                                        className={`border rounded-lg relative cursor-pointer min-w-[70px] md:min-w-[90px] ${activeMedia.src === media.src ? "border-black" : "border-gray-300"
+                                            }`}
+                                    >
+                                        <video
+                                            width={90}
+                                            height={90}
+                                            className="object-cover w-[70px] h-[70px] md:w-[90px] md:h-[90px]"
+                                        >
+                                            <source src={media.src} type="video/mp4" />
+                                        </video>
 
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-600 opacity-50">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M4 2v20l18-10L4 2z" />
-                  </svg>
-                </div>
-              </div>
-            );
-          }
-        })}
+                                        <div className="absolute inset-0 flex items-center justify-center bg-gray-600 opacity-50">
+                                            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M4 2v20l18-10L4 2z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                );
+                            }
+                        })}
 
                     </div>
                 </div>
 
-                {/* Main Display — RIGHT on desktop */}
-                <div className="flex-1 order-1 lg:order-2">
-                    {activeMedia.type === "video" ? (
+                {/* Main Media Preview */}
+                <div className="relative flex-1 order-1 lg:order-2">
+                    {activeMedia && activeMedia.type === "video" ? (
                         <video
                             ref={videoRef}
                             controls
@@ -440,21 +438,49 @@ export default function ProductPage({
                             muted
                             loop
                             className="rounded-2xl object-cover w-full h-[350px] sm:h-[420px] md:h-[480px] lg:h-[500px]"
-                            key={activeMedia.src} // force React to remount video
+                            key={activeMedia.src} // force remount video
                         >
                             <source src={activeMedia.src} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
-                    ) : (
+                    ) : activeMedia ? (
                         <Image
                             src={activeMedia.src}
-                            alt={product.name}
+                            alt={product?.name ?? ""}
                             width={1200}
                             height={800}
                             className="rounded-2xl object-cover md:object-contain w-full h-[350px] sm:h-[420px] md:h-[400px] lg:h-[500px]"
                         />
-                    )}
+                    ) : null}
 
+                    {/* Slider Buttons */}
+                    <button
+                        onClick={() =>
+                            setActiveMedia((prev) => {
+                                if (!prev || thumbnails.length === 0) return prev;
+                                const index = thumbnails.findIndex((m) => m.src === prev.src);
+                                const nextIndex = index === 0 ? thumbnails.length - 1 : index - 1;
+                                return thumbnails[nextIndex];
+                            })
+                        }
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 hover:bg-opacity-100 shadow-md z-50"
+                    >
+                        &#8592;
+                    </button>
+
+                    <button
+                        onClick={() =>
+                            setActiveMedia((prev) => {
+                                if (!prev || thumbnails.length === 0) return prev;
+                                const index = thumbnails.findIndex((m) => m.src === prev.src);
+                                const nextIndex = index === thumbnails.length - 1 ? 0 : index + 1;
+                                return thumbnails[nextIndex];
+                            })
+                        }
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 hover:bg-opacity-100 shadow-md z-50"
+                    >
+                        &#8594;
+                    </button>
                 </div>
             </div>
 
