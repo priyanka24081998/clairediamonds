@@ -58,7 +58,7 @@ interface Product {
     color: string;
     clarity: string;
     weight: string;
-    sidestone : string;
+    sidestone: string;
     categoryId: {
         _id: string;
         categoryName: string;
@@ -99,6 +99,11 @@ const ringSizes = [
     "14", "14.25", "14.5", "14.75",
     "15", "15.25", "15.5", "15.75",
 ];
+interface ActiveMedia {
+  type: "image" | "video";
+  src: string;
+}
+
 
 const getMetalDisplayName = (key: string) => {
     if (key === "silver") return "Silver";
@@ -119,7 +124,10 @@ export default function ProductPage({
     const { id } = React.use(params);
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
-    const [activeMedia, setActiveMedia] = useState<{ type: "image" | "video"; src: string }>({ type: "image", src: "/placeholder.jpg" });
+    const [activeMedia, setActiveMedia] = useState<ActiveMedia>({
+    type: "image",
+    src: product?.images?.[0] ?? "",
+  });
     const [selectedMetal, setSelectedMetal] = useState<string>("silver"); // default to silver
     const [price, setPrice] = useState<number>(0);
     const [open, setOpen] = useState(false);
@@ -131,9 +139,50 @@ export default function ProductPage({
     const [customizeOpen, setCustomizeOpen] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
     const [userId, setUserId] = useState<string | null>(null);
+    const [thumbnails, setThumbnails] = useState<{ type: "image" | "video"; src: string }[]>([]);
 
-    const dropdownRef = useRef<HTMLDivElement>(null);
+
+
     const router = useRouter();
+    const dropdownRef = useRef<HTMLDivElement>(null);
+ useEffect(() => {
+  if (!product) return; // safeguard against null
+
+  // Build thumbnails: first image, first video, then rest
+  const imgs = product.images ?? [];
+  const vids = product.videos ?? [];
+
+  const thumbnails: { type: "image" | "video"; src: string }[] = [];
+
+  if (imgs[0]) thumbnails.push({ type: "image", src: imgs[0] });
+  if (vids[0]) {
+    const vid0 = typeof vids[0] === "string" ? vids[0] : vids[0].url;
+    thumbnails.push({ type: "video", src: vid0 });
+  }
+
+  imgs.slice(1).forEach((img) => thumbnails.push({ type: "image", src: img }));
+  vids.slice(1).forEach((vidObj) => {
+    const vid = typeof vidObj === "string" ? vidObj : vidObj.url;
+    thumbnails.push({ type: "video", src: vid });
+  });
+
+  // If you want to store thumbnails in state:
+  setThumbnails(thumbnails);
+}, [product]);
+
+    
+    // CLOSE WHEN CLICK OUTSIDE
+    useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
 
 
     useEffect(() => {
@@ -168,20 +217,6 @@ export default function ProductPage({
 
         fetchProduct();
     }, [id]);
-
-    // Close dropdown when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setOpen(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
 
 
     // Update price when metal changes
@@ -327,9 +362,9 @@ export default function ProductPage({
     if (!product) return <p className="text-center py-10">Product not found.</p>;
 
     return (
-        <div className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div  className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8"  >
             {/* LEFT SIDE - IMAGE & VIDEO SLIDER */}
-            <div className="flex flex-col lg:flex-row gap-4">
+            <div ref={dropdownRef} className="flex flex-col lg:flex-row gap-4">
 
                 {/* Thumbnails — LEFT on desktop */}
                 <div className="lg:h-[500px] lg:overflow-y-auto order-2 lg:order-1 w-full lg:w-1/5">
@@ -345,52 +380,51 @@ export default function ProductPage({
          
         "
                     >
-                        {product.images.map((img, idx) => (
-                            <div
-                                key={`img-${idx}`}
-                                onClick={() => setActiveMedia({ type: "image", src: img })}
-                                className={`border rounded-lg overflow-hidden cursor-pointer min-w-[70px] md:min-w-[90px] ${activeMedia.src === img ? "border-black" : "border-gray-300"
-                                    }`}
-                            >
-                                <Image
-                                    src={img}
-                                    alt={`Thumb ${idx}`}
-                                    width={90}
-                                    height={90}
-                                    className="object-cover w-[70px] h-[70px] md:w-[90px] md:h-[90px]"
-                                />
-                            </div>
-                        ))}
+                        {thumbnails.map((media, idx) => {
+          if (media.type === "image") {
+            return (
+              <div
+                key={`img-${idx}`}
+                onClick={() => setActiveMedia({ type: "image", src: media.src })}
+                className={`border rounded-lg overflow-hidden cursor-pointer min-w-[70px] md:min-w-[90px] ${
+                  activeMedia.src === media.src ? "border-black" : "border-gray-300"
+                }`}
+              >
+                <Image
+                  src={media.src}
+                  alt={`Thumb ${idx}`}
+                  width={90}
+                  height={90}
+                  className="object-cover w-[70px] h-[70px] md:w-[90px] md:h-[90px]"
+                />
+              </div>
+            );
+          } else {
+            return (
+              <div
+                key={`vid-${idx}`}
+                onClick={() => setActiveMedia({ type: "video", src: media.src })}
+                className={`border rounded-lg relative cursor-pointer min-w-[70px] md:min-w-[90px] ${
+                  activeMedia.src === media.src ? "border-black" : "border-gray-300"
+                }`}
+              >
+                <video
+                  width={90}
+                  height={90}
+                  className="object-cover w-[70px] h-[70px] md:w-[90px] md:h-[90px]"
+                >
+                  <source src={media.src} type="video/mp4" />
+                </video>
 
-                        {product.videos.map((vidObj, idx) => {
-                            const vid = typeof vidObj === "string" ? vidObj : vidObj.url; // handle old data too
-                            return (
-                                <div
-                                    key={`vid-${idx}`}
-                                    onClick={() => setActiveMedia({ type: "video", src: vid })}
-                                    className={`border rounded-lg relative cursor-pointer min-w-[70px] md:min-w-[90px] ${activeMedia.src === vid ? "border-black" : "border-gray-300"
-                                        }`}
-                                >
-                                    <video
-                                        width={90}
-                                        height={90}
-                                        className="object-cover w-[70px] h-[70px] md:w-[90px] md:h-[90px]"
-                                    >
-                                        <source src={vid} type="video/mp4" />
-                                    </video>
-
-                                    <div className="absolute inset-0 flex items-center justify-center bg-gray-600 opacity-50">
-                                        <svg
-                                            className="w-6 h-6 text-white"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path d="M4 2v20l18-10L4 2z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                            );
-                        })}
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-600 opacity-50">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4 2v20l18-10L4 2z" />
+                  </svg>
+                </div>
+              </div>
+            );
+          }
+        })}
 
                     </div>
                 </div>
@@ -450,34 +484,99 @@ export default function ProductPage({
                     <label className="font-medium">
                         Metal type: {selectedMetal ? getMetalDisplayName(selectedMetal) : ""}
                     </label>
-                    <div className="grid grid-cols-6 md:grid-cols-12">
-                        {Object.entries(product.price ?? {})
-                            .sort(([keyA], [keyB]) => (keyA === "silver" ? -1 : keyB === "silver" ? 1 : 0))  // only metals with a price
-                            .map(([metalKey]) => (
-                                <div
-                                    key={metalKey}
-                                    onClick={() => setSelectedMetal(metalKey)}
 
-                                >
-                                    <Image
-                                        src={`/assets/${metalImageMap[metalKey]}`}
-                                        alt={metalKey.replaceAll("_", " ")}
-                                        width={1200}
-                                        height={800}
-                                        className={`w-[35px] h-[35px] p-[2px] cursor-pointer border-1 rounded-full ${selectedMetal === metalKey ? "border-black" : "border-none"
-                                            }`}
-                                    />
-                                    <span className="text-xs mt-1 text-center">
-                                        {metalKey === "silver"
-                                            ? "Silver"
-                                            : metalKey === "platinum"
-                                                ? "Platinum"
-                                                : metalKey.split("_")[0].toUpperCase()}
-                                    </span>
-                                </div>
-                            ))}
+                    {/* MAIN METAL BUTTONS */}
+                    <div className="grid grid-cols-6 md:grid-cols-12">
+
+                        {/* SILVER BUTTON */}
+                        {"silver" in (product.price ?? {}) && (
+                            <div onClick={() => setSelectedMetal("silver")}>
+                                <Image
+                                    src={`/assets/${metalImageMap["silver"]}`}
+                                    alt="Silver"
+                                    width={1200}
+                                    height={800}
+                                    className={`w-[35px] h-[35px] p-[2px] cursor-pointer border-1 rounded-full ${selectedMetal === "silver" ? "border-black" : "border-none"
+                                        }`}
+                                />
+                                <span className="text-xs mt-1 text-center block">Silver</span>
+                            </div>
+                        )}
+
+                        {/* GOLD BUTTON */}
+                        {Object.keys(product.price ?? {}).some((k) => k.includes("gold")) && (
+                            <div onClick={() => setSelectedMetal("gold")}>
+                                <Image
+                                    src={`/assets/${metalImageMap["10k_yellow_gold"]}`}
+                                    alt="Gold"
+                                    width={1200}
+                                    height={800}
+                                    className={`w-[35px] h-[35px] p-[2px] cursor-pointer border-1 rounded-full ${selectedMetal === "gold" ? "border-black" : "border-none"
+                                        }`}
+                                />
+                                <span className="text-xs mt-1 text-center block">Gold</span>
+                            </div>
+                        )}
+
+                        {/* PLATINUM BUTTON */}
+                        {"platinum" in (product.price ?? {}) && (
+                            <div onClick={() => setSelectedMetal("platinum")}>
+                                <Image
+                                    src={`/assets/${metalImageMap["platinum"]}`}
+                                    alt="Platinum"
+                                    width={1200}
+                                    height={800}
+                                    className={`w-[35px] h-[35px] p-[2px] cursor-pointer border-1 rounded-full ${selectedMetal === "platinum" ? "border-black" : "border-none"
+                                        }`}
+                                />
+                                <span className="text-xs mt-1 text-center block">Platinum</span>
+                            </div>
+                        )}
+
                     </div>
+
+                    {/* GOLD SUB-METAL OPTIONS */}
+                    {selectedMetal === "gold" && (
+                        <div className="mt-3 overflow-x-auto">
+                            <div className="flex gap-4">
+
+                                {[
+                                    "10k_yellow_gold",
+                                    "10k_rose_gold",
+                                    "10k_white_gold",
+                                    "14k_yellow_gold",
+                                    "14k_rose_gold",
+                                    "14k_white_gold",
+                                    "18k_yellow_gold",
+                                    "18k_rose_gold",
+                                    "18k_white_gold",
+                                ].map((subMetal) => (
+                                    <div
+                                        key={subMetal}
+                                        className="flex flex-col items-center cursor-pointer"
+                                        onClick={() => setSelectedMetal(subMetal)}
+                                    >
+                                        <Image
+                                            src={`/assets/${metalImageMap[subMetal]}`}
+                                            alt={subMetal}
+                                            width={1200}
+                                            height={800}
+                                            className={`w-[35px] h-[35px] p-[2px] rounded-full border ${selectedMetal === subMetal ? "border-black" : "border-transparent"
+                                                }`}
+                                        />
+
+                                        <span className="text-[11px] mt-1 whitespace-nowrap">
+                                            {subMetal.split("_")[0].toUpperCase()}
+                                        </span>
+                                    </div>
+                                ))}
+
+                            </div>
+                        </div>
+                    )}
                 </div>
+
+
 
 
                 {/* Ring Size */}
@@ -497,8 +596,11 @@ export default function ProductPage({
 
                     {/* Dropdown */}
                     {open && (
-                        <div className="absolute left-0 mt-2 w-64 bg-white border rounded-lg shadow-lg p-2 z-50">
-                            <div className="grid grid-cols-4 gap-2 max-h-60 overflow-y-auto">
+                        <div className="absolute left-[80px] top-[-100px] sm:top-[28px] mt-2 w-40 bg-white border rounded-lg shadow-lg p-2 z-50">
+                            <div
+                                className="grid grid-cols-1 overflow-y-auto"
+                                style={{ maxHeight: "400px" }} // 10 items approx (26px each)
+                            >
                                 {ringSizes.map((size) => (
                                     <div
                                         key={size}
@@ -506,7 +608,7 @@ export default function ProductPage({
                                             setSelectedSize(size);
                                             setOpen(false);
                                         }}
-                                        className="cursor-pointer border rounded-md px-2 py-1 text-center hover:bg-gray-100"
+                                        className="cursor-pointer rounded-md p-1 hover:bg-gray-100"
                                     >
                                         {size}
                                     </div>
@@ -514,6 +616,7 @@ export default function ProductPage({
                             </div>
                         </div>
                     )}
+
                 </div>
 
 
@@ -557,11 +660,11 @@ export default function ProductPage({
                         <button
                             onClick={toggleFavorite}
                             className="p-[7px] border border-[#9f7d48] rounded-lg w-[50px] flex justify-center"
-                        > {isFavorite ? <FaHeart className={`w-6 h-6 text-[#9f7d48]`} /> 
-                         :
-                         <FaRegHeart
-                            className={`w-6 h-6 text-[#9f7d48]`}
-                        /> }
+                        > {isFavorite ? <FaHeart className={`w-6 h-6 text-[#9f7d48]`} />
+                            :
+                            <FaRegHeart
+                                className={`w-6 h-6 text-[#9f7d48]`}
+                            />}
 
                         </button>
                     </Link>
