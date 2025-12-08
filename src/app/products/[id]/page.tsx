@@ -485,7 +485,7 @@ export default function ProductPage({
             </div>
 
             {/* RIGHT SIDE - PRODUCT DETAILS */}
-            <div ref={dropdownRef} className="flex flex-col gap-4 md:py-6 font-sans">
+            <div  className="flex flex-col gap-4 md:py-6 font-sans">
                 <h1
                     className={`text-[20px] md:text-3xl text-[#43825c] capitalize font-bold md:mb-2 ${philosopher.className}`}>
                     {product.name}
