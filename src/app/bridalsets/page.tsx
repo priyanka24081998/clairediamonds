@@ -6,10 +6,10 @@ import Link from "next/link";
 import axios from "axios";
 import { Philosopher } from "next/font/google";
 
-import { getLocation } from "@/lib/getLocation";      // ✅ FIXED
 import { convertCurrency } from "@/lib/convertCurrency";
+import { currencySymbol } from "@/lib/currencySymbol";
+import { getLocation } from "@/lib/getLocation";
 import { currencyMap } from "@/lib/currencyMap";
-import { currencySymbol } from "@/lib/currencySymbol";       // ✅ FIXED
 
 const philosopher = Philosopher({
   subsets: ["latin"],
@@ -22,9 +22,7 @@ interface Product {
   images: string[];
   videos: string[];
   description: string;
-
-  price?: Record<string, number>; // simplify price object
-
+  price?: Record<string, number>;
   categoryId: {
     _id: string;
     categoryName: string;
@@ -35,21 +33,20 @@ interface Product {
   };
 }
 
-const Bracelates = () => {
+const Bridalsets = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [currency, setCurrency] = useState("USD");
-  const [convertedPrices, setConvertedPrices] = useState<Record<string, number>>({}); // store converted prices
+  const [convertedPrices, setConvertedPrices] = useState<Record<string, number>>({});
+  const [currency, setCurrency] = useState<string>("USD");
 
+  // Fetch products once
   const fetchProducts = async () => {
     try {
       const response = await axios.get("https://claireapi.onrender.com/product/");
-
       if (response.data && Array.isArray(response.data.data)) {
         const filtered = response.data.data.filter(
           (item: Product) =>
             item?.categoryId?.categoryName?.toLowerCase() === "bridal sets"
         );
-
         setProducts(filtered);
       } else {
         setProducts([]);
@@ -60,44 +57,55 @@ const Bracelates = () => {
     }
   };
 
-  // 👉 1. Load Products
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  // 👉 2. Detect User Country + Currency
+  // Detect initial currency from localStorage or user location
   useEffect(() => {
-    async function loadCurrency() {
-      const loc = await getLocation();
+    const savedCurrency = localStorage.getItem("currency");
 
-      if (loc) {
-        const mapped = currencyMap[loc.country] || loc.currency || "USD";
-        setCurrency(mapped);
-      }
+    if (savedCurrency) {
+      setCurrency(savedCurrency);
+    } else {
+      // Only call getLocation if no saved currency
+      (async () => {
+        const loc = await getLocation();
+        const detectedCurrency = loc ? currencyMap[loc.country] || loc.currency || "USD" : "USD";
+        setCurrency(detectedCurrency);
+        localStorage.setItem("currency", detectedCurrency);
+      })();
     }
-
-    loadCurrency();
   }, []);
 
-  // 👉 3. Convert every product price to detected currency
+  // Convert prices whenever products or currency changes
   useEffect(() => {
-    async function convertAllPrices() {
+    if (products.length === 0) return;
+
+    const convertAllPrices = async () => {
       const output: Record<string, number> = {};
-
       for (const p of products) {
-        // use "silver" as main price (or your logic)
         const basePrice = p.price?.silver || 0;
-
         const converted = await convertCurrency(basePrice, "USD", currency);
         output[p._id] = converted;
       }
-
       setConvertedPrices(output);
-    }
+    };
 
-    if (products.length > 0 && currency) {
-      convertAllPrices();
-    }
+    convertAllPrices();
+
+    // Listen for currency changes from Currency.tsx dropdown
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "currency") {
+        setCurrency(e.newValue || "USD");
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, [products, currency]);
 
   return (
@@ -105,7 +113,7 @@ const Bracelates = () => {
       <h2
         className={`text-[20px] md:text-3xl text-[#43825c] text-center font-bold mb-2 ${philosopher.className}`}
       >
-       Bridal Sets
+        Bridal Sets
         <Image
           src="/assets/divider.png"
           alt="line"
@@ -117,45 +125,47 @@ const Bracelates = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-8 py-4 lg:py-10 mx-auto">
         {products.length > 0 ? (
-          products.map((product) => (
+          products.map((product) => {
+            const displayCurrency = localStorage.getItem("currency") || currency;
+            return (
               <Link key={product._id} href={`/products/${product._id}`}>
-              <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 border border-gray-100 cursor-pointer">
+                <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 border border-gray-100 cursor-pointer">
+                  <div className="overflow-hidden rounded-xl">
+                    <Image
+                      src={product.images?.[0] || "/placeholder.jpg"}
+                      alt={product.name}
+                      width={600}
+                      height={400}
+                      className="w-full h-[150px] lg:h-[260px] object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
+                      unoptimized
+                    />
+                  </div>
 
-                <div className="overflow-hidden rounded-xl">
-                  <Image
-                    src={product.images?.[0] || "/placeholder.jpg"}
-                    alt={product.name}
-                    width={600}
-                    height={400}
-                    className="w-full h-[150px] lg:h-[260px] object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
-                    unoptimized
-                  />
+                  <div className="mt-4">
+                    <h2
+                      className={`${philosopher.className} capitalize text-[#9f7d48] text-[14px] md:text-[18px] font-semibold group-hover:text-[#43825c] transition-colors truncate`}
+                    >
+                      {product.name}
+                    </h2>
+
+                    <p className={`${philosopher.className} text-[#43825c] font-bold text-lg mt-3`}>
+                      {convertedPrices[product._id] ? (
+                        <span>
+                          {currencySymbol[displayCurrency] || displayCurrency}{" "}
+                          {convertedPrices[product._id].toFixed(2)}
+                        </span>
+                      ) : (
+                        <span>
+                          {currencySymbol["USD"] || "USD"}{" "}
+                          {product.price?.silver?.toFixed(2) || "0.00"}
+                        </span>
+                      )}
+                    </p>
+                  </div>
                 </div>
-
-                <div className="mt-4">
-                  <h2 className={`${philosopher.className} capitalize text-[#9f7d48] text-[14px] md:text-[18px] font-semibold group-hover:text-[#43825c] transition-colors truncate`}>
-                    {product.name}
-                  </h2>
-
-                  <p className={`${philosopher.className} text-[#43825c] font-bold text-lg mt-3`}>
-                    {convertedPrices[product._id] ? (
-                      <span>
-                        {currencySymbol[currency] ? currencySymbol[currency] : currency}
-                        {" "}
-                        {convertedPrices[product._id].toFixed(2)}
-                      </span>
-                    ) : (
-                      <span>
-                        {currencySymbol["USD"] ? currencySymbol["USD"] : "USD"}
-                        {" "}
-                        {product.price?.silver?.toFixed(2) || "0.00"}
-                      </span>
-                    )}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))
+              </Link>
+            );
+          })
         ) : (
           <p className="text-center text-gray-500 col-span-3">No products found.</p>
         )}
@@ -164,4 +174,4 @@ const Bracelates = () => {
   );
 };
 
-export default Bracelates;
+export default Bridalsets;
