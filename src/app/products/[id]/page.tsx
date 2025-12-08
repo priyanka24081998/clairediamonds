@@ -58,6 +58,7 @@ interface Product {
     color: string;
     clarity: string;
     weight: string;
+    sidestone : string;
     categoryId: {
         _id: string;
         categoryName: string;
@@ -663,7 +664,7 @@ export default function ProductPage({
                 <div className="">
                     <Accordion className="w-full mt-3">
                         <AccordionSummary className="text-lg font-sans font-medium capitalize" expandIcon={<ExpandMoreIcon />}>
-                            product Description
+                            Overview
                         </AccordionSummary>
                         <AccordionDetails>
                             <p className="text-gray-700 font-sans whitespace-pre-wrap">
@@ -696,7 +697,10 @@ export default function ProductPage({
                                     <strong>Stone clarity :</strong> {product.clarity || "N/A"}
                                 </li>
                                 <li>
-                                    <strong>carat weight :</strong> {product.weight || "N/A"}
+                                    <strong>Main Diamond Carat Weight :</strong> {product.weight || "N/A"}
+                                </li>
+                                <li>
+                                    <strong>side stone carat weight :</strong> {product.sidestone || "N/A"}
                                 </li>
                             </ul>
                         </AccordionDetails>
