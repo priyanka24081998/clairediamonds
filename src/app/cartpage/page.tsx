@@ -340,8 +340,8 @@ export default function CartPage() {
               </button>
             </Link> */}
             {total > 0 && (
-  <div className="mt-4">
-    <PayPalButton
+  <div className="w-full mt-4 py-3 bg-[#43825c] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors">
+    <PayPalButton 
       amount={total.toFixed(2)}
       onSuccess={async (details) => {
         console.log("Payment successful:", details);
