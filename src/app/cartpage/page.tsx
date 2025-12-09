@@ -339,36 +339,36 @@ export default function CartPage() {
                 Checkout
               </button>
             </Link> */}
-           {total > 0 && (
-  <div className="mt-4">
-    <PayPalButton 
-      amount={total.toFixed(2)}
-      onSuccess={async (details) => {
-        console.log("Payment successful:", details);
+            {total > 0 && (
+              <div className="mt-4">
+                <PayPalButton
+                  amount={total.toFixed(2)}
+                  onSuccess={async (details) => {
+                    console.log("Payment successful:", details);
 
-        setCartItems([]);
+                    setCartItems([]);
 
-        try {
-          await axios.post(`${API_BASE}/payments`, {
-            userId,
-            orderID: details.id,
-            amount: total,
-            currency,
-            items: cartItems.map(item => ({
-              productId: item.productId,
-              quantity: item.quantity,
-              selectedMetal: item.selectedMetal,
-            }))
-          });
-        } catch (err) {
-          console.error("Failed to save payment:", err);
-        }
+                    try {
+                      await axios.post(`${API_BASE}/payments`, {
+                        userId,
+                        orderID: details.id,
+                        amount: total,
+                        currency,
+                        items: cartItems.map(item => ({
+                          productId: item.productId,
+                          quantity: item.quantity,
+                          selectedMetal: item.selectedMetal,
+                        }))
+                      });
+                    } catch (err) {
+                      console.error("Failed to save payment:", err);
+                    }
 
-        alert(`Payment completed by ${details.payer.name.given_name}`);
-      }}
-    />
-  </div>
-)}
+                    alert(`Payment completed by ${details.payer.name.given_name}`);
+                  }}
+                />
+              </div>
+            )}
 
           </div>
         </div>

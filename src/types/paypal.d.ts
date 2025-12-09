@@ -1,14 +1,8 @@
 export interface PaypalActions {
   order: {
-    create: (order: { purchase_units: { amount: { value: string } }[] }) => Promise<string>;
+    create: (data: unknown) => Promise<string>;
     capture: () => Promise<OrderResponse>;
   };
-}
-
-export interface PaypalButtonsInstance {
-  createOrder: (data: unknown, actions: PaypalActions) => Promise<string>;
-  onApprove: (data: unknown, actions: PaypalActions) => Promise<void>;
-  onError?: (err: unknown) => void;
 }
 
 export interface OrderResponse {
@@ -20,5 +14,22 @@ export interface OrderResponse {
     };
     email_address: string;
   };
-  status: string;
+  purchase_units: Array<{
+    amount: {
+      value: string;
+      currency_code: string;
+    };
+  }>;
+}
+
+export interface PaypalButtonsInstance {
+  createOrder: (data: unknown, actions: PaypalActions) => Promise<string>;
+  onApprove: (data: unknown, actions: PaypalActions) => Promise<void>;
+  onError?: (err: unknown) => void;
+  style?: {
+    layout?: string;
+    color?: string;
+    shape?: string;
+    label?: string;
+  };
 }
