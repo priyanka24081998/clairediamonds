@@ -287,17 +287,24 @@ export default function ProductPage({
     }, []);
 
     const handleAddToCart = async () => {
-        if (!product?._id) {
-            alert("Product not found!");
-            return;
-        }
-
+        
+        
         const userId = localStorage.getItem("userId");
+
         if (!userId) {
             alert("Please login first!");
             return;
         }
+         if (!product?._id) {
+            alert("Product not found!");
+            return;
+        }
         if (!selectedMetal) return alert("Please select a metal!");
+
+        if (!selectedSize) {
+        alert("Please select a ring size!");
+        return;
+    }
 
         setLoading(true);
 
@@ -305,7 +312,7 @@ export default function ProductPage({
             const token = localStorage.getItem("token");
             const res = await axios.post(
                 `${API_BASE}/cart`,
-                { userId, productId: product._id, quantity: Number(quantity), selectedMetal },
+                { userId, productId: product._id, quantity: Number(quantity), selectedMetal,ringSize: selectedSize },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
@@ -362,9 +369,9 @@ export default function ProductPage({
     if (!product) return <p className="text-center py-10">Product not found.</p>;
 
     return (
-        <div className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8"  >
+        <div className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8" >
             {/* LEFT SIDE - IMAGE & VIDEO SLIDER */}
-            <div ref={dropdownRef} className="flex flex-col lg:flex-row gap-4">
+            <div  className="flex flex-col lg:flex-row gap-4">
 
                 {/* Thumbnails — LEFT on desktop */}
                 <div className="lg:h-[500px] lg:overflow-y-auto order-2 lg:order-1 w-full lg:w-1/5">
@@ -485,7 +492,7 @@ export default function ProductPage({
             </div>
 
             {/* RIGHT SIDE - PRODUCT DETAILS */}
-            <div  className="flex flex-col gap-4 md:py-6 font-sans">
+            <div ref={dropdownRef} className="flex flex-col gap-4 md:py-6 font-sans">
                 <h1
                     className={`text-[20px] md:text-3xl text-[#43825c] capitalize font-bold md:mb-2 ${philosopher.className}`}>
                     {product.name}
@@ -672,7 +679,7 @@ export default function ProductPage({
                     <Link href="" className="w-full">
                         <button
                             onClick={handleAddToCart}
-                            disabled={loading || !userId}
+                            // disabled={loading || !userId}
 
                             className="px-4 py-2 bg-[#43825c] text-white rounded-lg w-full"
                         >
