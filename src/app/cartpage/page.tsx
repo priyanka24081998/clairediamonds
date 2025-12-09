@@ -9,13 +9,17 @@ import { convertCurrency } from "@/lib/convertCurrency";
 import { currencyMap } from "@/lib/currencyMap";
 import { currencySymbol } from "@/lib/currencySymbol";
 import Link from "next/link";
-import PayPalButton from "@/components/PayPalButton";
 
 
 const philosopher = Philosopher({
   subsets: ["latin"],
   weight: ["400", "700"],
-});
+}); 
+
+type PayPalLink = {
+  href: string;
+  rel: string;
+};
 
 interface CartItem {
   _id: string;
@@ -171,6 +175,27 @@ export default function CartPage() {
       alert("Failed to move to favorites");
     }
   };
+
+  const startPayPalPayment = async () => {
+  try {
+    const res = await fetch("/api/paypal/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ total: total.toFixed(2) }),
+    });
+
+    const data = await res.json();
+
+const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
+
+    if (approveLink) {
+      window.location.href = approveLink.href; // redirect to PayPal securely
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+  
   // ----------------------------------------
   // RETURN UI
   // ----------------------------------------
@@ -329,47 +354,20 @@ export default function CartPage() {
               Complimentary Delivery & Returns
             </p>
 
-            {/* <Link href={{
+            <Link href={{
               pathname: "/paymentpage",
               query: { total: total.toFixed(2), currency } // pass total and currency
             }}>
               <button
+                onClick={startPayPalPayment}
                 className="w-full mt-4 py-3 bg-[#43825c] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors"
               >
                 Checkout
               </button>
-            </Link> */}
-            {total > 0 && (
-              <div className="mt-4">
-                <PayPalButton
-                  amount={total.toFixed(2)}
-                  onSuccess={async (details) => {
-                    console.log("Payment successful:", details);
+            </Link>
+            <div id="paypal-container" style={{ display: "none" }}></div>
 
-                    setCartItems([]);
-
-                    try {
-                      await axios.post(`${API_BASE}/payments`, {
-                        userId,
-                        orderID: details.id,
-                        amount: total,
-                        currency,
-                        items: cartItems.map(item => ({
-                          productId: item.productId,
-                          quantity: item.quantity,
-                          selectedMetal: item.selectedMetal,
-                        }))
-                      });
-                    } catch (err) {
-                      console.error("Failed to save payment:", err);
-                    }
-
-                    alert(`Payment completed by ${details.payer.name.given_name}`);
-                  }}
-                />
-              </div>
-            )}
-
+            
           </div>
         </div>
       </div>
