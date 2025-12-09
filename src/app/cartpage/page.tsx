@@ -339,18 +339,15 @@ export default function CartPage() {
                 Checkout
               </button>
             </Link> */}
-            {total > 0 && (
-  <div className="w-full mt-4 py-3 bg-[#43825c] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors">
-    pay pal
+           {total > 0 && (
+  <div className="mt-4">
     <PayPalButton 
       amount={total.toFixed(2)}
       onSuccess={async (details) => {
         console.log("Payment successful:", details);
 
-        // OPTIONAL: Clear cart
         setCartItems([]);
 
-        // OPTIONAL: Save transaction to backend
         try {
           await axios.post(`${API_BASE}/payments`, {
             userId,
