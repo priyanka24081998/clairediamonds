@@ -7,14 +7,14 @@ const philosopher = Philosopher({
   weight: ["400", "700"],
 });
 
-const ladiesplainbands = () => {
+const oval = () => {
   return (
     <>
       <div className="py-10 pb-10">
         <h2
-          className={`capitalize text-[20px] md:text-3xl text-[#43825c] text-center font-bold mb-10 md:mb-16 ${philosopher.className}`}
+          className={`text-[20px] md:text-3xl text-[#43825c] text-center font-bold mb-10 md:mb-16 ${philosopher.className}`}
         >
-          wedding bands ladies plain bands
+          Engagement Rings Oval
           <Image
             src="/assets/divider.png"
             alt="line"
@@ -29,4 +29,4 @@ const ladiesplainbands = () => {
   );
 };
 
-export default ladiesplainbands;
+export default oval;

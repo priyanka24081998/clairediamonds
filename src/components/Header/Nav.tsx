@@ -301,39 +301,116 @@ const Nav: React.FC = () => {
       href: "/bridalsets",
       subItems: [
         {
-          category: "Mens", 
+          category: "Style",
           items: [
             {
-              name: "Mens Plain Bands",
-              href: "/bridalsets/menplainbands",
-              icon: "mens-plain-wedding.svg",
+              name: "Bridal Sets Solitaire Rings",
+              href: "/bridalsets/solitierrings",
+              icon: "solitaire-ring.svg",
             },
             {
-              name: "Mens Diamond Bands",
-              href: "/bridalsets/mendiamondband",
-              icon: "mens-diamond-ring.svg",
+              name: "Bridal Sets Shoulder Rings",
+              href: "/bridalsets/shoulderrings",
+              icon: "shoulder-ring.svg",
+            },
+
+            {
+              name: "Bridal Sets Halo Rings",
+              href: "/bridalsets/halorings",
+              icon: "halo-ring.svg",
+            },
+            {
+              name: "Bridal Sets Trilogy Rings",
+              href: "/bridalsets/trilogyrings",
+              icon: "three-stone-ring.svg",
+            },
+            {
+              name: "Bridal Sets Toi et moi Rings",
+              href: "/bridalsets/toietmoirings",
+              icon: "two-stone-ring.svg",
+            },
+            {
+              name: "Bridal Sets Cluster Rings",
+              href: "/bridalsets/clusterrings",
+              icon: "cluster-ring.svg",
+            },
+            {
+              name: "Bridal Sets Tension Rings",
+              href: "/bridalsets/tensionrings",
+              icon: "tension-ring.svg",
+            },
+            {
+              name: "Bridal Sets Bezel Rings",
+              href: "/bridalsets/bezelrings",
+              icon: "bezel-ring.svg",
+            },
+            {
+              name: "Bridal Sets Vintage Rings",
+              href: "/bridalsets/vintagerings",
+              icon: "vintage-ring.svg",
             },
           ],
         },
         {
-          category: "Ladies",
+          category: "Shape",
           items: [
             {
-              name: "Ladies Plain Bands",
-              href: "/bridalsets/ladiesplainbands",
-              icon: "ladies-plain-wedding.svg",
+              name: "Round",
+              href: "/bridalsets/round",
+              icon: "round.svg",
             },
             {
-              name: "Ladies Diamond Bands",
-              href: "/bridalsets/ladiesdiamondbands",
-              icon: "ladies-diamond-wedding.svg",
+              name: "Princess",
+              href: "/bridalsets/princess",
+              icon: "princess.svg",
+            },
+            {
+              name: "Emerald",
+              href: "/bridalsets/emerald",
+              icon: "emerald.svg",
+            },
+            {
+              name: "Asscher",
+              href: "/bridalsets/asscher",
+              icon: "asscher.svg",
+            },
+            {
+              name: "Oval",
+              href: "/bridalsets/oval",
+              icon: "oval.svg",
+            },
+            {
+              name: "Pear",
+              href: "/bridalsets/pear",
+              icon: "pear.svg",
+            },
+            {
+              name: "Heart",
+              href: "/bridalsets/heart",
+              icon: "heart.svg",
+            },
+            {
+              name: "Marquise",
+              href: "/bridalsets/marquise",
+              icon: "marquise.svg",
+            },
+            {
+              name: "Cushion",
+              href: "/bridalsets/cushion",
+              icon: "cushion.svg",
+            },
+            {
+              name: "Radiant",
+              href: "/bridalsets/radiant",
+              icon: "radiant.svg",
             },
           ],
         },
         {
           category: "Metal",
           items: [
-            { name: "Sterline Silver", href: "/weddingbands/silver", icon: "silvermetal.png" },
+            { name: "Sterline Silver", href: "/bridalsets/silver", icon: "silvermetal.png" },
+            
             {
               name: "White Gold",
               href: "/bridalsets/whitegold",
@@ -349,7 +426,6 @@ const Nav: React.FC = () => {
               href: "/bridalsets/rosegold",
               icon: "rosemetal.png",
             },
-           
           ],
         },
       ],

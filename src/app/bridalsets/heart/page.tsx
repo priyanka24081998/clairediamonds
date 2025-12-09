@@ -7,14 +7,14 @@ const philosopher = Philosopher({
   weight: ["400", "700"],
 });
 
-const ladiesdiamondbands = () => {
+const heart = () => {
   return (
     <>
       <div className="py-10 pb-10">
         <h2
-          className={`capitalize text-[20px] md:text-3xl text-[#43825c] text-center font-bold mb-10 md:mb-16 ${philosopher.className}`}
+          className={`text-[20px] md:text-3xl text-[#43825c] text-center font-bold mb-10 md:mb-16 ${philosopher.className}`}
         >
-          wedding bands ladies diamond bands
+          Engagement Rings Heart
           <Image
             src="/assets/divider.png"
             alt="line"
@@ -29,4 +29,4 @@ const ladiesdiamondbands = () => {
   );
 };
 
-export default ladiesdiamondbands;
+export default heart;

@@ -7,14 +7,14 @@ const philosopher = Philosopher({
   weight: ["400", "700"],
 });
 
-const menplainbands = () => {
+const radiant = () => {
   return (
     <>
       <div className="py-10 pb-10">
         <h2
           className={`capitalize text-[20px] md:text-3xl text-[#43825c] text-center font-bold mb-10 md:mb-16 ${philosopher.className}`}
         >
-          wedding bands men&apos;s plain bands
+          Engagement Rings radiant
           <Image
             src="/assets/divider.png"
             alt="line"
@@ -29,4 +29,4 @@ const menplainbands = () => {
   );
 };
 
-export default menplainbands;
+export default radiant;
