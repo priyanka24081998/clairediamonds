@@ -140,7 +140,10 @@ export default function ProductPage({
     const [isFavorite, setIsFavorite] = useState(false);
     const [userId, setUserId] = useState<string | null>(null);
     const [thumbnails, setThumbnails] = useState<{ type: "image" | "video"; src: string }[]>([]);
+    const [touchStartX, setTouchStartX] = useState(0);
+    const [touchEndX, setTouchEndX] = useState(0);
 
+    const minSwipeDistance = 50; // required distance
 
 
     const router = useRouter();
@@ -285,26 +288,55 @@ export default function ProductPage({
             setUserId(storedUserId);
         }
     }, []);
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        setTouchStartX(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        setTouchEndX(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchEnd = () => {
+        if (!touchStartX || !touchEndX) return;
+
+        const distance = touchStartX - touchEndX;
+
+        if (distance > minSwipeDistance) {
+            // swipe left → next
+            setActiveMedia((prev) => {
+                const idx = thumbnails.findIndex((m) => m.src === prev.src);
+                return thumbnails[(idx + 1) % thumbnails.length];
+            });
+        }
+
+        if (distance < -minSwipeDistance) {
+            // swipe right → previous
+            setActiveMedia((prev) => {
+                const idx = thumbnails.findIndex((m) => m.src === prev.src);
+                return thumbnails[(idx - 1 + thumbnails.length) % thumbnails.length];
+            });
+        }
+    };
 
     const handleAddToCart = async () => {
-        
-        
+
+
         const userId = localStorage.getItem("userId");
 
         if (!userId) {
             alert("Please login first!");
             return;
         }
-         if (!product?._id) {
+        if (!product?._id) {
             alert("Product not found!");
             return;
         }
         if (!selectedMetal) return alert("Please select a metal!");
 
         if (!selectedSize) {
-        alert("Please select a ring size!");
-        return;
-    }
+            alert("Please select a ring size!");
+            return;
+        }
 
         setLoading(true);
 
@@ -312,7 +344,7 @@ export default function ProductPage({
             const token = localStorage.getItem("token");
             const res = await axios.post(
                 `${API_BASE}/cart`,
-                { userId, productId: product._id, quantity: Number(quantity), selectedMetal,ringSize: selectedSize },
+                { userId, productId: product._id, quantity: Number(quantity), selectedMetal, ringSize: selectedSize },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
@@ -371,7 +403,7 @@ export default function ProductPage({
     return (
         <div className="container mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-8" >
             {/* LEFT SIDE - IMAGE & VIDEO SLIDER */}
-            <div  className="flex flex-col lg:flex-row gap-4">
+            <div className="flex flex-col lg:flex-row gap-4">
 
                 {/* Thumbnails — LEFT on desktop */}
                 <div className="lg:h-[500px] lg:overflow-y-auto order-2 lg:order-1 w-full lg:w-1/5">
@@ -435,7 +467,10 @@ export default function ProductPage({
                 </div>
 
                 {/* Main Media Preview */}
-                <div className="relative flex-1 order-1 lg:order-2">
+                <div className="relative flex-1 order-1 lg:order-2"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}>
                     {activeMedia && activeMedia.type === "video" ? (
                         <video
                             ref={videoRef}
