@@ -554,59 +554,55 @@ export default function ProductPage({
                     </label>
 
                     {/* MAIN METAL BUTTONS */}
-                    <div className="grid grid-cols-6 md:grid-cols-12">
+                    <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
 
                         {/* SILVER BUTTON */}
                         {"silver" in (product.price ?? {}) && (
-                            <div onClick={() => setSelectedMetal("silver")}>
-                                <Image
-                                    src={`/assets/${metalImageMap["silver"]}`}
-                                    alt="Silver"
-                                    width={1200}
-                                    height={800}
-                                    className={`w-[35px] h-[35px] p-[2px] cursor-pointer border-1 rounded-full ${selectedMetal === "silver" ? "border-black" : "border-none"
-                                        }`}
-                                />
-                                <span className="text-xs mt-1 text-center block">Silver</span>
-                            </div>
+                            <button
+                                onClick={() => setSelectedMetal("silver")}
+                                className={`text-sm rounded-md border p-2 
+                                         ${selectedMetal === "silver"
+                                        ? "border-black bg-gray-200 font-medium"
+                                        : "border bg-white"
+                                    } w-full`}
+                            >
+                                Silver
+                            </button>
                         )}
 
                         {/* GOLD BUTTON */}
                         {Object.keys(product.price ?? {}).some((k) => k.includes("gold")) && (
-                            <div onClick={() => setSelectedMetal("gold")}>
-                                <Image
-                                    src={`/assets/${metalImageMap["10k_yellow_gold"]}`}
-                                    alt="Gold"
-                                    width={1200}
-                                    height={800}
-                                    className={`w-[35px] h-[35px] p-[2px] cursor-pointer border-1 rounded-full ${selectedMetal === "gold" ? "border-black" : "border-none"
-                                        }`}
-                                />
-                                <span className="text-xs mt-1 text-center block">Gold</span>
-                            </div>
+                            <button
+                                onClick={() => setSelectedMetal("gold")}
+                                className={`text-sm rounded-md border p-2
+                                         ${selectedMetal === "gold"
+                                          ? "border-black bg-gray-200 font-medium"
+                                        : "border bg-white"
+                                    } w-full`}
+                            >
+                                Gold
+                            </button>
                         )}
 
                         {/* PLATINUM BUTTON */}
                         {"platinum" in (product.price ?? {}) && (
-                            <div onClick={() => setSelectedMetal("platinum")}>
-                                <Image
-                                    src={`/assets/${metalImageMap["platinum"]}`}
-                                    alt="Platinum"
-                                    width={1200}
-                                    height={800}
-                                    className={`w-[35px] h-[35px] p-[2px] cursor-pointer border-1 rounded-full ${selectedMetal === "platinum" ? "border-black" : "border-none"
-                                        }`}
-                                />
-                                <span className="text-xs mt-1 text-center block">Platinum</span>
-                            </div>
+                            <button
+                                onClick={() => setSelectedMetal("platinum")}
+                                className={`text-sm rounded-md border p-2
+                                         ${selectedMetal === "platinum"
+                                        ? "border-black bg-gray-200 font-medium"
+                                        : "border bg-white"
+                                    } w-full`}
+                            >
+                                Platinum
+                            </button>
                         )}
-
                     </div>
 
                     {/* GOLD SUB-METAL OPTIONS */}
                     {selectedMetal === "gold" && (
                         <div className="mt-3 overflow-x-auto">
-                            <div className="flex gap-4">
+                            <div className="flex gap-2">
 
                                 {[
                                     "10k_yellow_gold",
@@ -629,7 +625,7 @@ export default function ProductPage({
                                             alt={subMetal}
                                             width={1200}
                                             height={800}
-                                            className={`w-[35px] h-[35px] p-[2px] rounded-full border ${selectedMetal === subMetal ? "border-black" : "border-transparent"
+                                            className={`w-[27px] h-[27px] md:w-[35px] md:h-[35px] rounded-full border ${selectedMetal === subMetal ? "border-black" : "border-transparent"
                                                 }`}
                                         />
 
