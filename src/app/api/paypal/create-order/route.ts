@@ -6,7 +6,6 @@ export async function POST(req: Request) {
 
     console.log("🟡 DEBUG — Incoming total:", total);
 
-    // Read environment variables
     const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
     const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
 
@@ -18,9 +17,8 @@ export async function POST(req: Request) {
       });
     }
 
-    const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // sandbox for testing
+    const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // keep sandbox while testing
 
-    // Prepare authorization header
     const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_SECRET}`).toString("base64");
 
     console.log("🟡 DEBUG — Requesting access token...");
@@ -48,9 +46,10 @@ export async function POST(req: Request) {
     }
 
     const accessToken = tokenData.access_token;
-    console.log("🟢 DEBUG — Access Token OK");
 
-    // 2️⃣ CREATE PAYPAL ORDER
+    console.log("🟢 DEBUG — Access Token received:", accessToken.substring(0, 10), "...");
+
+    // 2️⃣ CREATE THE PAYPAL ORDER
     console.log("🟡 DEBUG — Creating PayPal order...");
 
     const orderRes = await fetch(`${PAYPAL_API}/v2/checkout/orders`, {
@@ -64,11 +63,15 @@ export async function POST(req: Request) {
         purchase_units: [
           {
             amount: {
-              currency_code: "USD", // PayPal sandbox only supports USD for most accounts
+              currency_code: "USD",
               value: total,
             },
           },
         ],
+        application_context: {
+          return_url: "https://yourwebsite.com/payment-success",
+          cancel_url: "https://yourwebsite.com/payment-cancel",
+        },
       }),
     });
 
@@ -76,7 +79,7 @@ export async function POST(req: Request) {
     console.log("🟡 DEBUG — Order Response:", order);
 
     if (!order.id) {
-      console.error("❌ FAILED TO CREATE ORDER");
+      console.error("❌ PayPal order creation FAILED.");
       return NextResponse.json({
         error: true,
         message: "Failed to create PayPal order",
@@ -86,7 +89,7 @@ export async function POST(req: Request) {
 
     console.log("🟢 DEBUG — PayPal Order Created:", order.id);
 
-    return NextResponse.json({ id: order.id });
+    return NextResponse.json(order);
   } catch (err) {
     console.error("🔥 Internal Server Error:", err);
     return NextResponse.json({
