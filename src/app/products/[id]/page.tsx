@@ -22,6 +22,7 @@ import { currencySymbol } from "@/lib/currencySymbol";
 import { useRouter } from "next/navigation";
 
 
+
 const philosopher = Philosopher({
     subsets: ["latin"],
     weight: ["400", "700"],
