@@ -1014,8 +1014,8 @@ const Nav: React.FC = () => {
                 </Link>
               </div>
               {item.subItems && (
-                <div className="sm:w-full sm:absolute sm:left-0 md:top-[25px] hidden bg-white shadow-lg sm:p-6 sm:px-48  mt-2 group-hover:block z-10">
-                  <div className="menu-header mb-4 border-b pb-2 border-[#9f7d48]">
+                <div className="sm:w-full sm:absolute sm:left-0 md:top-[25px] hidden bg-white shadow-lg sm:p-2 sm:px-48  mt-2 group-hover:block z-10">
+                  <div className="menu-header border-b border-[#9f7d48]">
                     <div className="menu-headerconatiner">
                       <div className="menumainhead">
                         <a
@@ -1102,9 +1102,9 @@ const Nav: React.FC = () => {
         anchor="left"
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        className="w-64 p-4 bg-[#f4f1f0]"
+        className="w-64 p-4 bg-white"
       >
-        <div className="w-64 p-4 bg-[#f4f1f0]">
+        <div className="w-64 p-4 bg-white">
           <div className="flex justify-between mb-2 border-b border-[#9f7d48] py-2">
             <a href="https://www.clairediamonds.com" title="Claire Diamonds">
               <Image
