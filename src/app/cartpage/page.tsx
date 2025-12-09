@@ -355,7 +355,7 @@ const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
             </p>
 
             <Link href={{
-              pathname: "/paymentpage",
+              
               query: { total: total.toFixed(2), currency } // pass total and currency
             }}>
               <button
