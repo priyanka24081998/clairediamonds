@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     const { total } = await req.json();
 
     console.log("🟡 DEBUG — Incoming total:", total);
-
+    const totalInUSD = Number(total).toFixed(2); 
     const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
     const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
 
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
           {
             amount: {
               currency_code: "USD",
-              value: Number(total).toFixed(2),
+              value:totalInUSD,
             },
           },
         ],
