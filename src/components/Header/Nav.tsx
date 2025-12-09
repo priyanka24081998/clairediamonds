@@ -1015,7 +1015,7 @@ const Nav: React.FC = () => {
               </div>
               {item.subItems && (
                 <div className="sm:w-full sm:absolute sm:left-0 md:top-[25px] hidden bg-white shadow-lg sm:p-2 sm:px-48  mt-2 group-hover:block z-10">
-                  <div className="menu-header border-b border-[#9f7d48]">
+                  <div className="menu-header border-b border-[#9f7d48] mt-2">
                     <div className="menu-headerconatiner">
                       <div className="menumainhead">
                         <a
@@ -1027,7 +1027,7 @@ const Nav: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <ul className="flex justify-between h-auto w-full mx-auto">
+                  <ul className="flex justify-between h-auto w-full mx-auto pt-1">
                     {item.subItems.map((subItem, subIndex) => {
                       if ("category" in subItem) {
                         return (
@@ -1035,7 +1035,7 @@ const Nav: React.FC = () => {
                             key={subIndex}
                             className="pr-18 pl-2 border-r border-[#9f7d48]"
                           >
-                            <div className="font-semibold font-sans text-[#43825c] mb-2">
+                            <div className="font-semibold font-sans text-[#43825c] pb-2">
                               <div className="uppercase">
                                 {subItem.category}
                               </div>
@@ -1043,7 +1043,7 @@ const Nav: React.FC = () => {
                             <ul className="capitalized ">
                               {subItem.items.map((nestedItem, nestedIndex) => (
                                 <li key={nestedIndex}>
-                                  <div className="flex items-center font-sans space-x-2 w-[150px]">
+                                  <div className="flex items-center font-sans space-x-2 w-[210px]">
                                     <Image
                                       src={`/assets/${nestedItem.icon}`}
                                       width={40}
