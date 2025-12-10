@@ -179,7 +179,7 @@ export default function CartPage() {
   const startPayPalPayment = async () => {
     try {
       // Fetch cart items from localStorage or your cart state
-      const cartItems = JSON.parse(localStorage.getItem("cart") || "[]"); // Or from a cart state
+      const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]"); // Or from a cart state
 
       // Calculate the total price of the cart
       const total = cartItems.reduce((sum: number, item: CartItem) => {
