@@ -178,46 +178,50 @@ export default function CartPage() {
 
   const startPayPalPayment = async () => {
     try {
-      // Fetch cart items from localStorage or your cart state
-      const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]"); // Or from a cart state
+     // Get cart items from localStorage or your cart state
+    const cartItems: CartItem[] = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
-      // Calculate the total price of the cart
-      const total = cartItems.reduce((sum: number, item: CartItem) => {
-        const itemPrice = item.product.price[item.selectedMetal] || 0;
-        return sum + itemPrice * item.quantity;
-      }, 0);
+    if (!cartItems.length) {
+      alert("Your cart is empty");
+      return;
+    }
 
-      // Send cart items to backend to create PayPal order
-      const res = await fetch("https://claireapi.onrender.com/api/order/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ total, products: cartItems }),
-      });
+    // Calculate total
+    const total = cartItems.reduce((sum, item) => {
+      const price = item.product.price[item.selectedMetal] || 0;
+      return sum + price * item.quantity;
+    }, 0);
 
-      const data = await res.json();
-      console.log("PayPal Response:", data);
+    // Send to backend to create PayPal order
+    const res = await fetch("https://claireapi.onrender.com/api/order/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ total, products: cartItems }),
+    });
 
+    const data = await res.json();
+    console.log("PayPal Response:", data);
 
-      if (!data.links || !Array.isArray(data.links)) {
-        console.error("❌ PayPal returned no links:", data);
-        alert("PayPal error: No approval link found.");
-        return;
-      }
+    if (!data.links || !Array.isArray(data.links)) {
+      console.error("❌ PayPal returned no links:", data);
+      alert("PayPal error: No approval link found.");
+      return;
+    }
 
       const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
-      if (!approveLink) {
-        console.error("❌ Approve link missing:", data);
-        alert("PayPal error: Approve link not found.");
-        return;
-      }
-      if (approveLink) {
-        window.location.href = approveLink.href; // redirect to PayPal securely
-      }
-    } catch (err) {
-      console.log(err);
-      alert("Something went wrong with PayPal. Please try again.");
+    if (!approveLink) {
+      console.error("❌ Approve link missing:", data);
+      alert("PayPal error: Approve link not found.");
+      return;
     }
-  };
+
+    // Redirect to PayPal checkout
+    window.location.href = approveLink.href;
+  } catch (err) {
+    console.error("PayPal checkout error:", err);
+    alert("Something went wrong with PayPal. Please try again.");
+  }
+};
 
   // ----------------------------------------
   // RETURN UI

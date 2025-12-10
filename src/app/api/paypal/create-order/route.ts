@@ -106,6 +106,7 @@
 // }
 
 import { NextResponse } from "next/server";
+
 type CartProduct = {
   _id: string;
   name: string;
@@ -116,16 +117,20 @@ type CartProduct = {
 };
 
 export async function POST(req: Request) {
-const { products, total }: { products: CartProduct[]; total: number } = await req.json();
-
-  const CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!;
-  const SECRET = process.env.PAYPAL_SECRET!;
-  const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // Sandbox mode
-
-  const auth = Buffer.from(`${CLIENT_ID}:${SECRET}`).toString("base64");
-
   try {
-    // Get Access Token
+    const { products, total }: { products: CartProduct[]; total: number } = await req.json();
+
+    if (!products || products.length === 0) {
+      return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
+    }
+
+    const CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!;
+    const SECRET = process.env.PAYPAL_SECRET!;
+    const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // Sandbox
+
+    const auth = Buffer.from(`${CLIENT_ID}:${SECRET}`).toString("base64");
+
+    // Get access token
     const tokenRes = await fetch(`${PAYPAL_API}/v1/oauth2/token`, {
       method: "POST",
       headers: {
@@ -136,27 +141,28 @@ const { products, total }: { products: CartProduct[]; total: number } = await re
     });
 
     if (!tokenRes.ok) {
-      throw new Error("Failed to get PayPal access token");
+      const errText = await tokenRes.text();
+      throw new Error("Failed to get PayPal access token: " + errText);
     }
 
-    const token = await tokenRes.json();
-    if (!token.access_token) {
-      throw new Error("No access token found");
-    }
+    const tokenData = await tokenRes.json();
+    const accessToken = tokenData.access_token;
 
-    // Dynamically build items array from products
-    const items = products.map((product) => ({
-      name: product.name,
-      unit_amount: { currency_code: "USD", value: product.price.toFixed(2) },
-      quantity: product.quantity.toString(),
-      sku: `${product._id}|${product.metal}|${product.size}`, // Or use another SKU format
+    if (!accessToken) throw new Error("No access token returned from PayPal");
+
+    // Map cart items to PayPal format
+    const items = products.map((p) => ({
+      name: p.name,
+      unit_amount: { currency_code: "USD", value: p.price.toFixed(2) },
+      quantity: p.quantity.toString(),
+      sku: `${p._id}|${p.metal}|${p.size}`,
     }));
 
-    // Create Order
+    // Create PayPal order
     const orderRes = await fetch(`${PAYPAL_API}/v2/checkout/orders`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token.access_token}`,
+        Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -170,10 +176,13 @@ const { products, total }: { products: CartProduct[]; total: number } = await re
                 item_total: { currency_code: "USD", value: total.toFixed(2) },
               },
             },
-            items: items, // Use dynamically generated items array
+            items,
           },
         ],
         application_context: {
+          brand_name: "Clairediamonds",
+          landing_page: "LOGIN",
+          user_action: "PAY_NOW",
           return_url: "https://www.clairediamonds.com/payment-success",
           cancel_url: "https://www.clairediamonds.com/payment-cancel",
         },
@@ -181,7 +190,8 @@ const { products, total }: { products: CartProduct[]; total: number } = await re
     });
 
     if (!orderRes.ok) {
-      throw new Error("Failed to create PayPal order");
+      const errText = await orderRes.text();
+      throw new Error("Failed to create PayPal order: " + errText);
     }
 
     const order = await orderRes.json();
@@ -190,16 +200,10 @@ const { products, total }: { products: CartProduct[]; total: number } = await re
       throw new Error("PayPal order response missing links");
     }
 
-    // Return the order object which should include the approval link
     return NextResponse.json(order);
   } catch (error: unknown) {
-    // Cast error to Error type to access message and stack
-    if (error instanceof Error) {
-      console.error("Error in creating PayPal order:", error.message);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    } else {
-      console.error("Unknown error:", error);
-      return NextResponse.json({ error: "Unknown error occurred" }, { status: 500 });
-    }
+    console.error("Error in creating PayPal order:", error);
+    const message = error instanceof Error ? error.message : "Unknown error occurred";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
