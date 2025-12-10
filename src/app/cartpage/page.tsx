@@ -212,6 +212,16 @@ export default function CartPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ total, products: cartItems }),
       });
+      const contentType = res.headers.get("Content-Type");
+      console.log("Response Content-Type:", contentType);
+
+      if (!contentType || !contentType.includes("application/json")) {
+        const textResponse = await res.text();
+        console.error("Non-JSON response:", textResponse);
+        alert("Failed to create PayPal order. Response was not JSON.");
+        return;
+      }
+
 
       const data = await res.json();
       console.log("PayPal Response:", data);
