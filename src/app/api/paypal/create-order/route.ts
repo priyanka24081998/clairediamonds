@@ -159,6 +159,7 @@ export async function POST(req: Request) {
     }));
 
     // Create PayPal order
+    console.log("PayPal API URL:", `${PAYPAL_API}/v2/checkout/orders`);
     const orderRes = await fetch(`${PAYPAL_API}/v2/checkout/orders`, {
       method: "POST",
       headers: {

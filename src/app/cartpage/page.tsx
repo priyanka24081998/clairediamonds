@@ -177,65 +177,65 @@ export default function CartPage() {
   };
 
   const fetchCartFromBackend = async () => {
-  const userId = localStorage.getItem("userId");
-  if (!userId) return [];
+    const userId = localStorage.getItem("userId");
+    if (!userId) return [];
 
-  const token = localStorage.getItem("token");
-  const res = await fetch(`${API_BASE}/cart/${userId}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  const data = await res.json();
-  return data || [];
-};
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_BASE}/cart/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    return data || [];
+  };
 
   const startPayPalPayment = async () => {
     try {
-     // Get cart items from localStorage or your cart state
-     
-    const cartItems = await fetchCartFromBackend();
-console.log(cartItems)
-    if (cartItems.length === 0) {
-      alert("Your cart is empty!");
-      return;
-    }
+      // Get cart items from localStorage or your cart state
+
+      const cartItems = await fetchCartFromBackend();
+      console.log(cartItems)
+      if (cartItems.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
 
 
-    const total = cartItems.reduce((sum: number, item: CartItem) => {
-      const itemPrice = item.product.price[item.selectedMetal] || 0;
-      return sum + itemPrice * item.quantity;
-    }, 0);
+      const total = cartItems.reduce((sum: number, item: CartItem) => {
+        const itemPrice = item.product.price[item.selectedMetal] || 0;
+        return sum + itemPrice * item.quantity;
+      }, 0);
 
 
-    // Send to backend to create PayPal order
-    const res = await fetch(`${API_BASE}/order/create-order`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ total, products: cartItems }),
-    });
+      // Send to backend to create PayPal order
+      const res = await fetch(`${API_BASE}/order/create-order`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ total, products: cartItems }),
+      });
 
-    const data = await res.json();
-    console.log("PayPal Response:", data);
+      const data = await res.json();
+      console.log("PayPal Response:", data);
 
-    if (!data.links || !Array.isArray(data.links)) {
-      console.error("❌ PayPal returned no links:", data);
-      alert("PayPal error: No approval link found.");
-      return;
-    }
+      if (!data.links || !Array.isArray(data.links)) {
+        console.error("❌ PayPal returned no links:", data);
+        alert("PayPal error: No approval link found.");
+        return;
+      }
 
       const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
-    if (!approveLink) {
-      console.error("❌ Approve link missing:", data);
-      alert("PayPal error: Approve link not found.");
-      return;
-    }
+      if (!approveLink) {
+        console.error("❌ Approve link missing:", data);
+        alert("PayPal error: Approve link not found.");
+        return;
+      }
 
-    // Redirect to PayPal checkout
-    window.location.href = approveLink.href;
-  } catch (err) {
-    console.error("PayPal checkout error:", err);
-    alert("Something went wrong with PayPal. Please try again.");
-  }
-};
+      // Redirect to PayPal checkout
+      window.location.href = approveLink.href;
+    } catch (err) {
+      console.error("PayPal checkout error:", err);
+      alert("Something went wrong with PayPal. Please try again.");
+    }
+  };
 
   // ----------------------------------------
   // RETURN UI
