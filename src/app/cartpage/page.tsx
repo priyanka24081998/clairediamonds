@@ -207,7 +207,7 @@ export default function CartPage() {
 
 
       // Send to backend to create PayPal order
-      const res = await fetch(`${API_BASE}/order/create-order`, {
+      const res = await fetch("https://claireapi.onrender.com/order/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ total, products: cartItems }),
