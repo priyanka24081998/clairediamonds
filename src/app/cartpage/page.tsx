@@ -176,25 +176,38 @@ export default function CartPage() {
     }
   };
 
+  const fetchCartFromBackend = async () => {
+  const userId = localStorage.getItem("userId");
+  if (!userId) return [];
+
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${API_BASE}/cart/${userId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await res.json();
+  return data || [];
+};
+
   const startPayPalPayment = async () => {
     try {
      // Get cart items from localStorage or your cart state
      console.log(localStorage.getItem("cartItems"))
-    const cartItems: CartItem[] = JSON.parse(localStorage.getItem("cartItems") || "[]");
+    const cartItems = await fetchCartFromBackend();
 
-    if (!cartItems.length) {
-      alert("Your cart is empty");
+    if (cartItems.length === 0) {
+      alert("Your cart is empty!");
       return;
     }
 
-    // Calculate total
-    const total = cartItems.reduce((sum, item) => {
-      const price = item.product.price[item.selectedMetal] || 0;
-      return sum + price * item.quantity;
+
+    const total = cartItems.reduce((sum: number, item: CartItem) => {
+      const itemPrice = item.product.price[item.selectedMetal] || 0;
+      return sum + itemPrice * item.quantity;
     }, 0);
 
+
     // Send to backend to create PayPal order
-    const res = await fetch("https://claireapi.onrender.com/api/order/create-order", {
+    const res = await fetch(`${API_BASE}/order/create-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ total, products: cartItems }),
