@@ -14,7 +14,7 @@ import Link from "next/link";
 const philosopher = Philosopher({
   subsets: ["latin"],
   weight: ["400", "700"],
-}); 
+});
 
 type PayPalLink = {
   href: string;
@@ -41,7 +41,7 @@ export default function CartPage() {
   const [userId, setUserId] = useState<string | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(false);
-  
+
   const [currency, setCurrency] = useState("USD");
   const [convertedPrices, setConvertedPrices] = useState<
     Record<string, number>
@@ -177,38 +177,48 @@ export default function CartPage() {
   };
 
   const startPayPalPayment = async () => {
-  try {
-    const res = await fetch("https://claireapi.onrender.com/api/order/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ total: total.toFixed(2) }),
-    });
+    try {
+      // Fetch cart items from localStorage or your cart state
+      const cartItems = JSON.parse(localStorage.getItem("cart") || "[]"); // Or from a cart state
 
-    const data = await res.json();
-        console.log("PayPal Response:", data);
-        
-         if (!data.links || !Array.isArray(data.links)) {
-      console.error("❌ PayPal returned no links:", data);
-      alert("PayPal error: No approval link found.");
-      return;
-    }
+      // Calculate the total price of the cart
+      const total = cartItems.reduce((sum: number, item: CartItem) => {
+        const itemPrice = item.product.price[item.selectedMetal] || 0;
+        return sum + itemPrice * item.quantity;
+      }, 0);
+
+      // Send cart items to backend to create PayPal order
+      const res = await fetch("https://claireapi.onrender.com/api/order/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ total, products: cartItems }),
+      });
+
+      const data = await res.json();
+      console.log("PayPal Response:", data);
 
 
-const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
-    if (!approveLink) {
-      console.error("❌ Approve link missing:", data);
-      alert("PayPal error: Approve link not found.");
-      return;
+      if (!data.links || !Array.isArray(data.links)) {
+        console.error("❌ PayPal returned no links:", data);
+        alert("PayPal error: No approval link found.");
+        return;
+      }
+
+      const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
+      if (!approveLink) {
+        console.error("❌ Approve link missing:", data);
+        alert("PayPal error: Approve link not found.");
+        return;
+      }
+      if (approveLink) {
+        window.location.href = approveLink.href; // redirect to PayPal securely
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong with PayPal. Please try again.");
     }
-    if (approveLink) {
-      window.location.href = approveLink.href; // redirect to PayPal securely
-    }
-  } catch (err) {
-    console.log(err);
-    alert("Something went wrong with PayPal. Please try again.");
-  }
-};
-  
+  };
+
   // ----------------------------------------
   // RETURN UI
   // ----------------------------------------
@@ -368,7 +378,7 @@ const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
             </p>
 
             <Link href={{
-              
+
               query: { total: total.toFixed(2), currency } // pass total and currency
             }}>
               <button
@@ -380,7 +390,7 @@ const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
             </Link>
             <div id="paypal-container" style={{ display: "none" }}></div>
 
-            
+
           </div>
         </div>
       </div>

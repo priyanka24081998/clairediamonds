@@ -104,54 +104,102 @@
 //     });
 //   }
 // }
+
 import { NextResponse } from "next/server";
+type CartProduct = {
+  _id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  metal: string;
+  size: string;
+};
 
 export async function POST(req: Request) {
-  const { total } = await req.json();
+const { products, total }: { products: CartProduct[]; total: number } = await req.json();
 
   const CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!;
   const SECRET = process.env.PAYPAL_SECRET!;
-//   const PAYPAL_API = "https://api-m.paypal.com"; // LIVE MODE
-  const PAYPAL_API = "https://api-m.sandbox.paypal.com"; 
+  const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // Sandbox mode
 
   const auth = Buffer.from(`${CLIENT_ID}:${SECRET}`).toString("base64");
 
-  // Get Access Token
-  const tokenRes = await fetch(`${PAYPAL_API}/v1/oauth2/token`, {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${auth}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "grant_type=client_credentials",
-  });
-
-  const token = await tokenRes.json();
-
-  // Create Order
-  const orderRes = await fetch(`${PAYPAL_API}/v2/checkout/orders`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token.access_token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      intent: "CAPTURE",
-      purchase_units: [
-        {
-          amount: {
-            currency_code: "USD",
-            value: total.toFixed(2),
-          },
-        },
-      ],
-      application_context: {
-        return_url: "https://www.clairediamonds.com/payment-success",
-        cancel_url: "https://www.clairediamonds.com/payment-cancel",
+  try {
+    // Get Access Token
+    const tokenRes = await fetch(`${PAYPAL_API}/v1/oauth2/token`, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${auth}`,
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-    }),
-  });
+      body: "grant_type=client_credentials",
+    });
 
-  const order = await orderRes.json();
-  return NextResponse.json(order);
+    if (!tokenRes.ok) {
+      throw new Error("Failed to get PayPal access token");
+    }
+
+    const token = await tokenRes.json();
+    if (!token.access_token) {
+      throw new Error("No access token found");
+    }
+
+    // Dynamically build items array from products
+    const items = products.map((product) => ({
+      name: product.name,
+      unit_amount: { currency_code: "USD", value: product.price.toFixed(2) },
+      quantity: product.quantity.toString(),
+      sku: `${product._id}|${product.metal}|${product.size}`, // Or use another SKU format
+    }));
+
+    // Create Order
+    const orderRes = await fetch(`${PAYPAL_API}/v2/checkout/orders`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token.access_token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        intent: "CAPTURE",
+        purchase_units: [
+          {
+            amount: {
+              currency_code: "USD",
+              value: total.toFixed(2),
+              breakdown: {
+                item_total: { currency_code: "USD", value: total.toFixed(2) },
+              },
+            },
+            items: items, // Use dynamically generated items array
+          },
+        ],
+        application_context: {
+          return_url: "https://www.clairediamonds.com/payment-success",
+          cancel_url: "https://www.clairediamonds.com/payment-cancel",
+        },
+      }),
+    });
+
+    if (!orderRes.ok) {
+      throw new Error("Failed to create PayPal order");
+    }
+
+    const order = await orderRes.json();
+
+    if (!order.links || !Array.isArray(order.links)) {
+      throw new Error("PayPal order response missing links");
+    }
+
+    // Return the order object which should include the approval link
+    return NextResponse.json(order);
+  } catch (error: unknown) {
+    // Cast error to Error type to access message and stack
+    if (error instanceof Error) {
+      console.error("Error in creating PayPal order:", error.message);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      console.error("Unknown error:", error);
+      return NextResponse.json({ error: "Unknown error occurred" }, { status: 500 });
+    }
+  }
 }
