@@ -212,6 +212,9 @@ export default function CartPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ total, products: cartItems }),
       });
+
+      console.log("Response Status:", res.status);
+      console.log("Response Headers:", res.headers);
       const contentType = res.headers.get("Content-Type");
       console.log("Response Content-Type:", contentType);
 
