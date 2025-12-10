@@ -179,6 +179,7 @@ export default function CartPage() {
   const startPayPalPayment = async () => {
     try {
      // Get cart items from localStorage or your cart state
+     console.log(localStorage.getItem("cartItems"))
     const cartItems: CartItem[] = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
     if (!cartItems.length) {
