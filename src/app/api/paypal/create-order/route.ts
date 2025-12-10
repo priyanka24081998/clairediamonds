@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     const { total } = await req.json();
 
     console.log("🟡 DEBUG — Incoming total:", total);
-    const totalInUSD = Number(total).toFixed(2); 
+    const totalInUSD = Number(total).toFixed(2);
     const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
     const PAYPAL_SECRET = process.env.PAYPAL_SECRET;
 
@@ -19,7 +19,9 @@ export async function POST(req: Request) {
 
     const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // keep sandbox while testing
 
-    const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_SECRET}`).toString("base64");
+    const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_SECRET}`).toString(
+      "base64"
+    );
 
     console.log("🟡 DEBUG — Requesting access token...");
 
@@ -47,7 +49,11 @@ export async function POST(req: Request) {
 
     const accessToken = tokenData.access_token;
 
-    console.log("🟢 DEBUG — Access Token received:", accessToken.substring(0, 10), "...");
+    console.log(
+      "🟢 DEBUG — Access Token received:",
+      accessToken.substring(0, 10),
+      "..."
+    );
 
     // 2️⃣ CREATE THE PAYPAL ORDER
     console.log("🟡 DEBUG — Creating PayPal order...");
@@ -64,13 +70,13 @@ export async function POST(req: Request) {
           {
             amount: {
               currency_code: "USD",
-              value:totalInUSD,
+              value: totalInUSD,
             },
           },
         ],
         application_context: {
-          return_url: "https://yourwebsite.com/payment-success",
-          cancel_url: "https://yourwebsite.com/payment-cancel",
+          return_url: "https://www.clairediamonds.com/payment-success",
+          cancel_url: "https://www.clairediamonds.com/payment-cancel",
         },
       }),
     });
