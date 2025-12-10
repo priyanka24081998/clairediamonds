@@ -41,7 +41,7 @@ export default function CartPage() {
   const [userId, setUserId] = useState<string | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(false);
-
+  
   const [currency, setCurrency] = useState("USD");
   const [convertedPrices, setConvertedPrices] = useState<
     Record<string, number>
@@ -178,21 +178,34 @@ export default function CartPage() {
 
   const startPayPalPayment = async () => {
   try {
-    const res = await fetch("/api/paypal/create-order", {
+    const res = await fetch("https://claireapi.onrender.com/api/order/create-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ total: total.toFixed(2) }),
     });
 
     const data = await res.json();
+        console.log("PayPal Response:", data);
+        
+         if (!data.links || !Array.isArray(data.links)) {
+      console.error("❌ PayPal returned no links:", data);
+      alert("PayPal error: No approval link found.");
+      return;
+    }
+
 
 const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
-
+    if (!approveLink) {
+      console.error("❌ Approve link missing:", data);
+      alert("PayPal error: Approve link not found.");
+      return;
+    }
     if (approveLink) {
       window.location.href = approveLink.href; // redirect to PayPal securely
     }
   } catch (err) {
     console.log(err);
+    alert("Something went wrong with PayPal. Please try again.");
   }
 };
   

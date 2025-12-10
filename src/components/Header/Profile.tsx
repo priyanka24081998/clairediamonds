@@ -15,6 +15,7 @@ const Profile: React.FC = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<DecodedToken | null>(null);
+  
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -70,7 +71,10 @@ useEffect(() => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
+      localStorage.removeItem("cartItems"); // optional if you store cart in localStorage
+
       setUser(null);  // 👈 RESET USER IMMEDIATELY
+  // ✅ important: triggers cart clearing
 
     setIsOpen(false);
     setTimeout(() => {
