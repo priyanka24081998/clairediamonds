@@ -191,9 +191,9 @@ export default function CartPage() {
   const startPayPalPayment = async () => {
     try {
      // Get cart items from localStorage or your cart state
-     console.log(localStorage.getItem("cartItems"))
+     
     const cartItems = await fetchCartFromBackend();
-
+console.log(cartItems)
     if (cartItems.length === 0) {
       alert("Your cart is empty!");
       return;
