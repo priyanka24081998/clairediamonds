@@ -111,7 +111,8 @@ export async function POST(req: Request) {
 
   const CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!;
   const SECRET = process.env.PAYPAL_SECRET!;
-  const PAYPAL_API = "https://api-m.paypal.com"; // LIVE MODE
+//   const PAYPAL_API = "https://api-m.paypal.com"; // LIVE MODE
+  const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // LIVE MODE
 
   const auth = Buffer.from(`${CLIENT_ID}:${SECRET}`).toString("base64");
 
