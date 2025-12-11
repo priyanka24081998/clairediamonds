@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const API_BASE = "https://claireapi.onrender.com/api";
 
@@ -56,26 +56,49 @@ export default function CheckoutInfo() {
             }
 
             const token = localStorage.getItem("token");
+            if (!token) {
+                alert("Please login first!");
+                router.push("/login");
+                return;
+            }
 
             try {
+                setLoading(true);
                 const res = await axios.get(`${API_BASE}/cart/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
+
                 const data = res.data;
 
-                setCartItems(data.items || []); // only items array
-                setTotal(data.total || 0);      // total price
+                // Use items array from response, fallback to empty array
+                const items: CartItem[] = data.items || [];
+                setCartItems(items);
+
+                // Use backend total if exists, otherwise calculate
+                const cartTotal =
+                    typeof data.total === "number"
+                        ? data.total
+                        : items.reduce(
+                            (sum, item) => sum + (item.product.price[item.selectedMetal] || 0) * item.quantity,
+                            0
+                        );
+                setTotal(cartTotal);
+
                 setCurrency(data.currency || "USD");
-            } catch (error) {
-                console.error("Error fetching cart:", error);
+            } catch (err: unknown) {
+                // Use AxiosError type assertion
+                if (axios.isAxiosError(err)) {
+                    console.error("Error fetching cart:", err.response?.data || err.message);
+                } else {
+                    console.error("Unexpected error:", err);
+                }
             } finally {
                 setLoading(false);
             }
-        };
+        }
 
         fetchCart();
     }, [router]);
-
 
     const handleProceed = () => {
         if (!name || !address || !city || !state || !pincode || !phone || !email) {
@@ -83,15 +106,7 @@ export default function CheckoutInfo() {
             return;
         }
 
-        const shippingData: ShippingInfo = {
-            name,
-            address,
-            city,
-            state,
-            pincode,
-            phone,
-            email,
-        };
+        const shippingData: ShippingInfo = { name, address, city, state, pincode, phone, email };
         localStorage.setItem("shippingInfo", JSON.stringify(shippingData));
 
         router.push(`/paymentpage?total=${total}&currency=${currency}`);
@@ -103,18 +118,24 @@ export default function CheckoutInfo() {
         <div className="max-w-2xl mx-auto p-6">
             <h1 className="text-2xl font-semibold mb-4">Shipping Information</h1>
 
+            {/* Order Summary */}
             <div className="bg-gray-100 p-4 rounded-lg mb-6">
                 <h2 className="text-lg font-semibold mb-2">Order Summary</h2>
-                {cartItems.map((item) => (
-                    <div key={item._id} className="flex justify-between py-1">
-                        <p>
-                            {item.product.name} ({item.selectedMetal})
-                        </p>
-                        <p>
-                            {currency} {(item.product.price[item.selectedMetal] * item.quantity).toFixed(2)}
-                        </p>
-                    </div>
-                ))}
+                {cartItems.length === 0 ? (
+                    <p>Your cart is empty.</p>
+                ) : (
+                    cartItems.map((item) => (
+                        <div key={item._id} className="flex justify-between py-1">
+                            <p>
+                                {item.product.name} ({item.selectedMetal})
+                            </p>
+                            <p>
+                                {currency}{" "}
+                                {(item.product.price[item.selectedMetal] * item.quantity).toFixed(2)}
+                            </p>
+                        </div>
+                    ))
+                )}
 
                 <div className="border-t mt-2 pt-2 flex justify-between font-semibold text-lg">
                     <span>Total:</span>
@@ -124,6 +145,7 @@ export default function CheckoutInfo() {
                 </div>
             </div>
 
+            {/* Shipping Form */}
             <div className="space-y-4">
                 <input
                     type="text"
@@ -182,7 +204,6 @@ export default function CheckoutInfo() {
             >
                 Proceed to Payment
             </button>
-
         </div>
     );
 }
