@@ -69,7 +69,8 @@ export default function CheckoutInfo() {
       setCartItems(items);
 
       const cartTotal = items.reduce((sum: number, item: CartItem) => {
-        const price = item.product?.price?.[item.selectedMetal] || 0;
+        const priceKey = item.selectedMetal; // should match the key in product.price
+        const price = item.product?.price?.[priceKey] || 0;
         return sum + price * item.quantity;
       }, 0);
 
