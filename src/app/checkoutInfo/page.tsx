@@ -45,36 +45,44 @@ export default function CheckoutInfo() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      const userId = localStorage.getItem("userId");
-      if (!userId) {
-        alert("Please login first!");
-        router.push("/login");
-        return;
-      }
+ useEffect(() => {
+  const fetchCart = async () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("Please login first!");
+      router.push("/login");
+      return;
+    }
 
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-      try {
-        const res = await fetch(`${API_BASE}/cart/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+    try {
+      const res = await fetch(`${API_BASE}/cart/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-        const data = await res.json();
+      const data: CartItem[] = await res.json();
+      setCartItems(data || []);
 
-        setCartItems(data.items || []);
-        setTotal(data.total || 0);
-        setCurrency(data.currency || "USD");
-      } catch (error) {
-        console.error("Error fetching cart:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      // Calculate total dynamically
+      const cartTotal = (data || []).reduce((sum, item) => {
+        const itemPrice = item.product.price[item.selectedMetal] || 0;
+        return sum + itemPrice * item.quantity;
+      }, 0);
+      setTotal(cartTotal);
 
-    fetchCart();
-  }, [router]);
+      const userCurrency = localStorage.getItem("currency") || "USD";
+      setCurrency(userCurrency);
+    } catch (error) {
+      console.error("Error fetching cart:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchCart();
+}, [router]);
+
 
   const handleProceed = () => {
     if (!name || !address || !city || !state || !pincode || !phone || !email) {
