@@ -69,10 +69,10 @@ export default function CheckoutInfo() {
       const items = await fetchCartFromBackend();
       setCartItems(items);
 
-      const cartTotal = items.reduce((sum, item) => {
-        const itemPrice = item.product?.price?.[item.selectedMetal] || 0;
-        return sum + itemPrice * item.quantity;
-      }, 0);
+     const cartTotal = items.reduce((sum: number, item: CartItem) => {
+      const itemPrice = item.product?.price?.[item.selectedMetal] || 0;
+      return sum + itemPrice * item.quantity;
+    }, 0);
       setTotal(cartTotal);
 
       const userCurrency = localStorage.getItem("currency") || "USD";
