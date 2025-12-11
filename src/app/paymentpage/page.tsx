@@ -45,7 +45,6 @@ export default function PaymentPage() {
   const [total, setTotal] = useState<number>(0);
   const [currency, setCurrency] = useState<string>("USD");
   const [loading, setLoading] = useState<boolean>(false);
-
   // Fetch cart items and total
   useEffect(() => {
     const fetchCart = async () => {
@@ -112,12 +111,15 @@ export default function PaymentPage() {
         metal: item.selectedMetal,
         size: "N/A",
       }));
+      
+        const userId = localStorage.getItem("userId");
 
-      // 3️⃣ Call backend create-order API
+        // 3️⃣ Call backend create-order API
       const res = await fetch(`${API_BASE}/order/create-order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+            userId,
           total,
           products,
           shipping,
