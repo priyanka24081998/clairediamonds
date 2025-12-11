@@ -22,6 +22,8 @@ interface CartItem {
 interface ShippingInfo {
   name: string;
   address: string;
+  city: string;
+  state: string;
   pincode: string;
   phone: string;
   email: string;
@@ -37,6 +39,8 @@ export default function CheckoutInfo() {
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
   const [pincode, setPincode] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -73,15 +77,22 @@ export default function CheckoutInfo() {
   }, [router]);
 
   const handleProceed = () => {
-    if (!name || !address || !pincode || !phone || !email) {
+    if (!name || !address || !city || !state || !pincode || !phone || !email) {
       alert("Please fill all fields.");
       return;
     }
 
-    const shippingData: ShippingInfo = { name, address, pincode, phone, email };
+    const shippingData: ShippingInfo = {
+      name,
+      address,
+      city,
+      state,
+      pincode,
+      phone,
+      email,
+    };
     localStorage.setItem("shippingInfo", JSON.stringify(shippingData));
 
-    // Pass total and currency via query
     router.push(`/paymentpage?total=${total}&currency=${currency}`);
   };
 
@@ -98,7 +109,9 @@ export default function CheckoutInfo() {
             <p>
               {item.product.name} ({item.selectedMetal})
             </p>
-            <p>${(item.product.price[item.selectedMetal] * item.quantity).toFixed(2)}</p>
+            <p>
+              {currency} {(item.product.price[item.selectedMetal] * item.quantity).toFixed(2)}
+            </p>
           </div>
         ))}
 
@@ -118,10 +131,25 @@ export default function CheckoutInfo() {
           onChange={(e) => setName(e.target.value)}
           className="w-full p-3 border rounded-lg"
         />
-        <textarea
-          placeholder="Complete Address"
+        <input
+          type="text"
+          placeholder="Address"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="text"
+          placeholder="City"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="text"
+          placeholder="State"
+          value={state}
+          onChange={(e) => setState(e.target.value)}
           className="w-full p-3 border rounded-lg"
         />
         <input
@@ -153,6 +181,7 @@ export default function CheckoutInfo() {
       >
         Proceed to Payment
       </button>
+       
     </div>
   );
 }

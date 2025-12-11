@@ -21,6 +21,8 @@ interface CartItem {
 interface ShippingInfo {
   name: string;
   address: string;
+  city: string;
+  state: string;
   pincode: string;
   phone: string;
   email: string;
@@ -44,6 +46,7 @@ export default function PaymentPage() {
   const [currency, setCurrency] = useState<string>("USD");
   const [loading, setLoading] = useState<boolean>(false);
 
+  // Fetch cart items and total
   useEffect(() => {
     const fetchCart = async () => {
       const userId = localStorage.getItem("userId");
@@ -81,6 +84,7 @@ export default function PaymentPage() {
     try {
       setLoading(true);
 
+      // 1️⃣ Get shipping info from localStorage
       const shipping: ShippingInfo = JSON.parse(
         localStorage.getItem("shippingInfo") || "{}"
       );
@@ -88,6 +92,8 @@ export default function PaymentPage() {
       if (
         !shipping.name ||
         !shipping.address ||
+        !shipping.city ||
+        !shipping.state ||
         !shipping.pincode ||
         !shipping.phone ||
         !shipping.email
@@ -97,6 +103,7 @@ export default function PaymentPage() {
         return;
       }
 
+      // 2️⃣ Convert cart items for backend
       const products = cartItems.map((item) => ({
         _id: item.product._id,
         name: item.product.name,
@@ -106,6 +113,7 @@ export default function PaymentPage() {
         size: "N/A",
       }));
 
+      // 3️⃣ Call backend create-order API
       const res = await fetch(`${API_BASE}/order/create-order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -118,6 +126,14 @@ export default function PaymentPage() {
 
       const orderData: PayPalOrder = await res.json();
 
+      if (!orderData.links || !Array.isArray(orderData.links)) {
+        console.error("No PayPal links in response:", orderData);
+        alert("Failed to create PayPal order");
+        setLoading(false);
+        return;
+      }
+
+      // 4️⃣ Find approve link and redirect
       const approveLink = orderData.links.find((l) => l.rel === "approve");
       if (!approveLink) {
         console.error("Approve link missing:", orderData);
@@ -164,11 +180,12 @@ export default function PaymentPage() {
 
       <button
         onClick={startPayPalPayment}
-        className="w-full py-3 bg-[#43825c] text-white font-semibold rounded-lg hover:bg-[#095c5c]"
+        className="w-full py-3 bg-[#43825c] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors"
       >
         {loading ? "Redirecting to PayPal..." : "Pay with PayPal"}
-         <div id="paypal-container" style={{ display: "none" }}></div>
+        
       </button>
+      <div id="paypal-container" style={{ display: "none" }}></div>
     </div>
   );
 }
