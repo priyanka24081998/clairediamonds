@@ -16,10 +16,10 @@ const philosopher = Philosopher({
   weight: ["400", "700"],
 });
 
-type PayPalLink = {
-  href: string;
-  rel: string;
-};
+// type PayPalLink = {
+//   href: string;
+//   rel: string;
+// };
 
 interface CartItem {
   _id: string;
@@ -176,79 +176,79 @@ export default function CartPage() {
     }
   };
 
-  const fetchCartFromBackend = async () => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) return [];
+  // const fetchCartFromBackend = async () => {
+  //   const userId = localStorage.getItem("userId");
+  //   if (!userId) return [];
 
-    const token = localStorage.getItem("token");
-    const res = await fetch(`${API_BASE}/cart/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await res.json();
-    return data || [];
-  };
+  //   const token = localStorage.getItem("token");
+  //   const res = await fetch(`${API_BASE}/cart/${userId}`, {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   });
+  //   const data = await res.json();
+  //   return data || [];
+  // };
 
-  const startPayPalPayment = async () => {
-    try {
-      // Get cart items from localStorage or your cart state
+  // const startPayPalPayment = async () => {
+  //   try {
+  //     // Get cart items from localStorage or your cart state
 
-      const cartItems = await fetchCartFromBackend();
-      console.log(cartItems)
-      if (cartItems.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-
-
-      const total = cartItems.reduce((sum: number, item: CartItem) => {
-        const itemPrice = item.product.price[item.selectedMetal] || 0;
-        return sum + itemPrice * item.quantity;
-      }, 0);
+  //     const cartItems = await fetchCartFromBackend();
+  //     console.log(cartItems)
+  //     if (cartItems.length === 0) {
+  //       alert("Your cart is empty!");
+  //       return;
+  //     }
 
 
-      // Send to backend to create PayPal order
-      const res = await fetch("https://claireapi.onrender.com/order/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ total, products: cartItems }),
-      });
-
-      console.log("Response Status:", res.status);
-      console.log("Response Headers:", res.headers);
-      const contentType = res.headers.get("Content-Type");
-      console.log("Response Content-Type:", contentType);
-
-      if (!contentType || !contentType.includes("application/json")) {
-        const textResponse = await res.text();
-        console.error("Non-JSON response:", textResponse);
-        alert("Failed to create PayPal order. Response was not JSON.");
-        return;
-      }
+  //     const total = cartItems.reduce((sum: number, item: CartItem) => {
+  //       const itemPrice = item.product.price[item.selectedMetal] || 0;
+  //       return sum + itemPrice * item.quantity;
+  //     }, 0);
 
 
-      const data = await res.json();
-      console.log("PayPal Response:", data);
+  //     // Send to backend to create PayPal order
+  //     const res = await fetch("https://claireapi.onrender.com/order/create-order", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ total, products: cartItems }),
+  //     });
 
-      if (!data.links || !Array.isArray(data.links)) {
-        console.error("❌ PayPal returned no links:", data);
-        alert("PayPal error: No approval link found.");
-        return;
-      }
+  //     console.log("Response Status:", res.status);
+  //     console.log("Response Headers:", res.headers);
+  //     const contentType = res.headers.get("Content-Type");
+  //     console.log("Response Content-Type:", contentType);
 
-      const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
-      if (!approveLink) {
-        console.error("❌ Approve link missing:", data);
-        alert("PayPal error: Approve link not found.");
-        return;
-      }
+  //     if (!contentType || !contentType.includes("application/json")) {
+  //       const textResponse = await res.text();
+  //       console.error("Non-JSON response:", textResponse);
+  //       alert("Failed to create PayPal order. Response was not JSON.");
+  //       return;
+  //     }
 
-      // Redirect to PayPal checkout
-      window.location.href = approveLink.href;
-    } catch (err) {
-      console.error("PayPal checkout error:", err);
-      alert("Something went wrong with PayPal. Please try again.");
-    }
-  };
+
+  //     const data = await res.json();
+  //     console.log("PayPal Response:", data);
+
+  //     if (!data.links || !Array.isArray(data.links)) {
+  //       console.error("❌ PayPal returned no links:", data);
+  //       alert("PayPal error: No approval link found.");
+  //       return;
+  //     }
+
+  //     const approveLink = data.links.find((l: PayPalLink) => l.rel === "approve");
+  //     if (!approveLink) {
+  //       console.error("❌ Approve link missing:", data);
+  //       alert("PayPal error: Approve link not found.");
+  //       return;
+  //     }
+
+  //     // Redirect to PayPal checkout
+  //     window.location.href = approveLink.href;
+  //   } catch (err) {
+  //     console.error("PayPal checkout error:", err);
+  //     alert("Something went wrong with PayPal. Please try again.");
+  //   }
+  // };
 
   // ----------------------------------------
   // RETURN UI
@@ -408,12 +408,17 @@ export default function CartPage() {
               Complimentary Delivery & Returns
             </p>
 
-            <Link href={{
-
-              query: { total: total.toFixed(2), currency } // pass total and currency
-            }}>
+            <Link
+              href={{
+                pathname: "/checkoutInfo",
+                query: {
+                  total: total.toFixed(2),
+                  currency,
+                },
+              }}
+            >
               <button
-                onClick={startPayPalPayment}
+                // onClick={startPayPalPayment}
                 className="w-full mt-4 py-3 bg-[#43825c] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors"
               >
                 Checkout

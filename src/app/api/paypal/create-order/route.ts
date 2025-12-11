@@ -116,21 +116,37 @@ type CartProduct = {
   size: string;
 };
 
+type ShippingInfo = {
+  name: string;
+  address: string;
+  pincode: string;
+  phone: string;
+  email: string;
+};
+
 export async function POST(req: Request) {
   try {
-    const { products, total }: { products: CartProduct[]; total: number } = await req.json();
+    const {
+      products,
+      total,
+      shipping,
+    }: { products: CartProduct[]; total: number; shipping: ShippingInfo } = await req.json();
 
     if (!products || products.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
     }
 
+    if (!shipping) {
+      return NextResponse.json({ error: "Shipping info missing" }, { status: 400 });
+    }
+
     const CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID!;
     const SECRET = process.env.PAYPAL_SECRET!;
-    const PAYPAL_API = "https://api-m.sandbox.paypal.com"; // Sandbox
+    const PAYPAL_API = "https://api-m.sandbox.paypal.com";
 
     const auth = Buffer.from(`${CLIENT_ID}:${SECRET}`).toString("base64");
 
-    // Get access token
+    // 1️⃣ Get PayPal Access Token
     const tokenRes = await fetch(`${PAYPAL_API}/v1/oauth2/token`, {
       method: "POST",
       headers: {
@@ -148,9 +164,7 @@ export async function POST(req: Request) {
     const tokenData = await tokenRes.json();
     const accessToken = tokenData.access_token;
 
-    if (!accessToken) throw new Error("No access token returned from PayPal");
-
-    // Map cart items to PayPal format
+    // 2️⃣ Convert cart items to PayPal Items
     const items = products.map((p) => ({
       name: p.name,
       unit_amount: { currency_code: "USD", value: p.price.toFixed(2) },
@@ -158,8 +172,7 @@ export async function POST(req: Request) {
       sku: `${p._id}|${p.metal}|${p.size}`,
     }));
 
-    // Create PayPal order
-    console.log("PayPal API URL:", `${PAYPAL_API}/v2/checkout/orders`);
+    // 3️⃣ Create PayPal Order
     const orderRes = await fetch(`${PAYPAL_API}/v2/checkout/orders`, {
       method: "POST",
       headers: {
@@ -197,11 +210,11 @@ export async function POST(req: Request) {
 
     const order = await orderRes.json();
 
-    if (!order.links || !Array.isArray(order.links)) {
-      throw new Error("PayPal order response missing links");
-    }
-
-    return NextResponse.json(order);
+    // 4️⃣ Return order + shipping info to frontend
+    return NextResponse.json({
+      ...order,
+      shipping, // IMPORTANT: return this so success page can save order
+    });
   } catch (error: unknown) {
     console.error("Error in creating PayPal order:", error);
     const message = error instanceof Error ? error.message : "Unknown error occurred";
