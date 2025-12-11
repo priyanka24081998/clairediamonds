@@ -34,15 +34,9 @@ export default function PaymentSuccess() {
         {showModal && (
             <div className="bg-white p-6 rounded-lg shadow-lg text-center">
                 <h2 className="text-xl font-bold mb-4">Payment Successful 🎉</h2>
-                <p className="mb-4">Your payment was not completed. Please try again.</p>
+                <p className="mb-4">Your payment was completed.</p>
                 <div className="grid grid-cols-2">
-                    <button
-                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                    onClick={() => setShowModal(false)}
-                >
-                    Close
-                </button>
-                <Link href=''>
+                <Link href='/userDashboard'>
                      <button
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                     

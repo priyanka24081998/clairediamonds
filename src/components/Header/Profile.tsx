@@ -117,7 +117,7 @@ useEffect(() => {
                 <hr className="border-[#f4f1f0]" />
                 <li>
                   <Link
-                    href="/profile"
+                    href="/userDashboard"
                     className="block px-4 py-2 hover:bg-[#f4f1f0] hover:rounded-[50px] hover:text-[#43825c]"
                   >
                     My Profile
