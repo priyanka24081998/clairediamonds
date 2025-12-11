@@ -45,10 +45,10 @@ export default function CheckoutInfo() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  // Working fetchCart function
-  const fetchCartFromBackend = async (): Promise<{ items: CartItem[]; total: number; currency: string }> => {
+  // Fetch cart using your working function
+  const fetchCartFromBackend = async () => {
     const userId = localStorage.getItem("userId");
-    if (!userId) return { items: [], total: 0, currency: "USD" };
+    if (!userId) return [];
 
     const token = localStorage.getItem("token");
     try {
@@ -56,24 +56,33 @@ export default function CheckoutInfo() {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      return data || { items: [], total: 0, currency: "USD" };
+      return data?.items || [];
     } catch (err) {
       console.error("Error fetching cart:", err);
-      return { items: [], total: 0, currency: "USD" };
+      return [];
     }
   };
 
   useEffect(() => {
-    const fetchCart = async () => {
+    const loadCart = async () => {
       setLoading(true);
-      const data = await fetchCartFromBackend();
-      setCartItems(data.items);
-      setTotal(data.total);
-      setCurrency(data.currency);
+      const items = await fetchCartFromBackend();
+      setCartItems(items);
+
+      const cartTotal = items.reduce((sum, item) => {
+        const itemPrice = item.product?.price?.[item.selectedMetal] || 0;
+        return sum + itemPrice * item.quantity;
+      }, 0);
+      setTotal(cartTotal);
+
+      const userCurrency = localStorage.getItem("currency") || "USD";
+      setCurrency(userCurrency);
+
       setLoading(false);
     };
-    fetchCart();
-  }, []);
+
+    loadCart();
+  }, [router]);
 
   const handleProceed = () => {
     if (!name || !address || !city || !state || !pincode || !phone || !email) {
@@ -81,14 +90,23 @@ export default function CheckoutInfo() {
       return;
     }
 
-    const shippingData: ShippingInfo = { name, address, city, state, pincode, phone, email };
+    const shippingData: ShippingInfo = {
+      name,
+      address,
+      city,
+      state,
+      pincode,
+      phone,
+      email,
+    };
     localStorage.setItem("shippingInfo", JSON.stringify(shippingData));
 
     router.push(`/paymentpage?total=${total}&currency=${currency}`);
   };
 
   if (loading) return <p className="p-4">Loading...</p>;
-  if (cartItems.length === 0) return <p className="p-4">Your cart is empty.</p>;
+  if (!cartItems || cartItems.length === 0)
+    return <p className="p-4">Your cart is empty.</p>;
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -98,28 +116,82 @@ export default function CheckoutInfo() {
         <h2 className="text-lg font-semibold mb-2">Order Summary</h2>
         {cartItems.map((item) => (
           <div key={item._id} className="flex justify-between py-1">
-            <p>{item.product.name} ({item.selectedMetal})</p>
-            <p>{currency} {(item.product.price[item.selectedMetal] * item.quantity).toFixed(2)}</p>
+            <p>
+              {item.product.name} ({item.selectedMetal})
+            </p>
+            <p>
+              {currency}{" "}
+              {(item.product.price[item.selectedMetal] * item.quantity).toFixed(
+                2
+              )}
+            </p>
           </div>
         ))}
 
         <div className="border-t mt-2 pt-2 flex justify-between font-semibold text-lg">
           <span>Total:</span>
-          <span>{currency} {total.toFixed(2)}</span>
+          <span>
+            {currency} {total.toFixed(2)}
+          </span>
         </div>
       </div>
 
       <div className="space-y-4">
-        <input type="text" placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} className="w-full p-3 border rounded-lg" />
-        <input type="text" placeholder="Address" value={address} onChange={e => setAddress(e.target.value)} className="w-full p-3 border rounded-lg" />
-        <input type="text" placeholder="City" value={city} onChange={e => setCity(e.target.value)} className="w-full p-3 border rounded-lg" />
-        <input type="text" placeholder="State" value={state} onChange={e => setState(e.target.value)} className="w-full p-3 border rounded-lg" />
-        <input type="text" placeholder="Pincode" value={pincode} onChange={e => setPincode(e.target.value)} className="w-full p-3 border rounded-lg" />
-        <input type="text" placeholder="Mobile Number" value={phone} onChange={e => setPhone(e.target.value)} className="w-full p-3 border rounded-lg" />
-        <input type="email" placeholder="Email Address" value={email} onChange={e => setEmail(e.target.value)} className="w-full p-3 border rounded-lg" />
+        <input
+          type="text"
+          placeholder="Full Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="text"
+          placeholder="Address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="text"
+          placeholder="City"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="text"
+          placeholder="State"
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="text"
+          placeholder="Pincode"
+          value={pincode}
+          onChange={(e) => setPincode(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="text"
+          placeholder="Mobile Number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
+        <input
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-3 border rounded-lg"
+        />
       </div>
 
-      <button onClick={handleProceed} className="w-full mt-6 py-3 bg-[#43825c] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors">
+      <button
+        onClick={handleProceed}
+        className="w-full mt-6 py-3 bg-[#43825c] text-white font-semibold rounded-lg hover:bg-[#095c5c] transition-colors"
+      >
         Proceed to Payment
       </button>
     </div>

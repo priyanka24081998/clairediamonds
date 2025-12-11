@@ -411,10 +411,10 @@ export default function CartPage() {
             <Link
               href={{
                 pathname: "/checkoutInfo",
-                query: {
-                  total: total.toFixed(2),
-                  currency,
-                },
+                // query: {
+                //   total: total.toFixed(2),
+                //   currency,
+                // },
               }}
             >
               <button
