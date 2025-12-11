@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const API_BASE = "https://claireapi.onrender.com";
 
@@ -45,44 +46,46 @@ export default function CheckoutInfo() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  // Fetch cart using your working function
-  const fetchCartFromBackend = async () => {
+ 
+
+ useEffect(() => {
+  const fetchCart = async () => {
     const userId = localStorage.getItem("userId");
-    if (!userId) return [];
+    if (!userId) {
+      alert("Please login first!");
+      router.push("/login");
+      return;
+    }
 
     const token = localStorage.getItem("token");
+
     try {
-      const res = await fetch(`${API_BASE}/cart/${userId}`, {
+      setLoading(true);
+      const res = await axios.get(`${API_BASE}/cart/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = await res.json();
-      return data?.items || [];
+
+      const items: CartItem[] = res.data; // use res.data directly
+      setCartItems(items);
+
+      const cartTotal = items.reduce((sum: number, item: CartItem) => {
+        const price = item.product?.price?.[item.selectedMetal] || 0;
+        return sum + price * item.quantity;
+      }, 0);
+
+      setTotal(cartTotal);
+      setCurrency(localStorage.getItem("currency") || "USD");
+
     } catch (err) {
-      console.error("Error fetching cart:", err);
-      return [];
+      console.error("Fetch Cart Error:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    const loadCart = async () => {
-      setLoading(true);
-      const items = await fetchCartFromBackend();
-      setCartItems(items);
+  fetchCart();
+}, [router]);
 
-     const cartTotal = items.reduce((sum: number, item: CartItem) => {
-      const itemPrice = item.product?.price?.[item.selectedMetal] || 0;
-      return sum + itemPrice * item.quantity;
-    }, 0);
-      setTotal(cartTotal);
-
-      const userCurrency = localStorage.getItem("currency") || "USD";
-      setCurrency(userCurrency);
-
-      setLoading(false);
-    };
-
-    loadCart();
-  }, [router]);
 
   const handleProceed = () => {
     if (!name || !address || !city || !state || !pincode || !phone || !email) {
