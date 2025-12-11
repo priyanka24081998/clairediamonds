@@ -87,6 +87,8 @@ export default function CartPage() {
       try {
         setLoading(true);
         const res = await axios.get(`${API_BASE}/cart/${userId}`);
+        console.log(res.data);
+           
         setCartItems(res.data);
       } catch (err) {
         console.error("Fetch Cart Error:", err);
