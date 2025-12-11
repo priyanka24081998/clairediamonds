@@ -72,7 +72,7 @@ const UserDashboard: React.FC = () => {
       if (!user?.userId) return;
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${API_BASE}/order/user/${user.userId}`, {
+        const res = await fetch(`${API_BASE}/order/user-orders/${user.userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data: UserOrder[] = await res.json();

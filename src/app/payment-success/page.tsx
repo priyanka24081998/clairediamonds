@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 
 export default function PaymentSuccess() {
     const [showModal, setShowModal] = useState(false);
-//     useEffect(() => {
-//   const token = localStorage.getItem("token");
-//   const userId = localStorage.getItem("userId");
-//   if (!token || !userId) {
-//     // user logged out or session expired
-//     localStorage.removeItem("cartItems"); // extra safety
-//   }
-// }, []);
+    useEffect(() => {
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  if (!token || !userId) {
+    // user logged out or session expired
+    localStorage.removeItem("cartItems"); // extra safety
+  }
+}, []);
 
 
     useEffect(() => {
