@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const API_BASE = "https://claireapi.onrender.com/api";
 
@@ -57,23 +58,14 @@ export default function CheckoutInfo() {
             const token = localStorage.getItem("token");
 
             try {
-                const res = await fetch(`${API_BASE}/cart/${userId}`, {
+                const res = await axios.get(`${API_BASE}/cart/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                const data: CartItem[] = await res.json();
-                setCartItems(data || []);
-                console.log("Fetched cart data:", data);
+                const data = res.data;
 
-
-                // Calculate total dynamically
-                const cartTotal = (data || []).reduce((sum, item) => {
-                    const itemPrice = item.product.price[item.selectedMetal] || 0;
-                    return sum + itemPrice * item.quantity;
-                }, 0);
-                setTotal(cartTotal);
-
-                const userCurrency = localStorage.getItem("currency") || "USD";
-                setCurrency(userCurrency);
+                setCartItems(data.items || []); // only items array
+                setTotal(data.total || 0);      // total price
+                setCurrency(data.currency || "USD");
             } catch (error) {
                 console.error("Error fetching cart:", error);
             } finally {
