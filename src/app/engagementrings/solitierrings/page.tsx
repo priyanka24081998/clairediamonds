@@ -48,7 +48,7 @@ const Solitierrings = () => {
       const filtered = response.data.data.filter(
         (item: Product) =>
           item?.categoryId?.categoryName?.toLowerCase() === "engagement rings" &&
-          item?.subCategoryId?.subCategoryName?.toLowerCase() === "solitier rings"
+          item?.subCategoryId?.subCategoryName?.toLowerCase() === "solitaier rings"
       );
 
       setProducts(filtered);
